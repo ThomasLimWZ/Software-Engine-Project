@@ -28,7 +28,7 @@
 
     <!-- Nav Item - Admin -->
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="all-admin.php">
             <i class="fas fa-fw fa-users"></i>
             <span>Admins</span>
         </a>

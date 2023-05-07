@@ -41,7 +41,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 Total Sales (Annual)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">RM 215,000</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -65,7 +65,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Total Sales (Monthly)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">RM 40,000</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -108,7 +108,7 @@
                                     </div>
                                 </div>
                                 <span class="card-footer clearfix small z-1" href="#">
-									<span class="font-weight-bold text-info text-uppercase float-right">MYR 50k</span>
+									<span class="font-weight-bold text-info text-uppercase float-right">RM 50,000</span>
                                 </span>
                             </div>
                         </div>
@@ -204,11 +204,11 @@
                             <!-- Product Less StockDataTables -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Product Less Stock Alert</h6>
+                                    <h6 class="m-0 font-weight-bold text-danger">Product Less Stock Alert</h6>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <table class="table table-stripped" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
                                                 <tr>
                                                     <th>No.</th>
@@ -229,11 +229,8 @@
                                                     <td>RM 1099.00</td>
                                                     <td class="text-danger font-weight-bold">4</td>
                                                     <td>
-                                                        <a class="btn btn-warning btn-icon-split btn-sm" href="#">
-                                                            <span class="icon text-white-50">
-                                                                <i class="fas fa-plus"></i>
-                                                            </span>
-                                                            <span class="text">Restock</span>
+                                                        <a class="btn btn-warning btn-sm" href="#">
+                                                            <i class="fas fa-plus"></i>&ensp;Restock
                                                         </a>
                                                     </td>
                                                 </tr>
