@@ -9,7 +9,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <?php include "./sidebar.php" ?>
+        <?php include("sidebar.php"); ?>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -19,7 +19,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <?php include("/topbar.php"); ?>
+                <?php include("topbar.php"); ?>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -100,10 +100,10 @@
     </a>
 
     <!-- Logout Modal-->
-    <?php include "./logout-modal.php" ?>
+    <?php include("logout-modal.php"); ?>
 
     <!-- Plugins-->
-    <?php include "./plugins.php" ?>
+    <?php include("plugins.php"); ?>
 
 </body>
 
