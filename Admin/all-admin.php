@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include "./header.php" ?>
+<?php include("header.php"); ?>
 
 <body id="page-top">
 
@@ -19,7 +19,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <?php include "./topbar.php" ?>
+                <?php include("/topbar.php"); ?>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -85,7 +85,7 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <?php include "./footer.php" ?>
+            <?php include("footer.php"); ?>
             <!-- End of Footer -->
 
         </div>

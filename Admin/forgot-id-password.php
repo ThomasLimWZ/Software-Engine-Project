@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include "./header.php" ?>
+<?php include "./head.php" ?>
 
 <body class="bg-gradient-primary">
 
