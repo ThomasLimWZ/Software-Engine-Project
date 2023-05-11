@@ -1,3 +1,6 @@
+<?php
+testing
+?>
 <!DOCTYPE html>
 <html lang="en">
 
