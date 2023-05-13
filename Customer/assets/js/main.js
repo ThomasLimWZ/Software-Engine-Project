@@ -164,24 +164,23 @@ $(document).ready(function () {
     // Slider For category pages / filter price
     if ( typeof noUiSlider === 'object' ) {
 		var priceSlider  = document.getElementById('price-slider');
-
 		// Check if #price-slider elem is exists if not return
 		// to prevent error logs
 		if (priceSlider == null) return;
 
 		noUiSlider.create(priceSlider, {
-			start: [ 0, 750 ],
+			start: [ 500, 5000 ],
 			connect: true,
 			step: 50,
-			margin: 200,
+			margin: 100,
 			range: {
 				'min': 0,
-				'max': 1000
+				'max': 5000
 			},
 			tooltips: true,
 			format: wNumb({
 		        decimals: 0,
-		        prefix: '$'
+		        prefix: 'RM'
 		    })
 		});
 
