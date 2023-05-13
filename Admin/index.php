@@ -4,9 +4,7 @@
 <?php include("header.php"); ?>
 
 <body id="page-top">
-    <?php
     
-    ?>
     <!-- Page Wrapper -->
     <div id="wrapper">
 

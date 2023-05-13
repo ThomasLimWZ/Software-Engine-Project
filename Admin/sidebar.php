@@ -18,21 +18,27 @@
             <span>Dashboard</span></a>
     </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
+    <?php
+    if (($_SESSION['admin_role']) == 'Superadmin') {
+    ?>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Admin
-    </div>
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Only Superadmin can access
+        </div>
 
-    <!-- Nav Item - Admin -->
-    <li class="nav-item">
-        <a class="nav-link" href="all-admin.php">
-            <i class="fas fa-fw fa-users"></i>
-            <span>Admins</span>
-        </a>
-    </li>
+        <!-- Nav Item - Admin -->
+        <li class="nav-item">
+            <a class="nav-link" href="all-admin.php">
+                <i class="fas fa-fw fa-users"></i>
+                <span>Admins</span>
+            </a>
+        </li>
+    <?php
+    }
+    ?>
 
     <!-- Divider -->
     <hr class="sidebar-divider">

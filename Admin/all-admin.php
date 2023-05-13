@@ -43,35 +43,44 @@
                                             <th>Name</th>
                                             <th>Phone Number</th>
                                             <th>Joined Date</th>
-                                            <th data-orderable="false">Action</th>
+                                            <th>Action</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="align-middle">
-                                                <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="img/undraw_profile.svg" alt="Admin Image" width="50px" height="50px"></a>
-                                            </td>
-                                            <td class="align-middle">ADM001</td>
-                                            <td class="align-middle">Edinburgh</td>
-                                            <td class="align-middle">+6011-1061 2839</td>
-                                            <td class="align-middle">2023/04/16</td>
-                                            <td class="align-middle">
-                                                <a href="#" class="btn btn-info">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
-                                                &ensp;
-                                                <a href="#" class="btn btn-success">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                            </td>
-                                            <td class="align-middle">
-                                                <div class="custom-control custom-switch">
-                                                    <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
-                                                    <label class="custom-control-label" for="customSwitch1"></label>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        <?php
+                                            $sql = "SELECT * FROM admin";
+                                            $result = mysqli_query($connect, $sql);
+
+                                            while ($row = mysqli_fetch_assoc($result)) {
+                                        ?>
+                                                <tr>
+                                                    <td class="align-middle">
+                                                        <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="img/undraw_profile.svg" alt="Admin Image" width="50px" height="50px"></a>
+                                                    </td>
+                                                    <td class="align-middle"><?php echo $row['adm_id']; ?></td>
+                                                    <td class="align-middle"><?php echo $row['adm_name']; ?></td>
+                                                    <td class="align-middle"><?php echo $row['adm_phone']; ?></td>
+                                                    <td class="align-middle"><?php echo $row['adm_signup_date']; ?></td>
+                                                    <td class="align-middle">
+                                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#viewAdmin" data-itemid="<?php echo $row['id'] ?>">
+                                                            <i class="fa fa-eye"></i>
+                                                        </button>
+                                                        &ensp;
+                                                        <a href="#" class="btn btn-success">
+                                                            <i class="fa fa-edit"></i>
+                                                        </a>
+                                                    </td>
+                                                    <td class="align-middle">
+                                                        <div class="custom-control custom-switch">
+                                                            <input type="checkbox" class="custom-control-input" id="statusSwitch" <?php echo $row['adm_status'] == 1 ? "checked" : ""; ?>>
+                                                            <label class="custom-control-label" for="statusSwitch"></label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                        <?php
+                                            }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -80,7 +89,7 @@
 
                 </div>
                 <!-- /.container-fluid -->
-
+                <?php include("view-admin.php"); ?>
             </div>
             <!-- End of Main Content -->
 

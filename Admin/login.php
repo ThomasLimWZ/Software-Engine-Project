@@ -95,6 +95,7 @@ if (isset($_GET["login"])) {
             $row = mysqli_fetch_assoc($result);
             
             $_SESSION["admin_id"] = $row["adm_id"];
+            $_SESSION["admin_role"] = $row["adm_role"];
 
             if ($id == $row["adm_id"] && strtoupper(md5($pass)) == $row["adm_pass"]) {
                 echo "

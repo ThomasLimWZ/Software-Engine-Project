@@ -130,7 +130,7 @@ else if (isset($_GET['reset'])) {
         $receiver = $row['adm_email'];
         $name = $row['adm_name'];
         $subject = "Reset your password";
-        $message = "Dear $name, \n\nPlease click the link below to reset your password.\n"."http://localhost/4PeopleTelco/Admin/reset-password.php"."\n\nBest Regards,\n4People Telco";
+        $message = "Dear $name, \n\nPlease click the link below to reset your password.\n"."http://localhost/4PeopleTelco/Admin/reset-password.php?admin&id=".$row['id']."\n\nBest Regards,\n4People Telco";
         $headers = "From: 4People Telco". "\r\n";
 
         if (mail($receiver, $subject, $message, $headers)) {
