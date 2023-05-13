@@ -31,10 +31,12 @@
 	                			<table class="table table-cart table-mobile">
 									<thead>
 										<tr>
+											<th></th>
 											<th>Product</th>
+											<th>Capacity/Size</th>
 											<th>Price</th>
 											<th>Quantity</th>
-											<th>Total</th>
+											<th>Subtotal</th>
 											<th></th>
 										</tr>
 									</thead>
@@ -48,12 +50,16 @@
 															<img src="assets/images/products/table/product-1.jpg" alt="Product image">
 														</a>
 													</figure>
-
-													<h3 class="product-title">
-														<a href="#">Beige knitted elastic runner shoes</a>
-													</h3><!-- End .product-title -->
 												</div><!-- End .product -->
 											</td>
+											<td>
+												<h3 class="product-title">
+													<a href="#">iPhone 13 Pro Max</a>
+													<br>
+													[Sierra Blue]
+												</h3><!-- End .product-title -->
+											</td>
+											<td>128GB</td>
 											<td class="price-col">RM 84.00</td>
 											<td class="quantity-col">
                                                 <div class="cart-product-quantity">
@@ -63,35 +69,8 @@
 											<td class="total-col">RM 84.00</td>
 											<td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
 										</tr>
-										<tr>
-											<td class="product-col">
-												<div class="product">
-													<figure class="product-media">
-														<a href="#">
-															<img src="assets/images/products/table/product-2.jpg" alt="Product image">
-														</a>
-													</figure>
-
-													<h3 class="product-title">
-														<a href="#">Blue utility pinafore denim dress</a>
-													</h3><!-- End .product-title -->
-												</div><!-- End .product -->
-											</td>
-											<td class="price-col">RM 76.00</td>
-											<td class="quantity-col">
-                                                <div class="cart-product-quantity">
-                                                    <input type="number" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
-                                                </div><!-- End .cart-product-quantity -->                                 
-                                            </td>
-											<td class="total-col">RM 76.00</td>
-											<td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
-										</tr>
 									</tbody>
 								</table><!-- End .table table-wishlist -->
-
-	                			<div class="cart-bottom">
-			            			<a href="#" class="btn btn-outline-dark-2"><span>UPDATE CART</span><i class="icon-refresh"></i></a>
-		            			</div><!-- End .cart-bottom -->
 	                		</div><!-- End .col-lg-9 -->
 	                		<aside class="col-lg-3">
 	                			<div class="summary summary-cart">
