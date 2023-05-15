@@ -64,7 +64,9 @@
                                                     <td class="align-middle"><?php echo $row['adm_signup_date']; ?></td>
                                                     <td class="align-middle">
                                                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#viewAdmin" data-itemid="<?php echo $row['id'] ?>">
-                                                            <i class="fa fa-eye"></i>
+                                                            <i class="fa fa-eye">
+                                                                <a href="view-admin.php?view&id=<?php echo $row['id'] ?>"></a>
+                                                            </i>
                                                         </button>
                                                         &ensp;
                                                         <a href="#" class="btn btn-success">
