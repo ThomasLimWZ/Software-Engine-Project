@@ -1,14 +1,27 @@
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <?php
     if (!isset($_SESSION['admin_id'])) {
         echo "
+            <style>
+                body.swal2-shown > [aria-hidden='true'] {
+                    filter: blur(20px);
+                }
+            </style>
             <script>
-                alert('Please Login!');
-                window.location.href='login.php';
+                Swal.fire(
+                    `Please log in!`,
+                    '',
+                    'warning'
+                ).then(() => window.location.href='login.php');
             </script>
         ";
     }
     ?>
+
+    
     <!-- Sidebar Toggle (Topbar) -->
     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
         <i class="fa fa-bars"></i>

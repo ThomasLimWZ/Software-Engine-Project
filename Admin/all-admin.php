@@ -56,30 +56,62 @@
                                         ?>
                                                 <tr>
                                                     <td class="align-middle">
-                                                        <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="img/undraw_profile.svg" alt="Admin Image" width="50px" height="50px"></a>
+                                                        <?php
+                                                        if (empty($loginRow['adm_profile_pic'])) {
+                                                            echo "<a class=‘avatar avatar-sm mr-2'><img class='avatar-img rounded-circle' src='img/undraw_profile.svg' width='50px' height='50px'></a>";
+                                                        }
+                                                        else {
+                                                            echo "<a class=‘avatar avatar-sm mr-2'><img class='avatar-img rounded-circle' src='img/undraw_profile.svg' width='50px' height='50px'></a>";
+                                                        }
+                                                        ?>
                                                     </td>
                                                     <td class="align-middle"><?php echo $row['adm_id']; ?></td>
                                                     <td class="align-middle"><?php echo $row['adm_name']; ?></td>
                                                     <td class="align-middle"><?php echo $row['adm_phone']; ?></td>
-                                                    <td class="align-middle"><?php echo $row['adm_signup_date']; ?></td>
+                                                    <td class="align-middle"><?php echo date('d M Y', strtotime($row['adm_signup_date'])); ?></td>
                                                     <td class="align-middle">
-                                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#viewAdmin" data-itemid="<?php echo $row['id'] ?>">
-                                                            <i class="fa fa-eye">
-                                                                <a href="view-admin.php?view&id=<?php echo $row['id'] ?>"></a>
-                                                            </i>
+                                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#viewAdmin<?php echo $row['id']; ?>">
+                                                            <i class="fa fa-eye"></i>
                                                         </button>
                                                         &ensp;
-                                                        <a href="#" class="btn btn-success">
+                                                        <a href="#" class="btn btn-success" data-toggle="modal" data-target="#editAdmin<?php echo $row['id']; ?>">
                                                             <i class="fa fa-edit"></i>
                                                         </a>
                                                     </td>
                                                     <td class="align-middle">
                                                         <div class="custom-control custom-switch">
-                                                            <input type="checkbox" class="custom-control-input" id="statusSwitch" <?php echo $row['adm_status'] == 1 ? "checked" : ""; ?>>
-                                                            <label class="custom-control-label" for="statusSwitch"></label>
+                                                            <input type="checkbox" class="custom-control-input" id="statusSwitchFor<?php echo $row['adm_id']; ?>" 
+                                                                onclick="updateStatus('<?php echo $row['adm_id']; ?>', <?php echo $row['adm_status']; ?>)"
+                                                                <?php echo $row['adm_status'] == 1 ? "checked" : ""; ?>>
+                                                            <label class="custom-control-label" for="statusSwitchFor<?php echo $row['adm_id']; ?>"></label>
                                                         </div>
                                                     </td>
                                                 </tr>
+                                                <script>
+                                                    function updateStatus(admId, currentStatus) {
+                                                        let confirmation = confirm(`Are you sure you want to ${currentStatus == 1 ? "deactivate" : "activate"} ${admId}?`);
+                                                        if (confirmation) {
+                                                            $.ajax({
+                                                                type: 'POST',
+                                                                url: 'admin-update-status.php',
+                                                                data: {
+                                                                    admId
+                                                                },
+                                                                success: () => {
+                                                                    Swal.fire(
+                                                                        `${admId}'s Status Updated!`,
+                                                                        '',
+                                                                        'success'
+                                                                    ).then(() => window.location.href='all-admin.php');
+                                                                }
+                                                            });
+                                                        } else {
+                                                            document.getElementById(`statusSwitchFor${admId}`).checked = currentStatus == 1 ? true : false;
+                                                        }
+                                                    }
+                                                </script>
+                                                <?php include("view-admin.php"); ?>
+                                                <?php include("edit-admin.php"); ?>
                                         <?php
                                             }
                                         ?>
@@ -91,7 +123,6 @@
 
                 </div>
                 <!-- /.container-fluid -->
-                <?php include("view-admin.php"); ?>
             </div>
             <!-- End of Main Content -->
 

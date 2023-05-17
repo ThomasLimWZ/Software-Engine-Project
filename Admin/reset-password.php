@@ -29,18 +29,18 @@
                                     </div>
                                     <form class="user" method="POST" autocomplete="off">
                                         <div class="form-group">
-                                            <label class="form-label">Email&nbsp;</label><span style="font-weight:bold; color:red;">*</span>
+                                            <label class="form-label">Email&nbsp;</label><span class="text-danger">*</span>
                                             <input name="email" id="email" placeholder="Your Email Address" class="form-control" type="email" 
                                                 value="<?php echo isset($_POST["email"]) ? $_POST["email"] : ''; ?>" required>
                                         </div>
                                         <div class="form-group">
-                                            <label class="form-label">New Password&nbsp;</label><span style="font-weight:bold; color:red;">*</span>
+                                            <label class="form-label">New Password&nbsp;</label><span class="text-danger">*</span>
                                             <input name="pass" id="pass" class="form-control" type="password" 
                                                 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[#?!@$%^&*-.,]).{8,}" 
                                                 title="Must contain number, uppercase, special characters and lowercase letter, and at least 8 or more characters" required>
                                         </div>
                                         <div class="form-group">
-                                            <label class="form-label">Confirm Password&nbsp;</label><span style="font-weight:bold; color:red;">*</span>
+                                            <label class="form-label">Confirm Password&nbsp;</label><span class="text-danger">*</span>
                                             <input name="confirmPass" id="confirmPass" class="form-control" type="password" 
                                                 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[#?!@$%^&*-.,]).{8,}" 
                                                 title="Must contain number, uppercase, special characters and lowercase letter, and at least 8 or more characters" required>
