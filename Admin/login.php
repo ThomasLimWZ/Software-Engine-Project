@@ -97,7 +97,7 @@ if (isset($_GET["login"])) {
             $_SESSION["admin_id"] = $row["adm_id"];
             $_SESSION["admin_role"] = $row["adm_role"];
 
-            if ($id == $row["adm_id"] && strtoupper(md5($pass)) == $row["adm_pass"]) {
+            if ($id == $row["adm_id"] && strtoupper(md5($pass)) == $row["adm_pass"] && strtotime($row["adm_signup_date"]) <= strtotime("now")) {
                 echo "
                     <script>
                         Swal.fire(
@@ -108,7 +108,18 @@ if (isset($_GET["login"])) {
                     </script>
                 ";
             } else {
-                echo "
+                if (strtotime($row["adm_signup_date"]) > strtotime("now")) {
+                    echo "
+                        <script>
+                            Swal.fire(
+                                'Login Failed!',
+                                'You are still not allowed to login now!',
+                                'warning'
+                            );
+                        </script>
+                    ";
+                } else {
+                    echo "
                     <script>
                         Swal.fire(
                             'Login Failed!',
@@ -117,6 +128,7 @@ if (isset($_GET["login"])) {
                         );
                     </script>
                 ";
+                }
             }
         } else {
             echo "

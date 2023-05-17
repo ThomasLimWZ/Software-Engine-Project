@@ -269,47 +269,54 @@ addEventListener("DOMContentLoaded", (event) => {
     });
 
     $('#email, #pass, #confirmPass').on('input', function () {
-        if ($('#email').val().length != 0) {
-            if ($('#pass').val() == $('#confirmPass').val()) {
-                samePassBoolean = true;
-                if (lengBoolean == true && bigLetterBoolean == true && numBoolean == true && specialCharBoolean == true) {
-                    document.getElementById('reset').disabled = false;
-                }
-            } else {
-                samePassBoolean = false;
-                document.getElementById('reset').disabled = true;
-            }
-
-            if (samePassBoolean == true) {
-                confirmPassword.classList.remove("is-invalid");
-                confirmPassword.classList.add("is-valid");
-
-                requirement.forEach((element) => {
-                    element.classList.remove("wrong");
-                    element.classList.add("good");
-                });
-                confirmPasswordAlert.classList.remove("alert-warning");
-                confirmPasswordAlert.classList.add("alert-success");
-            } else {
-                confirmPassword.classList.remove("is-valid");
-                confirmPassword.classList.add("is-invalid");
-
-                confirmPasswordAlert.classList.add("alert-warning");
-                confirmPasswordAlert.classList.remove("alert-success");
-
-                if (samePassBoolean == false) {
-                    samePass.classList.add("wrong");
-                    samePass.classList.remove("good");
-                } else {
-                    samePass.classList.add("good");
-                    samePass.classList.remove("wrong");
-                }
-            }
+        if ($('#email').val().length != 0 && $('#pass').val().length != 0 && $('#confirmPass').val().length != 0) {
+            bothPasswordValidation();
             return false;
+        } else if ($('#email').val().length == 0 && $('#pass').val().length != 0 && $('#confirmPass').val().length != 0) {
+            bothPasswordValidation();
+            document.getElementById('reset').disabled = true;
         } else {
             document.getElementById('reset').disabled = true;
         }
     });
+
+    function bothPasswordValidation() {
+        if ($('#pass').val() == $('#confirmPass').val()) {
+            samePassBoolean = true;
+            if (lengBoolean == true && bigLetterBoolean == true && numBoolean == true && specialCharBoolean == true) {
+                document.getElementById('reset').disabled = false;
+            }
+        } else {
+            samePassBoolean = false;
+            document.getElementById('reset').disabled = true;
+        }
+
+        if (samePassBoolean == true) {
+            confirmPassword.classList.remove("is-invalid");
+            confirmPassword.classList.add("is-valid");
+
+            requirement.forEach((element) => {
+                element.classList.remove("wrong");
+                element.classList.add("good");
+            });
+            confirmPasswordAlert.classList.remove("alert-warning");
+            confirmPasswordAlert.classList.add("alert-success");
+        } else {
+            confirmPassword.classList.remove("is-valid");
+            confirmPassword.classList.add("is-invalid");
+
+            confirmPasswordAlert.classList.add("alert-warning");
+            confirmPasswordAlert.classList.remove("alert-success");
+
+            if (samePassBoolean == false) {
+                samePass.classList.add("wrong");
+                samePass.classList.remove("good");
+            } else {
+                samePass.classList.add("good");
+                samePass.classList.remove("wrong");
+            }
+        }
+    }
 });
 </script>
 
