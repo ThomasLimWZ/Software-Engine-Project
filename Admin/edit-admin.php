@@ -86,9 +86,6 @@
     </div>
 </div>
 
-<!-- Plugins-->
-<?php include("plugins.php"); ?>
-
 <?php
 if(isset($_POST["savebtn".$row['id']])){
     $admId = $row["adm_id"];
