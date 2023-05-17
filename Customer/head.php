@@ -29,4 +29,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/skins/skin-demo-3.css">
     <link rel="stylesheet" href="assets/css/demos/demo-3.css">
+
+    <!-- Online icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 </head>

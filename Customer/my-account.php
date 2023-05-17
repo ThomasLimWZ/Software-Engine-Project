@@ -2,7 +2,82 @@
 <html lang="en">
 
 <?php include('head.php') ?>
+<style>
+	.progressbar{
+		counter-reset: step;
+		overflow: auto;
+		
+	}
+	.progressbar li{
+		list-style-type: none;
+		float: left;
+		width: calc(100%/4);
+		position: relative;
+		text-align: center;
+		
+	}
+	.progressbar li:before{
+		content:'';
+		background-image:url(assets/images/icon-order/preparation.png);
+		background-size: 70%;
+		background-position: center;
+		background-repeat: no-repeat;
+		counter-increment: step;
+		width:50px;
+		height:50px;
+		line-height: 30px;
+		border:1px solid #ddd;
+		display:block;
+		text-align:center;
+		margin:auto;
+		border-radius:50%;
+		background-color:white;
+		padding: 10px;
+		
+	}
+	.progressbar li:nth-child(2):before{
+		background-image:url(assets/images/icon-order/box.png);
+	}
+	.progressbar li:nth-child(3):before{
+		background-image:url(assets/images/icon-order/delivery-truck.png);
+	}
+	.progressbar li:nth-child(4):before{
+		background-image:url(assets/images/icon-order/shipped.png);
+	}
+	.progressbar li:after{
+		content: ' ';
+		position: absolute;
+		width: 100%;
+		height: 2px;
+		background-color: #ddd;
+		top: 25px;
+		left: -50%;
+		z-index: -1;
+	}
+	.progressbar li:first-child:after{
+		content: none;
+	}
+	.progressbar li.active{
+		color:#cd9967
+	}
+	.progressbar li.active:before{
+		border:2px solid #cd9967;
+	}
+	.progressbar li.active + li:after{
+		background-color: #c96;
+		
+	}
 
+	.progressbar li.load + li:after{
+		background-color: #c96;
+		animation: loding 1s infinite;
+	}
+	
+	@keyframes loding {
+		0%   { width: 0%; background-color: #c96;}
+		100% { width: 90%; background-color: #c96; }
+	}
+</style>
 <body>
     <div class="page-wrapper">
         <?php include('header.php') ?>
@@ -59,8 +134,192 @@
 								    </div><!-- .End .tab-pane -->
 
 								    <div class="tab-pane fade" id="tab-orders" role="tabpanel" aria-labelledby="tab-orders-link">
-								    	<p>No order has been made yet.</p>
-								    	<a href="category.php" class="btn btn-outline-primary-2"><span>GO SHOP</span><i class="icon-long-arrow-right"></i></a>
+
+										<div class="card shadow-0 border mb-4">
+											<div class="card-body">
+												<div class="row" style="padding-top:10px; font-size:18pt;">
+													<div class="col-md-2">
+														<h4 class="text-muted mb-0">INVOICE #123456</h4>
+													</div>
+													<div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p class="text-muted mb-0"></p>
+													</div>
+													<div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p class="text-muted mb-0 small"></p>
+													</div>
+													<div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p class="text-muted mb-0 small"></p>
+													</div>
+													<div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p class="text-muted mb-0 small"></p>
+													</div>
+													<div class="col-md-2 text-center d-flex ">
+														<p class="text-muted mb-0 small"><b>RM 10000</b></p>
+
+													</div>
+												</div>
+												<div class="row" style="padding-top:10px; font-size:18pt;">
+													<div class="col-md-2">
+														<p class="text-muted mb-0">Created:<br> <b>2023-5-17</b></p>
+													</div>
+													<div class="col-md-10" style="text-align:right;">
+														<a href="order-details.php?details&code=" class="btn btn-primary" style="border-radius:10px; color:white;">Show Details</a>
+													</div>
+												</div>
+												<hr class="mb-2" style="background-color: #e0e0e0; opacity: 1;">
+												<div class="row d-flex align-items-center" >
+												<div style="width:100%;z-index:1;">
+													<ul class="progressbar">
+														<li class="active load">Preparing</li>
+														<li >Shipped Out</li>
+														<li >Out of Delivering</li>
+														<li >Delivered</li>
+													</ul>
+												</div>
+										
+												
+												</div>
+											</div>
+										</div>
+										<div class="card shadow-0 border mb-4">
+											<div class="card-body">
+												<div class="row" style="padding-top:10px; font-size:18pt;">
+													<div class="col-md-2">
+														<h4 class="text-muted mb-0">INVOICE #123456</h4>
+													</div>
+													<div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p class="text-muted mb-0"></p>
+													</div>
+													<div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p class="text-muted mb-0 small"></p>
+													</div>
+													<div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p class="text-muted mb-0 small"></p>
+													</div>
+													<div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p class="text-muted mb-0 small"></p>
+													</div>
+													<div class="col-md-2 text-center d-flex ">
+														<p class="text-muted mb-0 small"><b>RM 10000</b></p>
+
+													</div>
+												</div>
+												<div class="row" style="padding-top:10px; font-size:18pt;">
+													<div class="col-md-2">
+														<p class="text-muted mb-0">Created:<br> <b>2023-5-17</b></p>
+													</div>
+													<div class="col-md-10" style="text-align:right;">
+														<a href="order-details.php?details&code=" class="btn btn-primary" style="border-radius:10px; color:white;">Show Details</a>
+													</div>
+												</div>
+												<hr class="mb-2" style="background-color: #e0e0e0; opacity: 1;">
+												<div class="row d-flex align-items-center" >
+												<div style="width:100%;z-index:1;">
+													<ul class="progressbar">
+														<li class="active ">Preparing</li>
+														<li class="active load ">Shipped Out</li>
+														<li >Out of Delivering</li>
+														<li >Delivered</li>
+													</ul>
+												</div>
+										
+												
+												</div>
+											</div>
+										</div>
+										<div class="card shadow-0 border mb-4">
+											<div class="card-body">
+												<div class="row" style="padding-top:10px; font-size:18pt;">
+													<div class="col-md-2">
+														<h4 class="text-muted mb-0">INVOICE #123456</h4>
+													</div>
+													<div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p class="text-muted mb-0"></p>
+													</div>
+													<div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p class="text-muted mb-0 small"></p>
+													</div>
+													<div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p class="text-muted mb-0 small"></p>
+													</div>
+													<div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p class="text-muted mb-0 small"></p>
+													</div>
+													<div class="col-md-2 text-center d-flex ">
+														<p class="text-muted mb-0 small"><b>RM 10000</b></p>
+
+													</div>
+												</div>
+												<div class="row" style="padding-top:10px; font-size:18pt;">
+													<div class="col-md-2">
+														<p class="text-muted mb-0">Created:<br> <b>2023-5-17</b></p>
+													</div>
+													<div class="col-md-10" style="text-align:right;">
+														<a href="order-details.php?details&code=" class="btn btn-primary" style="border-radius:10px; color:white;">Show Details</a>
+													</div>
+												</div>
+												<hr class="mb-2" style="background-color: #e0e0e0; opacity: 1;">
+												<div class="row d-flex align-items-center" >
+												<div style="width:100%;z-index:1;">
+													<ul class="progressbar">
+														<li class="active ">Preparing</li>
+														<li class="active ">Shipped Out</li>
+														<li class="active load">Out of Delivering</li>
+														<li >Delivered</li>
+													</ul>
+												</div>
+										
+												
+												</div>
+											</div>
+										</div>
+										<div class="card shadow-0 border mb-4">
+											<div class="card-body">
+												<div class="row" style="padding-top:10px; font-size:18pt;">
+													<div class="col-md-2">
+														<h4 class="text-muted mb-0">INVOICE #123456</h4>
+													</div>
+													<div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p class="text-muted mb-0"></p>
+													</div>
+													<div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p class="text-muted mb-0 small"></p>
+													</div>
+													<div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p class="text-muted mb-0 small"></p>
+													</div>
+													<div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+														<p class="text-muted mb-0 small"></p>
+													</div>
+													<div class="col-md-2 text-center d-flex ">
+														<p class="text-muted mb-0 small"><b>RM 10000</b></p>
+
+													</div>
+												</div>
+												<div class="row" style="padding-top:10px; font-size:18pt;">
+													<div class="col-md-2">
+														<p class="text-muted mb-0">Created:<br> <b>2023-5-17</b></p>
+													</div>
+													<div class="col-md-10" style="text-align:right;">
+														<a href="order-details.php?details&code=" class="btn btn-primary" style="border-radius:10px; color:white;">Show Details</a>
+													</div>
+												</div>
+												<hr class="mb-2" style="background-color: #e0e0e0; opacity: 1;">
+												<div class="row d-flex align-items-center" >
+												<div style="width:100%;z-index:1;">
+													<ul class="progressbar">
+														<li class="active ">Preparing</li>
+														<li class="active ">Shipped Out</li>
+														<li class="active">Out of Delivering</li>
+														<li class="active">Delivered</li>
+													</ul>
+												</div>
+										
+												
+												</div>
+											</div>
+										</div>
+
 								    </div><!-- .End .tab-pane -->
 
 								    <div class="tab-pane fade" id="tab-downloads" role="tabpanel" aria-labelledby="tab-downloads-link">
