@@ -50,7 +50,7 @@
 
     <!-- Nav Item - Brand -->
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="all-brand.php">
             <i class="fab fa-fw fa-apple"></i>
             <span>Brands</span>
         </a>

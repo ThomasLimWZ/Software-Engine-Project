@@ -28,7 +28,7 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Admin List</h1>
 
-                    <!-- DataTales Example -->
+                    <!-- DataTables Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <div class="row">
@@ -64,7 +64,7 @@
                                                 <tr>
                                                     <td class="align-middle">
                                                         <?php
-                                                        if (empty($loginRow['adm_profile_pic'])) {
+                                                        if (empty($row['adm_profile_pic'])) {
                                                             echo "<a class=‘avatar avatar-sm mr-2'><img class='avatar-img rounded-circle' src='img/undraw_profile.svg' width='50px' height='50px'></a>";
                                                         }
                                                         else {

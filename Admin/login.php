@@ -26,7 +26,7 @@
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"
                                                 id="admId" name="admin_id" aria-describedby="emailHelp" required
-                                                placeholder="Enter Admin ID..."
+                                                placeholder="Enter Admin ID..." oninput="this.value = this.value.toUpperCase()"
                                                 value="<?php echo isset($_GET['admin_id']) ? $_GET['admin_id'] : ''; ?>">
                                         </div>
                                         <div class="form-group">
