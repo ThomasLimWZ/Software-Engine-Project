@@ -870,7 +870,7 @@ function show_product(result,pg)//pass the sql search value and page number
     let quary = result;
     let page = pg;
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "show-list-product.php", true);
+    xhr.open("POST", "product-list.php", true);
     xhr.onload = ()=>{
         if(xhr.readyState === XMLHttpRequest.DONE){
             if(xhr.status === 200){
