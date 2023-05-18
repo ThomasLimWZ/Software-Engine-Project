@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include "./header.php" ?>
+<?php include("header.php"); ?>
 
 <body id="page-top">
-
+    
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -19,7 +19,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <?php include "./topbar.php" ?>
+                <?php include("topbar.php"); ?>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -251,7 +251,7 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <?php include "./footer.php" ?>
+            <?php include("footer.php"); ?>
             <!-- End of Footer -->
 
         </div>
@@ -266,10 +266,10 @@
     </a>
 
     <!-- Logout Modal-->
-    <?php include "./logout-modal.php" ?>
+    <?php include("logout-modal.php"); ?>
     
     <!-- Plugins-->
-    <?php include "./plugins.php" ?>
+    <?php include("plugins.php"); ?>
 </body>
 
 </html>
