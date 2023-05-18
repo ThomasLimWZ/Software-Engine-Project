@@ -37,8 +37,8 @@ if($page == 1)
         </div><!-- End .toolbox-center -->
     </div><!-- End .toolbox -->
 
-        <div class="products">
-            <div class="row" id="show-product-list">
+    <div class="products">
+        <div class="row" id="show-product-list">
     ';
 
     $insert_out_of_stock ='';
@@ -67,18 +67,13 @@ if($count != 0)
                         <a href="product.php">
                             <img src="../Product/'.$showprod['prod_color_img'].'" alt="Product image" class="product-image">
                         </a>
-
-                    <div class="product-action action-icon-top">                                           
-                        <a href="popup/quickView.php" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
-                        <a href="#" class="btn-product btn-compare" title="Compare"><span>compare</span></a>
-                    </div><!-- End .product-action -->
                 </figure><!-- End .product-media -->
 
                 <div class="product-body">
                     <div class="product-cat">
                         <a href="#">'.$categoty_name.'</a>
                     </div><!-- End .product-cat -->
-                    <h3 class="product-title"><a href="product.php?prod_name='.$showprod['prod_id'].'">'.$showprod['prod_name']." (".$showprod['prod_color_name'].") " .'</a></h3><!-- End .product-title -->
+                    <h3 class="product-title"><a href="product.php?prod_name='.$showprod['prod_id'].'">'.$showprod['prod_name']."".'</a></h3><!-- End .product-title -->
                     <div class="product-price">
                     RM '.$showprod['prod_detail_price'].'
                     </div><!-- End .product-price -->           
@@ -93,7 +88,7 @@ if($count != 0)
     </div><!-- End .products -->
     <div class="col-12 pb-1">
     <nav aria-label="Page navigation">
-      <ul class="pagination justify-content-center mb-10" >';
+        <ul class="pagination justify-content-center mb-10" >';
     if($page == 1)
     {
         $showup .='
@@ -110,24 +105,24 @@ if($count != 0)
                 <span class="sr-only">Previous</span>
             </a>
             </li>';
-     
     }
     else
     {
         $showup .='
-        <li class="page-item ">
-        <a class="page-link" href="#main" onclick="callpage(1)" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-            <span class="sr-only">Previous</span>
-        </a>
-        </li>';   
-        $showup .='
-        <li class="page-item ">
-        <a class="page-link" href="#main" onclick="callpage('.($page-1).')" aria-label="Previous">
-            <span aria-hidden="true">&#60;</span>
-            <span class="sr-only">Previous</span>
-        </a>
-        </li>';                 
+            <li class="page-item ">
+            <a class="page-link" href="#main" onclick="callpage(1)" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+            </a>
+            </li>';   
+            $showup .='
+            <li class="page-item ">
+            <a class="page-link" href="#main" onclick="callpage('.($page-1).')" aria-label="Previous">
+                <span aria-hidden="true">&#60;</span>
+                <span class="sr-only">Previous</span>
+            </a>
+            </li>
+        ';                 
     }
     
     $numpage = $count/$view;
@@ -175,15 +170,15 @@ if($count != 0)
         $showup .='
         <li class="page-item disabled">
         <a class="page-link" href="#main" aria-label="Next" onclick="callpage('.($page+1).')">
-          <span aria-hidden="true">&#62;</span>
-          <span class="sr-only">Next</span>
+            <span aria-hidden="true">&#62;</span>
+            <span class="sr-only">Next</span>
         </a>';
 
         $showup .='
         <li class="page-item disabled">
         <a class="page-link" href="#main" aria-label="Next" onclick="callpage('.$numpage.')">
-          <span aria-hidden="true">&raquo;</span>
-          <span class="sr-only">Next</span>
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
         </a>';
      
     }
