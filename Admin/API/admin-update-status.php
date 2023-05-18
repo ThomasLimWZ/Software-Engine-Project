@@ -10,6 +10,6 @@ while($row = mysqli_fetch_assoc($result)) {
     $admStatus = $row['adm_status'];
 
     $statusToUpdate = $admStatus == 1 ? 0 : 1;
-    mysqli_query($connect, "UPDATE admin SET adm_status=$statusToUpdate where adm_id='$admId'");
+    mysqli_query($connect, "UPDATE admin SET adm_status = $statusToUpdate WHERE adm_id = '$admId'");
 }
 ?>

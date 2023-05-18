@@ -77,7 +77,7 @@
                                                     <td class="align-middle"><?php echo $row['adm_phone']; ?></td>
                                                     <td class="align-middle"><?php echo date('d M Y', strtotime($row['adm_signup_date'])); ?></td>
                                                     <td class="align-middle">
-                                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#viewAdmin<?php echo $row['id']; ?>">
+                                                        <button class="btn btn-info" data-toggle="modal" data-target="#viewAdmin<?php echo $row['id']; ?>">
                                                             <i class="fa fa-eye"></i>
                                                         </button>
                                                         &ensp;
@@ -86,8 +86,8 @@
                                                         ?>
                                                             <button class="btn btn-success" data-toggle="modal" data-target="#editAdmin<?php echo $row['id']; ?>">
                                                                 <i class="fa fa-edit"></i>
-                                                        </button>
-                                                            <?php
+                                                            </button>
+                                                        <?php
                                                         }
                                                         ?>
                                                     </td>

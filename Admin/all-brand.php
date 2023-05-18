@@ -29,7 +29,7 @@
                     <h1 class="h3 mb-2 text-gray-800">Brand List</h1>
 
                     <!-- DataTables Example -->
-                    <div class="col-sm-8">
+                    <div class="col-sm-7">
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
                                 <div class="row">

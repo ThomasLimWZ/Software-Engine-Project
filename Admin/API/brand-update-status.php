@@ -10,6 +10,6 @@ while($row = mysqli_fetch_assoc($result)) {
     $brandStatus = $row['brand_status'];
 
     $statusToUpdate = $brandStatus == 1 ? 0 : 1;
-    mysqli_query($connect, "UPDATE brand SET brand_status=$statusToUpdate where brand_name='$brandName'");
+    mysqli_query($connect, "UPDATE brand SET brand_status = $statusToUpdate WHERE brand_name = '$brandName'");
 }
 ?>

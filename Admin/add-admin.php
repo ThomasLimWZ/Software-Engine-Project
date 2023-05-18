@@ -56,7 +56,7 @@
                                         </option>
                                         <option value="Admin" <?php echo isset($_POST["adm_role"]) == 'Admin' ? 'selected' : ''; ?>>
                                             Admin
-                                        </Manager>
+                                        </option>
                                     </select>
                                 </div>
                             </div>
