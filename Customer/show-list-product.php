@@ -3,7 +3,7 @@
 use function PHPSTORM_META\elementType;
 
 session_start();
-include("connection.php");
+include("../Admin/connection.php");
 
 
 $view = 8;
@@ -65,7 +65,7 @@ if($count != 0)
                 <figure class="product-media">
                      '.$insert_out_of_stock.'
                         <a href="product.php">
-                            <img src="../Admin/product_img/'.$showprod['prod_color_img'].'" alt="Product image" class="product-image">
+                            <img src="../Product/'.$showprod['prod_color_img'].'" alt="Product image" class="product-image">
                         </a>
 
                     <div class="product-action action-icon-top">                                           
