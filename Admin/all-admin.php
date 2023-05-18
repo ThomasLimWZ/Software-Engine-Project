@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include "./header.php" ?>
+<?php include("header.php"); ?>
 
 <body id="page-top">
 
@@ -9,7 +9,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <?php include "./sidebar.php" ?>
+        <?php include("sidebar.php"); ?>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -19,19 +19,26 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <?php include "./topbar.php" ?>
+                <?php include("topbar.php"); ?>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">All Administrators</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Admin List</h1>
 
-                    <!-- DataTales Example -->
+                    <!-- DataTables Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Administrators</h6>
+                            <div class="row">
+                                <div class="col-sm-6 my-auto">
+                                    <h5 class="m-0 font-weight-bold text-primary">Administrators</h5>
+                                </div>
+                                <div class="col-sm-6 text-right">
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#addAdmin" onclick="getAdminId()"><i class="fa fa-plus-circle"></i>&ensp;Add Admin</button>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -43,49 +50,112 @@
                                             <th>Name</th>
                                             <th>Phone Number</th>
                                             <th>Joined Date</th>
-                                            <th data-orderable="false">Action</th>
+                                            <th>Action</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="align-middle">
-                                                <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="img/undraw_profile.svg" alt="Admin Image" width="50px" height="50px"></a>
-                                            </td>
-                                            <td class="align-middle">ADM001</td>
-                                            <td class="align-middle">Edinburgh</td>
-                                            <td class="align-middle">+6011-1061 2839</td>
-                                            <td class="align-middle">2023/04/16</td>
-                                            <td class="align-middle">
-                                                <a href="#" class="btn btn-info">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
-                                                &ensp;
-                                                <a href="#" class="btn btn-success">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                            </td>
-                                            <td class="align-middle">
-                                                <div class="custom-control custom-switch">
-                                                    <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
-                                                    <label class="custom-control-label" for="customSwitch1"></label>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        <?php
+                                            $sql = "SELECT * FROM admin";
+                                            $result = mysqli_query($connect, $sql);
+
+                                            while ($row = mysqli_fetch_assoc($result)) {
+                                        ?>
+                                                <tr>
+                                                    <td class="align-middle">
+                                                        <?php
+                                                        if (empty($row['adm_profile_pic'])) {
+                                                            echo "<a class=‘avatar avatar-sm mr-2'><img class='avatar-img rounded-circle' src='img/undraw_profile.svg' width='50px' height='50px'></a>";
+                                                        }
+                                                        else {
+                                                            echo "<a class=‘avatar avatar-sm mr-2'><img class='avatar-img rounded-circle' src='img/undraw_profile.svg' width='50px' height='50px'></a>";
+                                                        }
+                                                        ?>
+                                                    </td>
+                                                    <td class="align-middle"><?php echo $row['adm_id']; ?></td>
+                                                    <td class="align-middle"><?php echo $row['adm_name']; ?></td>
+                                                    <td class="align-middle"><?php echo $row['adm_phone']; ?></td>
+                                                    <td class="align-middle"><?php echo date('d M Y', strtotime($row['adm_signup_date'])); ?></td>
+                                                    <td class="align-middle">
+                                                        <button class="btn btn-info" data-toggle="modal" data-target="#viewAdmin<?php echo $row['id']; ?>">
+                                                            <i class="fa fa-eye"></i>
+                                                        </button>
+                                                        &ensp;
+                                                        <?php
+                                                        if ($_SESSION['admin_id'] != $row['adm_id']) {
+                                                        ?>
+                                                            <button class="btn btn-success" data-toggle="modal" data-target="#editAdmin<?php echo $row['id']; ?>">
+                                                                <i class="fa fa-edit"></i>
+                                                            </button>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </td>
+                                                    <td class="align-middle">
+                                                        <?php
+                                                        if ($_SESSION['admin_id'] != $row['adm_id']) {
+                                                        ?>
+                                                        <div class="custom-control custom-switch">
+                                                            <input type="checkbox" class="custom-control-input" id="statusSwitchFor<?php echo $row['adm_id']; ?>" 
+                                                                onclick="updateStatus('<?php echo $row['adm_id']; ?>', <?php echo $row['adm_status']; ?>)"
+                                                                <?php echo $row['adm_status'] == 1 ? "checked" : ""; ?>>
+                                                            <label class="custom-control-label" for="statusSwitchFor<?php echo $row['adm_id']; ?>"></label>
+                                                        </div>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </td>
+                                                </tr>
+                                                <script>
+                                                    function updateStatus(admId, currentStatus) {
+                                                        Swal.fire({
+                                                            title: `Are you sure you want to ${currentStatus == 1 ? "deactivate" : "activate"} ${admId}?`,
+                                                            text: "",
+                                                            icon: 'warning',
+                                                            showCancelButton: true,
+                                                            confirmButtonColor: '#3085d6',
+                                                            cancelButtonColor: '#d33',
+                                                            confirmButtonText: `Yes, ${currentStatus == 1 ? "deactivate" : "activate"}!`
+                                                            }).then((result) => {
+                                                                if (result.isConfirmed) {
+                                                                    $.ajax({
+                                                                        type: 'POST',
+                                                                        url: 'admin-update-status.php',
+                                                                        data: {
+                                                                            admId
+                                                                        },
+                                                                        success: () => {
+                                                                            Swal.fire(
+                                                                                `${admId}'s Status Updated!`,
+                                                                                '',
+                                                                                'success'
+                                                                            ).then(() => window.location.href='all-admin.php');
+                                                                        }
+                                                                    });
+                                                                } else {
+                                                                    document.getElementById(`statusSwitchFor${admId}`).checked = currentStatus == 1 ? true : false;
+                                                                }
+                                                        });
+                                                    }
+                                                </script>
+                                                <?php include("view-admin.php"); ?>
+                                                <?php include("edit-admin.php"); ?>
+                                        <?php
+                                            }
+                                        ?>
                                     </tbody>
                                 </table>
+                                <?php include("add-admin.php"); ?>
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <!-- /.container-fluid -->
-
             </div>
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <?php include "./footer.php" ?>
+            <?php include("footer.php"); ?>
             <!-- End of Footer -->
 
         </div>
@@ -100,10 +170,10 @@
     </a>
 
     <!-- Logout Modal-->
-    <?php include "./logout-modal.php" ?>
+    <?php include("logout-modal.php"); ?>
 
     <!-- Plugins-->
-    <?php include "./plugins.php" ?>
+    <?php include("plugins.php"); ?>
 
 </body>
 
