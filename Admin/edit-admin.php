@@ -13,10 +13,10 @@
                         <div class="row">
                             <?php
                             if (empty($row['adm_profile_pic'])) {
-                                echo "<img class='rounded-circle img-responsive mx-auto' src='img/undraw_profile.svg' width='150px' height='150px'></img>";
+                                echo "<img class='rounded-circle img-responsive mx-auto' src='img/undraw_profile.svg' width='150px' height='150px'>";
                             }
                             else {
-                                echo "<img class='rounded-circle img-responsive mx-auto' src='img/undraw_profile.svg' width='150px' height='150px'></img>";
+                                echo "<img class='rounded-circle img-responsive mx-auto' src='img/undraw_profile.svg' width='150px' height='150px'>";
                             }
                             ?>
                         </div>
