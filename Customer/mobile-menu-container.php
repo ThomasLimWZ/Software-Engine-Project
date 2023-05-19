@@ -28,47 +28,37 @@
                         <li>
                             <a href="category.php">Brands</a>
                             <ul>
-                                <li><a href="category-list.php">Shop List</a></li>
-                                <li><a href="category-2cols.php">Shop Grid 2 Columns</a></li>
-                                <li><a href="category.php">Shop Grid 3 Columns</a></li>
-                                <li><a href="category-4cols.php">Shop Grid 4 Columns</a></li>
-                                <li><a href="category-boxed.php"><span>Shop Boxed No Sidebar<span class="tip tip-hot">Hot</span></span></a></li>
-                                <li><a href="category-fullwidth.php">Shop Fullwidth No Sidebar</a></li>
-                                <li><a href="product-category-boxed.php">Product Category Boxed</a></li>
-                                <li><a href="product-category-fullwidth.php"><span>Product Category Fullwidth<span class="tip tip-new">New</span></span></a></li>
-                                <li><a href="cart.php">Cart</a></li>
-                                <li><a href="checkout.php">Checkout</a></li>
-                                <li><a href="wishlist.php">Wishlist</a></li>
-                                <li><a href="#">Lookbook</a></li>
+                            <?php
+                                $query = "SELECT * FROM brand WHERE brand_status='1'";
+                                $result = mysqli_query($connect, $query);
+                                while($row = mysqli_fetch_assoc($result))
+                                {
+                                    echo '<li><a href="category/php?brand_id='.$row['brand_id'].'">'.$row['brand_name'].'</a></li>';
+                                }
+                            ?>  
                             </ul>
                         </li>
+                        <li><a href="my-account.php">My Account</a></li>
+                        <li><a href="cart.php">Cart</a></li>                       
+                        <li><a href="logout.php">Log out</a></li>
                     </ul>
                 </nav><!-- End .mobile-nav -->
             </div><!-- .End .tab-pane -->
             <div class="tab-pane fade" id="mobile-cats-tab" role="tabpanel" aria-labelledby="mobile-cats-link">
                 <nav class="mobile-cats-nav">
                     <ul class="mobile-cats-menu">
-                        <li><a class="mobile-cats-lead" href="#">Daily offers</a></li>
-                        <li><a class="mobile-cats-lead" href="#">Gift Ideas</a></li>
-                        <li><a href="#">Beds</a></li>
-                        <li><a href="#">Lighting</a></li>
-                        <li><a href="#">Sofas & Sleeper sofas</a></li>
-                        <li><a href="#">Storage</a></li>
-                        <li><a href="#">Armchairs & Chaises</a></li>
-                        <li><a href="#">Decoration </a></li>
-                        <li><a href="#">Kitchen Cabinets</a></li>
-                        <li><a href="#">Coffee & Tables</a></li>
-                        <li><a href="#">Outdoor Furniture </a></li>
+                    <?php
+                        $query = "SELECT * FROM category ";
+                        $result = mysqli_query($connect, $query);
+                        while($row = mysqli_fetch_assoc($result))
+                        {
+                            echo '<li><a href="category/php?cat_id='.$row['cat_id'].'">'.$row['cat_name'].'</a></li>';
+                        }
+                    ?>
                     </ul><!-- End .mobile-cats-menu -->
                 </nav><!-- End .mobile-cats-nav -->
             </div><!-- .End .tab-pane -->
         </div><!-- End .tab-content -->
 
-        <div class="social-icons">
-            <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
-            <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
-            <a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
-            <a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
-        </div><!-- End .social-icons -->
     </div><!-- End .mobile-menu-wrapper -->
 </div><!-- End .mobile-menu-container -->

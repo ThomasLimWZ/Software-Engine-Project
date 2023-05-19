@@ -1,20 +1,35 @@
+<?php session_start()?>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Molla - Bootstrap eCommerce Template</title>
+    <title>4 PEOPLE TELCO</title>
+
+    <!--  I think this can remove / change
     <meta name="keywords" content="HTML5 Template">
     <meta name="description" content="Molla - Bootstrap eCommerce Template">
     <meta name="author" content="p-themes">
+    -->
+
     <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/4-peoples-telco-website-favicon-color.png">
+    
+    <!-- maybe can be delete
     <link rel="icon" type="image/png" sizes="32x32" href="assets/images/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/icons/favicon-16x16.png">
+    -->
+    
+    <link rel="icon" type="image/png"  href="assets/images/icons/4-peoples-telco-website-favicon-color.png">
+
     <link rel="manifest" href="assets/images/icons/site.php">
     <link rel="mask-icon" href="assets/images/icons/safari-pinned-tab.svg" color="#666666">
-    <link rel="shortcut icon" href="assets/images/icons/favicon.ico">
+    <link rel="shortcut icon" href="assets/images/4-peoples-telco-website-favicon-color.png">
+
+    <!--  I think this can remove / change
     <meta name="apple-mobile-web-app-title" content="Molla">
     <meta name="application-name" content="Molla">
+    -->
+
     <meta name="msapplication-TileColor" content="#cc9966">
     <meta name="msapplication-config" content="assets/images/icons/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
@@ -29,4 +44,14 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/skins/skin-demo-3.css">
     <link rel="stylesheet" href="assets/css/demos/demo-3.css">
+
+    <!-- font-awesome icon-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- sweetaleart-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+   <!-- link to database-->
+    <?php include("../Admin/connection.php");?>
+
 </head>

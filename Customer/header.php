@@ -1,25 +1,38 @@
 <header class="header header-intro-clearance header-3">
-    <div class="header-top">
-        <div class="container">
-            <div class="header-right">
-                <ul class="top-menu">
-                    <a class="h5" href="#signin-modal" data-toggle="modal">Sign in / Sign up</a>
+    <div class="header-top" style="background-color: #F7E381;padding-top:1%;">
+        <div class="container" >
+            <div class="header-right" >
+                <ul class="top-menu" >
+                    <?php 
+                    if(isset($_SESSION["customer_id"])){
+                        $cus_id = $_SESSION["customer_id"];
+                        $result = mysqli_query($connect,"SELECT * FROM customer WHERE cus_id = '$cus_id'");
+                        $row = mysqli_fetch_assoc($result);
+
+                        echo '<a class="h5" href="my-account.php">'.$row["cus_name"].'</a>';
+                        }
+                    else
+                    {                   
+                        echo'<a class="h5" href="#signin-modal" data-toggle="modal">Sign in / Sign up</a>';
+                    }
+                    
+                    ?>
                 </ul><!-- End .top-menu -->
             </div><!-- End .header-right -->
 
         </div><!-- End .container -->
     </div><!-- End .header-top -->
 
-    <div class="header-middle">
-        <div class="container">
+    <div class="header-middle" style="background-color:#E3C327;">
+        <div class="container" >
             <div class="header-left">
-                <button class="mobile-menu-toggler">
+                <button class="mobile-menu-toggler" >
                     <span class="sr-only">Toggle mobile menu</span>
                     <i class="icon-bars"></i>
                 </button>
                 
-                <a href="index.php" class="logo">
-                    <img src="assets/images/demos/demo-3/logo.png" alt="Molla Logo" width="105" height="25">
+                <a href="index.php" class="logo" >
+                    <img src="assets/images/4-peoples-telco-high-resolution-logo-white-on-transparent-background.png" alt="4 People Telco Logo" width="11%" height="">
                 </a>
             </div><!-- End .header-left -->
 
@@ -143,17 +156,14 @@
                     <div class="dropdown-menu">
                         <nav class="side-nav">
                             <ul class="menu-vertical sf-arrows">
-                                <li class="item-lead"><a href="#">Daily offers</a></li>
-                                <li class="item-lead"><a href="#">Gift Ideas</a></li>
-                                <li><a href="#">Beds</a></li>
-                                <li><a href="#">Lighting</a></li>
-                                <li><a href="#">Sofas & Sleeper sofas</a></li>
-                                <li><a href="#">Storage</a></li>
-                                <li><a href="#">Armchairs & Chaises</a></li>
-                                <li><a href="#">Decoration </a></li>
-                                <li><a href="#">Kitchen Cabinets</a></li>
-                                <li><a href="#">Coffee & Tables</a></li>
-                                <li><a href="#">Outdoor Furniture </a></li>
+                                <?php
+                                    $query = "SELECT * FROM brand WHERE brand_status='1'";
+                                    $result = mysqli_query($connect, $query);
+                                    while($row = mysqli_fetch_assoc($result))
+                                    {
+                                        echo '<li><a href="category/php?brand_id='.$row['brand_id'].'">'.$row['brand_name'].'</a></li>';
+                                    }
+                                ?>
                             </ul><!-- End .menu-vertical -->
                         </nav><!-- End .side-nav -->
                     </div><!-- End .dropdown-menu -->
@@ -175,53 +185,43 @@
                                         <div class="menu-col">
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <div class="menu-title">Shop with sidebar</div><!-- End .menu-title -->
+                                                    <div class="menu-title">Brand</div><!-- End .menu-title -->
                                                     <ul>
-                                                        <li><a href="category-list.php">Shop List</a></li>
-                                                        <li><a href="category-2cols.php">Shop Grid 2 Columns</a></li>
-                                                        <li><a href="category.php">Shop Grid 3 Columns</a></li>
-                                                        <li><a href="category-4cols.php">Shop Grid 4 Columns</a></li>
-                                                        <li><a href="category-market.php"><span>Shop Market<span class="tip tip-new">New</span></span></a></li>
-                                                    </ul>
+                                                    <?php
+                                                        $query = "SELECT * FROM brand WHERE brand_status='1'";
+                                                        $result = mysqli_query($connect, $query);
+                                                        while($row = mysqli_fetch_assoc($result))
+                                                        {
+                                                            echo '<li><a href="category/php?brand_id='.$row['brand_id'].'">'.$row['brand_name'].'</a></li>';
+                                                        }
+                                                    ?>                                                       
+                                                    </ul>                                                   
+                                                </div><!-- End .col-md-4 -->
 
-                                                    <div class="menu-title">Shop no sidebar</div><!-- End .menu-title -->
+                                                <div class="col-md-4">
+                                                    
+                                                    <div class="menu-title">Categories</div><!-- End .menu-title -->
                                                     <ul>
-                                                        <li><a href="category-boxed.php"><span>Shop Boxed No Sidebar<span class="tip tip-hot">Hot</span></span></a></li>
-                                                        <li><a href="category-fullwidth.php">Shop Fullwidth No Sidebar</a></li>
+                                                    <?php
+                                                            $query = "SELECT * FROM category ";
+                                                            $result = mysqli_query($connect, $query);
+                                                            while($row = mysqli_fetch_assoc($result))
+                                                            {
+                                                                echo '<li><a href="category/php?cat_id='.$row['cat_id'].'">'.$row['cat_name'].'</a></li>';
+                                                            }
+                                                        ?>
                                                     </ul>
                                                 </div><!-- End .col-md-4 -->
 
                                                 <div class="col-md-4">
-                                                    <div class="menu-title">Product Category</div><!-- End .menu-title -->
-                                                    <ul>
-                                                        <li><a href="product-category-boxed.php">Product Category Boxed</a></li>
-                                                        <li><a href="product-category-fullwidth.php"><span>Product Category Fullwidth<span class="tip tip-new">New</span></span></a></li>
-                                                    </ul>
                                                     <div class="menu-title">Shop Pages</div><!-- End .menu-title -->
                                                     <ul>
                                                         <li><a href="cart.php">Cart</a></li>
                                                         <li><a href="checkout.php">Checkout</a></li>
-                                                        <li><a href="wishlist.php">Wishlist</a></li>
-                                                        <li><a href="dashboard.php">My Account</a></li>
-                                                        <li><a href="#">Lookbook</a></li>
+                                                        <li><a href="my-account.php">My Account</a></li>
+                                                        <li><a href="logout.php">Log out</a></li>
                                                     </ul>
-                                                </div><!-- End .col-md-4 -->
-
-                                                <div class="col-md-4">
-                                                    <div class="menu-title">Shop with sidebar</div><!-- End .menu-title -->
-                                                    <ul>
-                                                        <li><a href="category-list.php">Shop List</a></li>
-                                                        <li><a href="category-2cols.php">Shop Grid 2 Columns</a></li>
-                                                        <li><a href="category.php">Shop Grid 3 Columns</a></li>
-                                                        <li><a href="category-4cols.php">Shop Grid 4 Columns</a></li>
-                                                        <li><a href="category-market.php"><span>Shop Market<span class="tip tip-new">New</span></span></a></li>
-                                                    </ul>
-
-                                                    <div class="menu-title">Shop no sidebar</div><!-- End .menu-title -->
-                                                    <ul>
-                                                        <li><a href="category-boxed.php"><span>Shop Boxed No Sidebar<span class="tip tip-hot">Hot</span></span></a></li>
-                                                        <li><a href="category-fullwidth.php">Shop Fullwidth No Sidebar</a></li>
-                                                    </ul>
+                                                    
                                                 </div><!-- End .col-md-4 -->
                                             </div><!-- End .row -->
                                         </div><!-- End .menu-col -->
@@ -234,7 +234,7 @@
             </div><!-- End .header-center -->
 
             <div class="header-right">
-                <i class="la la-lightbulb-o"></i><p>Clearance<span class="highlight">&nbsp;Up to 30% Off</span></p>
+                <i class="la la-lightbulb-o"></i><p><span class="highlight">&nbsp;Free Shipping</span></p>
             </div>
         </div><!-- End .container -->
     </div><!-- End .header-bottom -->
