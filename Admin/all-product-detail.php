@@ -38,13 +38,13 @@
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
                                 <div class="row">
-                                    <div class="col-sm-6 my-auto">
+                                    <div class="col-sm-5 my-auto">
                                         <h5 class="m-0 font-weight-bold text-primary"><?php echo $productName; ?> Details</h5>
                                     </div>
                                     <?php
                                     if ($categoryName == "Phone" || $categoryName == "Tablet" || $categoryName == "Watch") {
                                     ?>
-                                        <div class="col-sm-6 text-right">
+                                        <div class="col-sm-7 text-right">
                                             <button class="btn btn-info" data-toggle="modal" data-target="#bulkAddColors"><i class="fa fa-upload"></i>&ensp;Bulk Add Colors</button>
                                             <button class="btn btn-primary" data-toggle="modal" data-target="#addProductDetail"><i class="fa fa-plus-circle"></i>&ensp;Add Product Detail</button>
                                         </div>
@@ -94,7 +94,21 @@
                                                         }
                                                         ?>
                                                         <td class="align-middle"><?php echo $row['prod_detail_price']; ?></td>
-                                                        <td class="align-middle"><?php echo "<span class='font-weight-bold text-success '>Sufficient (100)</span>" ?></td>
+                                                        <td class="align-middle">
+                                                            <?php
+                                                            $sumStock = array();
+                                                            $getColorResult = mysqli_query($connect, "SELECT * FROM product_color WHERE prod_detail_id = '".$row['prod_detail_id']."'");
+                                                            while ($rowColor = mysqli_fetch_assoc($getColorResult)) {
+                                                                array_push($sumStock, $rowColor['prod_color_stock']);
+                                                            }
+
+                                                            if (array_sum($sumStock) <= 5) {
+                                                                echo "<span class='font-weight-bold text-danger'>Insufficient (".array_sum($sumStock).")</span>";
+                                                            } else {
+                                                                echo "<span class='font-weight-bold text-success'>Sufficient (".array_sum($sumStock).")</span>";
+                                                            }
+                                                            ?>
+                                                        </td>
                                                         <td class="align-middle">
                                                             <button class="btn btn-success" data-toggle="modal" data-target="#editProductDetail<?php echo $row['prod_detail_id']; ?>">
                                                                 <i class="fa fa-edit"></i>

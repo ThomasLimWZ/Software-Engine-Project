@@ -33,10 +33,10 @@
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
                                 <div class="row">
-                                    <div class="col-sm-6 my-auto">
+                                    <div class="col-sm-5 my-auto">
                                         <h5 class="m-0 font-weight-bold text-primary">Brands</h5>
                                     </div>
-                                    <div class="col-sm-6 text-right">
+                                    <div class="col-sm-7 text-right">
                                         <button class="btn btn-primary" data-toggle="modal" data-target="#addBrand"><i class="fa fa-plus-circle"></i>&ensp;Add Brand</button>
                                     </div>
                                 </div>
