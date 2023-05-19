@@ -14,7 +14,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="col-form-label">Name</label> <span class="text-danger">*</span>
-                                    <input type="text" class="form-control" name="brand_name" value="<?php echo isset($_POST["brand_name"]) ? $_POST["brand_name"] : ''; ?>" required>
+                                    <input type="text" class="form-control <?php echo isset($_POST["brand_name"]) ? 'is-invalid' : ''; ?>" name="brand_name" value="<?php echo isset($_POST["brand_name"]) ? $_POST["brand_name"] : ''; ?>" required>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -42,6 +42,7 @@
 
 <script>
 function resetAddBrandForm() {
+    document.getElementById('logoDiv').classList.add('d-none');
     $('#addBrand input[type="text"]').val('');
     $('#addBrand input[type="file"]').val('');
 }
@@ -60,7 +61,7 @@ function displayLogo(e){
 </script>
 
 <?php
-if(isset($_POST["addBrand"])){
+if(isset($_POST["addBrand"])) {
 	$name = $_POST["brand_name"];
 	
     $checkBrand = mysqli_query($connect, "SELECT * FROM brand WHERE UPPER(brand_name) = '".strtoupper($name)."'");

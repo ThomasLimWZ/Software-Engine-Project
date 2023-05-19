@@ -87,12 +87,24 @@
                                                             <i class="fa fa-edit"></i>
                                                         </button>
                                                         &ensp;
-                                                        <button class="btn btn-danger" onclick="updateStatus('<?php echo $row['prod_id']; ?>', '<?php echo $row['prod_name']; ?>', <?php echo $row['prod_status']; ?>)">
-                                                            <i class="fa fa-trash"></i>
-                                                        </button>
+                                                        <?php
+                                                        if ($row['prod_status'] == 1) {
+                                                        ?>
+                                                            <button class="btn btn-danger" onclick="updateStatus('<?php echo $row['prod_id']; ?>', '<?php echo $row['prod_name']; ?>', <?php echo $row['prod_status']; ?>)">
+                                                                <i class="fa fa-trash"></i>
+                                                            </button>
+                                                        <?php
+                                                        } else {
+                                                        ?>
+                                                            <button class="btn btn-primary" onclick="updateStatus('<?php echo $row['prod_id']; ?>', '<?php echo $row['prod_name']; ?>', <?php echo $row['prod_status']; ?>)">
+                                                                <i class="fas fa-trash-restore"></i>
+                                                            </button>
+                                                        <?php
+                                                        }
+                                                        ?>
                                                         &ensp;
-                                                        <a class="btn btn-warning" href="#">
-                                                            <i class="fa fa-info-circle"></i>
+                                                        <a class="btn btn-warning" href="all-product-detail.php?productId=<?php echo $row['prod_id']; ?>&productName=<?php echo $row['prod_name']; ?>&categoryName=<?php echo $row['cat_name']; ?>&productStatus=<?php echo $row['prod_status']; ?>">
+                                                            <i class="fa fa-th-list"></i>
                                                         </a>
                                                     </td>
                                                 </tr>
@@ -119,7 +131,9 @@
                                                                                 `${prodName}'s Status Updated!`,
                                                                                 '',
                                                                                 'success'
-                                                                            ).then(() => window.location.href='all-product.php?status=1');
+                                                                            ).then(() => {
+                                                                                window.location.href = <?php echo $productStatusList; ?> == 1 ? 'all-product.php?status=1' : 'all-product.php?status=0';
+                                                                            });
                                                                         }
                                                                     });
                                                                 }

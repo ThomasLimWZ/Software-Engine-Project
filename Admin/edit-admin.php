@@ -26,7 +26,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="col-form-label">Admin ID</label>
-                                    <input type="text" class="form-control" name="adm_id" value="<?php echo $row['adm_id']; ?>" disabled>
+                                    <input type="text" class="form-control <?php echo isset($_POST["adm_id"]) ? 'is-invalid' : ''; ?>" name="adm_id" value="<?php echo $row['adm_id']; ?>" disabled>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -87,7 +87,7 @@
 </div>
 
 <?php
-if(isset($_POST["savebtn".$row['id']])){
+if(isset($_POST["savebtn".$row['id']])) {
     $admId = $row["adm_id"];
 	$name = $_POST["adm_name"];
 	$phone = $_POST["adm_phone"];
