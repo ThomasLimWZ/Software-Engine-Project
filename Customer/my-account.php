@@ -70,7 +70,7 @@
 
 	.progressbar li.load + li:after{
 		background-color: #c96;
-		animation: loding 1s infinite;
+		animation: loding 1s ;
 	}
 	
 	@keyframes loding {
