@@ -1,7 +1,7 @@
 <div class="modal fade" id="editBrand<?php echo $row['brand_id']; ?>" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h5 class="modal-title">Edit Brand</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -19,14 +19,14 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="col-form-label">Brand Name</label> <span class="text-danger">*</span>
-                                    <input type="text" class="form-control" name="brand_name" value="<?php echo $row['brand_name']; ?>" required>
+                                    <input type="text" class="form-control <?php echo isset($_POST["brand_name"]) ? 'is-invalid' : ''; ?>" name="brand_name" value="<?php echo $row['brand_name']; ?>" required>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="col-form-label">Brand Logo</label> <span class="text-danger">*</span>
-                                    <input type="file" class="form-control-file" name="brand_logo" id="brand_logo" value="<?php echo $row['brand_logo']; ?>" 
-                                        onchange="displayLogo<?php echo $row['brand_name']; ?>(this)" data-default-value="spreadsheet.xls" required>
+                                    <label class="col-form-label">Brand Logo</label>
+                                    <input type="file" class="form-control-file" name="brand_logo" id="brand_logo"
+                                        onchange="displayLogo<?php echo $row['brand_name']; ?>(this)">
                                 </div>
                             </div>
                         </div>
@@ -42,29 +42,6 @@
 </div>
 
 <script>
-function loadBrandLogoFile(brandLogoFileName) {
-  getURL("", (imgBlob) => {
-    let fileName = brandLogoFileName;
-
-    let file = new File([imgBlob], fileName,{type:"image/png", lastModified:new Date().getTime()}, 'utf-8');
-    let container = new DataTransfer(); 
-    container.items.add(file);
-    document.querySelector('#brand_logo').files = container.files;
-    
-  });
-}
-
-// xmlHTTP return blob respond
-function getURL(url, callback){
-    var xhr = new XMLHttpRequest();
-    xhr.onload = function() {
-        callback(xhr.response);
-    };
-    xhr.open('GET', url);
-    xhr.responseType = 'blob';
-    xhr.send();
-}
-
 function displayLogo<?php echo $row['brand_name']; ?>(e){
 	if(e.files[0]){
 		var reader = new FileReader();
@@ -78,10 +55,12 @@ function displayLogo<?php echo $row['brand_name']; ?>(e){
 </script>
 
 <?php
-if(isset($_POST["savebtn".$row['brand_id']])){
+if(isset($_POST["savebtn".$row['brand_id']])) {
     $brandName = $_POST["brand_name"];
-	
-    $checkBrand = mysqli_query($connect, "SELECT * FROM brand WHERE UPPER(brand_name) = '".strtoupper($brandName)."'");
+
+    $currentBrandName = $row['brand_name'];
+    
+    $checkBrand = mysqli_query($connect, "SELECT * FROM brand WHERE UPPER(REPLACE(brand_name, ' ', '')) = '".strtoupper(str_replace(' ', '', $brandName))."' EXCEPT SELECT * FROM brand WHERE UPPER(REPLACE(brand_name, ' ', '')) = '".strtoupper(str_replace(' ', '', $currentBrandName))."'");
     $countBrand = mysqli_num_rows($checkBrand);
 
     if ($countBrand != 0) {
@@ -107,31 +86,32 @@ if(isset($_POST["savebtn".$row['brand_id']])){
             
             if (in_array(strtolower($imageFileType), $validExtensions)) {
                 if (move_uploaded_file($_FILES["brand_logo"]["tmp_name"], $path)) {
+
                     mysqli_query($connect, "UPDATE brand SET brand_name='$brandName', brand_logo='$file' WHERE brand_id=".$row['brand_id']);
 
                     echo "
                         <script>
                             Swal.fire(
-                                $brandName.`'s Record updated!`,
+                                `$brandName's Record updated!`,
                                 '',
                                 'success'
                             ).then(() => window.location.href = 'all-brand.php');
                         </script>
                     ";
                 }
-            }
-        } else {
-            mysqli_query($connect, "UPDATE brand SET brand_name='$brandName' WHERE brand_id=".$row['brand_id']);
+            } else {
+                mysqli_query($connect, "UPDATE brand SET brand_name='$brandName' WHERE brand_id=".$row['brand_id']);
 
-            echo "
-                <script>
-                    Swal.fire(
-                        `$brandName's Record updated!`,
-                        '',
-                        'success'
-                    ).then(() => window.location.href = 'all-brand.php');
-                </script>
-            ";
+                echo "
+                    <script>
+                        Swal.fire(
+                            `$brandName's Record updated!`,
+                            '',
+                            'success'
+                        ).then(() => window.location.href = 'all-brand.php');
+                    </script>
+                ";
+            }
         }
     }
 }

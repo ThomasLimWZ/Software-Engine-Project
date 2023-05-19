@@ -69,7 +69,7 @@
                                                             <img src="../Brand/<?php echo $row['brand_logo']; ?>" height="50px" style="object-fit:contain;">
                                                         </td>
                                                         <td class="align-middle">
-                                                            <button class="btn btn-success" data-toggle="modal" data-target="#editBrand<?php echo $row['brand_id']; ?>" onclick="loadBrandLogoFile('<?php echo $row['brand_logo']; ?>')">
+                                                            <button class="btn btn-success" data-toggle="modal" data-target="#editBrand<?php echo $row['brand_id']; ?>">
                                                                 <i class="fa fa-edit"></i>
                                                             </button>
                                                         </td>

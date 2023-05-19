@@ -65,10 +65,10 @@
                                                     <td class="align-middle">
                                                         <?php
                                                         if (empty($row['adm_profile_pic'])) {
-                                                            echo "<a class=‘avatar avatar-sm mr-2'><img class='avatar-img rounded-circle' src='img/undraw_profile.svg' width='50px' height='50px'></a>";
+                                                            echo "<img class=‘avatar avatar-sm mr-2'><img class='avatar-img rounded-circle' src='img/undraw_profile.svg' width='50px' height='50px'>";
                                                         }
                                                         else {
-                                                            echo "<a class=‘avatar avatar-sm mr-2'><img class='avatar-img rounded-circle' src='img/undraw_profile.svg' width='50px' height='50px'></a>";
+                                                            echo "<img class=‘avatar avatar-sm mr-2'><img class='avatar-img rounded-circle' src='img/undraw_profile.svg' width='50px' height='50px'>";
                                                         }
                                                         ?>
                                                     </td>
