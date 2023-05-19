@@ -58,10 +58,16 @@ if($count != 0)
         $cat_data = mysqli_fetch_assoc($data);
         $categoty_name = $cat_data['cat_name'];
 
+        //getting the product brand name
+        $brand_id = $showprod['brand_id'];
+        $data = mysqli_query($connect,"SELECT * FROM brand WHERE brand_id = '$brand_id'");
+        $brand_data = mysqli_fetch_assoc($data);
+        $brand_name = $brand_data['brand_name'];
+
         //product box code
         $showup .='
         <div class="col-6 col-md-4 col-lg-4 col-xl-3">
-            <div class="product">
+            <div class="product" style="border:1px solid #ccc;">
                 <figure class="product-media">
                      '.$insert_out_of_stock.'
                         <a href="product.php">
@@ -70,8 +76,8 @@ if($count != 0)
                 </figure><!-- End .product-media -->
 
                 <div class="product-body">
-                    <div class="product-cat">
-                        <a href="#">'.$categoty_name.'</a>
+                    <div>
+                        <span class="font-gray-400" >'.$brand_name.' &#183; '.$categoty_name.'</span>
                     </div><!-- End .product-cat -->
                     <h3 class="product-title"><a href="product.php?prod_name='.$showprod['prod_id'].'">'.$showprod['prod_name']."".'</a></h3><!-- End .product-title -->
                     <div class="product-price">
