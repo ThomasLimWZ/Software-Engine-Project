@@ -20,7 +20,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="col-form-label">Stock</label> <span class="text-danger">*</span>
-                                    <input type="number" class="form-control" name="prod_color_stock" min="1" value="<?php echo isset($_POST["prod_color_stock"]) ? $_POST["prod_color_stock"] : ''; ?>" required>
+                                    <input type="number" class="form-control" name="prod_color_stock" min="0" value="<?php echo isset($_POST["prod_color_stock"]) ? $_POST["prod_color_stock"] : ''; ?>" required>
                                 </div>
                             </div>
                         </div>

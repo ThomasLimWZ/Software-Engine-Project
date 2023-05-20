@@ -89,11 +89,11 @@
                                                     <td class="align-middle"><?php echo $row['brand_name']; ?></td>
                                                     <td class="align-middle"><?php echo $row['cat_name']; ?></td>
                                                     <td class="align-middle">
-                                                        <?php echo min($price)." - ".max($price); ?>
+                                                        <?php echo count($price) >= 1 ? min($price)." - ".max($price) : "-"; ?>
                                                     </td>
                                                     <td class="align-middle">
                                                         <?php
-                                                        if (array_sum($sumStock) <= 5) {
+                                                        if (array_sum($sumStock) < 5) {
                                                             echo "<span class='font-weight-bold text-danger'>Insufficient (".array_sum($sumStock).")</span>";
                                                         } else {
                                                             echo "<span class='font-weight-bold text-success'>Sufficient (".array_sum($sumStock).")</span>";

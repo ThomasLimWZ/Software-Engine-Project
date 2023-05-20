@@ -1,7 +1,7 @@
 <div class="modal fade" id="editProductColor<?php echo $row['prod_color_id']; ?>" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
-            <form method="POST" enctype="multipart/form-data">
+            <form method="POST" enctype="multipart/form-data" id="editProductColorForm<?php echo $row['prod_color_id']; ?>">
                 <div class="modal-header">
                     <h5 class="modal-title">Edit Color : <b><?php echo $productName." - ".$productDetailName; ?></b></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -25,7 +25,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="col-form-label">Stock</label> <span class="text-danger">*</span>
-                                    <input type="number" class="form-control" name="prod_color_stock" id="prod_color_stock" min="1" value="<?php echo $row['prod_color_stock']; ?>" required>
+                                    <input type="number" class="form-control" name="prod_color_stock" id="prod_color_stock" min="0" value="<?php echo $row['prod_color_stock']; ?>" required>
                                 </div>
                             </div>
                         </div>
@@ -118,13 +118,18 @@ if(isset($_POST["savebtn".$row['prod_color_id']])) {
     
                 echo "
                     <script>
-                        Swal.fire(
-                            `$colorName's Record updated!`,
-                            '',
-                            'success'
-                        ).then(() => {
-                            window.location.href = 'all-product-color.php?productDetailId=".$productDetailId."&productDetailName=".$productDetailName."&productId=".$productId."&productName=".$productName."&categoryName=".$categoryName."&productStatus=".$productStatus."';
-                        });
+                        preventRunVar = 0;
+                        if (preventRunVar == 0) {
+                            $('#editProductColor".$row['prod_color_id']."').modal('hide');
+                            Swal.fire(
+                                `$colorName's Record updated!`,
+                                '',
+                                'success'
+                            ).then(() => {
+                                window.location.href = 'all-product-color.php?productDetailId=".$productDetailId."&productDetailName=".$productDetailName."&productId=".$productId."&productName=".$productName."&categoryName=".$categoryName."&productStatus=".$productStatus."';
+                            });
+                        }
+                        
                     </script>
                 ";
             }

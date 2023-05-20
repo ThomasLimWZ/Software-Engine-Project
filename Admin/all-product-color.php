@@ -74,8 +74,15 @@
                                                         <td class="align-middle">
                                                             <img src="../Product/<?php echo $row['prod_color_img']; ?>" height="150px" style="object-fit:contain;">
                                                         </td>
-                                                        <td class="align-middle"><?php echo $row['prod_color_name']; ?></td>
-                                                        <td class="align-middle"><?php echo $row['prod_color_stock']; ?></td>
+                                                        <td class="align-middle">
+                                                            <?php echo $row['prod_color_name']; ?>
+                                                            <span class="d-none" id="selectedRestock<?php echo $row['prod_color_id']; ?>">
+                                                                &ensp;<span class="badge badge-pill badge-warning">Selected to Restock</span>
+                                                            </span>
+                                                        </td>
+                                                        <td class="align-middle">
+                                                            <?php echo $row['prod_color_stock']; ?> 
+                                                        </td>
                                                         <td class="align-middle">
                                                             <button class="btn btn-success" data-toggle="modal" data-target="#editProductColor<?php echo $row['prod_color_id']; ?>">
                                                                 <i class="fa fa-edit"></i>
@@ -126,3 +133,15 @@
 </body>
 
 </html>
+
+<script>
+    let currentUrl = window.location.href;
+
+    if (currentUrl.includes('productColorId')) {
+        let regex = /=([^&]+)/;
+        let match = currentUrl.match(regex);
+        let prodColorId = match ? match[1] : null;
+
+        document.getElementById('selectedRestock' + prodColorId).classList.remove('d-none');
+    }
+</script>
