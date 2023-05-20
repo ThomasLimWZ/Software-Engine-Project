@@ -62,7 +62,7 @@ if ($count != 0)
         $brand_name = $brand_data['brand_name'];
 
         //price range
-        $price_range = "SELECT MIN(prod_detail_price)AS 'min_price',MAX(prod_detail_price)AS 'max_price' FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
+        $price_range = "SELECT MIN(prod_detail_price) AS 'min_price', MAX(prod_detail_price) AS 'max_price' FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
         $price_range .= " AND product.prod_id = ' ";
         $price_range .= ($showprod['prod_id']);
         $price_range .= "'";
