@@ -44,7 +44,7 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label class="col-form-label"><?php echo $prodDetailRow['prod_detail_name']; ?></label> <span class="text-danger">*</span>
-                                        <input type="number" class="form-control" 
+                                        <input type="number" class="form-control" min="0"
                                             name="prod_color_stock<?php echo $count; ?>" 
                                             value="<?php echo isset($_POST["prod_color_stock".$count]) ? $_POST["prod_color_stock".$count] : ''; ?>" required>
                                     </div>
