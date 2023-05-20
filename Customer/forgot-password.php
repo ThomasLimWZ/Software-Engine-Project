@@ -2,76 +2,7 @@
 <html lang="en">
 
 <?php include('head.php');?>
-<style>
-	.otc {
-		position: relative;
-		width: 320px;
-		margin: 0 auto;
-	}
 
-	.otc fieldset {
-		border: 0;
-		padding: 0;
-		margin: 0;
-	}
-
-	.otc fieldset div {
-		display: flex;
-		align-items: center;
-	}
-
-	.otc legend {
-		margin: 0 auto 1em;
-		color: black;
-	}
-
-	.enter_code input[type="number"] {
-		width: 100%;
-		line-height: 1;
-		margin: .1em;
-		padding:2% 4%;
-		font-size: 2em;
-		text-align: center;
-		appearance: textfield;
-		-webkit-appearance: textfield;
-		border: 2px solid #dadada;
-		color: black;
-		border-radius: 4px;
-	}
-	.enter_code input[type="number"]:focus{
-		color:#777;
-		background-color:#fff;
-		border-color:#c96;
-		box-shadow:none;
-		outline:none !important;
-	}
-	
-	.enter_code input::-webkit-outer-spin-button,
-	.enter_code input::-webkit-inner-spin-button {
-	-webkit-appearance: none;
-	margin: 0;
-	}
-
-	/* 2 group of 3 items */
-	.enter_code input[type="number"]:nth-child(n+4) {
-		order: 2;
-	}
-	
-
-	.otc label {
-		border: 0 !important;
-		clip: rect(1px, 1px, 1px, 1px) !important;
-		-webkit-clip-path: inset(50%) !important;
-		clip-path: inset(50%) !important;
-		height: 1px !important;
-		margin: -1px !important;
-		overflow: hidden !important;
-		padding: 0 !important;
-		position: absolute !important;
-		width: 1px !important;
-		white-space: nowrap !important;
-	}
-</style>
 <body>
     <div class="page-wrapper">
         <?php include('header.php') ?>
@@ -86,7 +17,7 @@
                 <div class="container">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Forget Password</li>
+                        <li class="breadcrumb-item active" aria-current="page">Forgot Password</li>
                     </ol>
                 </div><!-- End .container -->
             </nav><!-- End .breadcrumb-nav -->
@@ -95,25 +26,23 @@
             	<div class="dashboard">
 	                <div class="container">
 	                	<div class="row">
-
-	                		<div id="enter_email" style="margin:auto;padding:2%;width:40%">
-	                			<form action="" method="post" >
-									<div class="form-group" >
-                                        <label for="forgot_pass_email" style="font-size: larger;">Email address <span style="color:red;" >*</span></label>
-                                        <input type="email" class="form-control" id="forgot_pass_email" name="forgot_pass_email" required value="<?php echo isset($_POST["forgot_pass_email"]) ? $_POST["forgot_pass_email"] : ''; ?>">
+	                		<div id="enter_email" style="margin:auto; padding:2%; width:40%">
+	                			<form action="" method="POST">
+									<div class="form-group">
+                                        <label for="forgot_pass_email">Email Address <span class="text-danger">*</span></label>
+                                        <input type="email" class="form-control" id="forgot_pass_email" name="forgot_pass_email" required 
+											value="<?php echo isset($_POST["forgot_pass_email"]) ? $_POST["forgot_pass_email"] : ''; ?>">
+										<span id="show-error-message" class="text-danger d-none">Your email is not been registered.</span>
                                     </div><!-- End .form-group -->
-									<span id="show-error-message" style="color:red;display:none">Your email not been registered</span>
 									<div class="form-footer">
                                         <button type="submit" class="btn btn-outline-primary-2" name="forgot_pass_email_next">
-                                            <span>Next</span>
+                                            <span>Send Reset Password Link</span>
                                             <i class="icon-long-arrow-right"></i>                                       
 										</button>
                                        
                                     </div><!-- End .form-footer -->
 								</form>
 							</div>
-							
-							
 	                	</div><!-- End .row -->
 	                </div><!-- End .container -->
                 </div><!-- End .dashboard -->
@@ -140,52 +69,45 @@
     <script src="assets/js/owl.carousel.min.js"></script>
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
-
-	<!-- use for the validation code -->
-
 </body>
 
 </html>
 
 <?php
-
-if(isset($_POST['forgot_pass_email_next'])){
-
+if (isset($_POST['forgot_pass_email_next'])) {
 	$email = $_POST['forgot_pass_email'];
 
-	$data_check = mysqli_query($connect,"SELECT * FROM customer WHERE cus_email='$email' ");
+	$data_check = mysqli_query($connect,"SELECT * FROM customer WHERE cus_email = '$email' ");
 	$check = mysqli_num_rows($data_check);
-	if($check == 1)
-	{
+
+	if ($check == 1) {
 		$data_get = mysqli_fetch_assoc($data_check);
 		$cus_name = $data_get['cus_name'];
 		$cus_id = $data_get['cus_id'];
 		$_SESSION['reset_customer_id'] = $cus_id;
-		$_SESSION['valitation_code']=sent_random_code_email($cus_id,$connect);
+		$_SESSION['valitation_code'] = sent_random_code_email($cus_id,$connect);
 
-		?>
-		<script>
-			window.location.assign('check-get-code.php');
-		</script>
-		<?php
-
-		
-	}
-	else
-	{
-		
-		?>
-		<script>
-			document.getElementById('forgot_pass_email').style.border = "2px solid red";
-			document.getElementById("show-error-message").style.display = "block";
-		</script>
-		<?php
+		echo "<script>window.location.assign('check-get-code.php');</script>";
+	} else {
+		echo "
+			<script>
+				Swal.fire(
+					'Email Not Found!',
+					'This email is not been registered',
+					'error'
+				);
+				$('#forgot_pass_email').addClass('is-invalid');
+				$('#show-error-message').removeClass('d-none');
+			</script>
+		";
 	}
 }
+
 function sent_random_code_email($cus_id,$connect)
 {
-	$data_check = mysqli_query($connect,"SELECT * FROM customer WHERE cus_id='$cus_id' ");
+	$data_check = mysqli_query($connect,"SELECT * FROM customer WHERE cus_id = '$cus_id'");
 	$data_get = mysqli_fetch_assoc($data_check);
+
 	$name = $data_get['cus_name'];
 	$cus_id = $data_get['cus_id'];
 	$email = $data_get['cus_email'];
@@ -219,7 +141,7 @@ function sent_random_code_email($cus_id,$connect)
 		</html>';
 
     $from = '4peoplestelco@gmail.com'; 
-    $fromName = '4 People Telco'; 
+    $fromName = '4People Telco'; 
     
     // Set content-type header for sending HTML email 
     $headers = "MIME-Version: 1.0" . "\r\n"; 
@@ -228,18 +150,21 @@ function sent_random_code_email($cus_id,$connect)
     // Additional headers 
     $headers .= 'From: '.$fromName.'<'.$from.'>' . "\r\n"; 
 
-        if(mail($email, $subject, $message,$headers))
+        if(mail($email, $subject, $message, $headers))
         {           
             return $code;			
         }
         else
         {
-			echo  "<script>Swal.fire({
-                title: 'Sorry, unable to send mail...',
-                icon: 'error',
-                button: 'OK',
-                }).then(() => window.location.href='forgot-password.php');
-				</script>";
+			echo "
+				<script>
+					Swal.fire(
+						'Sorry, unable to send mail...',
+						'This email is not been registered',
+						'error'
+					);
+				</script>
+			";
         }
 }
 ?>

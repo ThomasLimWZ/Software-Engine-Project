@@ -31,8 +31,10 @@
 
     <!-- sweetaleart-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-   <!-- link to database-->
-    <?php include("../Admin/connection.php");?>
-
 </head>
+
+<style>
+	.swal2-popup {
+	font-size: 1.6rem !important;
+	}
+</style>
