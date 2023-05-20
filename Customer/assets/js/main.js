@@ -1,7 +1,8 @@
 // Main Js File
-var cat_value= "";
-var brand_value ="";
-var price_value ="";
+var cat_value = "";
+var brand_value = "";
+var price_value = "";
+
 $(document).ready(function () {
     'use strict';
 
@@ -22,7 +23,7 @@ $(document).ready(function () {
 	});
 
 	$body.on('click', function (e) {
-		if ( $searchWrapper.hasClass('show') ) {
+		if ($searchWrapper.hasClass('show')) {
 			$searchWrapper.removeClass('show');
 			$searchToggle.removeClass('active');
 			$body.removeClass('is-search-active');
@@ -37,21 +38,21 @@ $(document).ready(function () {
     var catDropdown = $('.category-dropdown'),
         catInitVal = catDropdown.data('visible');
         
-	if ( $('.sticky-header').length && $(window).width() >= 992 ) {
+	if ($('.sticky-header').length && $(window).width() >= 992) {
 		var sticky = new Waypoint.Sticky({
 			element: $('.sticky-header')[0],
 			stuckClass: 'fixed',
 			offset: -300,
             handler: function ( direction ) {
                 // Show category dropdown
-                if ( catInitVal &&  direction == 'up') {
+                if (catInitVal &&  direction == 'up') {
                     catDropdown.addClass('show').find('.dropdown-menu').addClass('show');
                     catDropdown.find('.dropdown-toggle').attr('aria-expanded', 'true');
                     return false;
                 }
 
                 // Hide category dropdown on fixed header
-                if ( catDropdown.hasClass('show') ) {
+                if (catDropdown.hasClass('show')) {
                     catDropdown.removeClass('show').find('.dropdown-menu').removeClass('show');
                     catDropdown.find('.dropdown-toggle').attr('aria-expanded', 'false');
                 } 
@@ -60,7 +61,7 @@ $(document).ready(function () {
 	}
 
     // Menu init with superfish plugin
-    if ( $.fn.superfish ) {
+    if ($.fn.superfish) {
         $('.menu, .menu-vertical').superfish({
             popUpSelector: 'ul, .megamenu',
             hoverClass: 'show',
@@ -138,7 +139,7 @@ $(document).ready(function () {
     });
 
     // Popup - Iframe Video - Map etc.
-    if ( $.fn.magnificPopup ) {
+    if ($.fn.magnificPopup) {
         $('.btn-iframe').magnificPopup({
             type: 'iframe',
             removalDelay: 600,
@@ -149,7 +150,7 @@ $(document).ready(function () {
     }
 
     // Product hover
-    if ( $.fn.hoverIntent ) {
+    if ($.fn.hoverIntent) {
         $('.product-3').hoverIntent(function () {
             var $this = $(this),
                 animDiff = ( $this.outerHeight() - ( $this.find('.product-body').outerHeight() + $this.find('.product-media').outerHeight()) ),
@@ -167,7 +168,7 @@ $(document).ready(function () {
     }
 
     // Slider For category pages / filter price
-    if ( typeof noUiSlider === 'object' ) {
+    if (typeof noUiSlider === 'object') {
 		var priceSlider  = document.getElementById('price-slider');
 		// Check if #price-slider elem is exists if not return
 		// to prevent error logs
@@ -190,7 +191,7 @@ $(document).ready(function () {
 		});
 
 		// Update Price Range
-		priceSlider.noUiSlider.on('update', function( values, handle ){
+		priceSlider.noUiSlider.on('update', function(values, handle){
 			$('#filter-price-range').text(values.join(' - '));
             price_value = values;
             callpage(1);
@@ -198,23 +199,23 @@ $(document).ready(function () {
 	}
 
 	// Product countdown
-	if ( $.fn.countdown ) {
+	if ($.fn.countdown) {
 		$('.product-countdown').each(function () {
 			var $this = $(this), 
 				untilDate = $this.data('until'),
 				compact = $this.data('compact'),
-                dateFormat = ( !$this.data('format') ) ? 'DHMS' : $this.data('format'),
-                newLabels = ( !$this.data('labels-short') ) ? 
+                dateFormat = (!$this.data('format')) ? 'DHMS' : $this.data('format'),
+                newLabels = (!$this.data('labels-short')) ? 
                                 ['Years', 'Months', 'Weeks', 'Days', 'Hours', 'Minutes', 'Seconds'] :
                                 ['Years', 'Months', 'Weeks', 'Days', 'Hours', 'Mins', 'Secs'],
-                newLabels1 = ( !$this.data('labels-short') ) ? 
+                newLabels1 = ( !$this.data('labels-short')) ? 
                                 ['Year', 'Month', 'Week', 'Day', 'Hour', 'Minute', 'Second'] :
                                 ['Year', 'Month', 'Week', 'Day', 'Hour', 'Min', 'Sec'];
 
             var newDate;
 
             // Split and created again for ie and edge 
-            if ( !$this.data('relative') ) {
+            if (!$this.data('relative')) {
                 var untilDateArr = untilDate.split(", "), // data-until 2019, 10, 8 - yy,mm,dd
                     newDate = new Date(untilDateArr[0], untilDateArr[1] - 1, untilDateArr[2]);
             } else {
@@ -240,7 +241,7 @@ $(document).ready(function () {
 
 	// Quantity Input - Cart page - Product Details pages
     function quantityInputs() {
-        if ( $.fn.inputSpinner ) {
+        if ($.fn.inputSpinner) {
             $("input[type='number']").inputSpinner({
                 decrementButton: '<i class="icon-minus"></i>',
                 incrementButton: '<i class="icon-plus"></i>',
@@ -253,7 +254,7 @@ $(document).ready(function () {
 
     // Sticky Content - Sidebar - Social Icons etc..
     // Wrap elements with <div class="sticky-content"></div> if you want to make it sticky
-    if ( $.fn.stick_in_parent && $(window).width() >= 992 ) {
+    if ($.fn.stick_in_parent && $(window).width() >= 992) {
     	$('.sticky-content').stick_in_parent({
 			offset_top: 80,
             inner_scrolling: false
@@ -261,7 +262,7 @@ $(document).ready(function () {
     }
 
     function owlCarousels($wrap, options) {
-        if ( $.fn.owlCarousel ) {
+        if ($.fn.owlCarousel) {
             var owlSettings = {
                 items: 1,
                 loop: true,
@@ -293,7 +294,7 @@ $(document).ready(function () {
     }
 
     // Product Image Zoom plugin - product pages
-    if ( $.fn.elevateZoom ) {
+    if ($.fn.elevateZoom) {
         $('#product-zoom').elevateZoom({
             gallery:'product-zoom-gallery',
             galleryActiveClass: 'active',
@@ -334,7 +335,7 @@ $(document).ready(function () {
     }
 
     // Product Gallery - product-gallery.html 
-    if ( $.fn.owlCarousel && $.fn.elevateZoom ) {
+    if ($.fn.owlCarousel && $.fn.elevateZoom) {
         var owlProductGallery = $('.product-gallery-carousel');
 
         owlProductGallery.on('initialized.owl.carousel', function () {
@@ -389,7 +390,7 @@ $(document).ready(function () {
     }
 
      // Product Gallery Separeted- product-sticky.html 
-    if ( $.fn.elevateZoom ) {
+    if ($.fn.elevateZoom) {
         $('.product-separated-item').find('img').elevateZoom({
             zoomType: "inner",
             cursor: "crosshair",
@@ -518,7 +519,7 @@ $(document).ready(function () {
 
 	// Count
     var $countItem = $('.count');
-	if ( $.fn.countTo ) {
+	if ($.fn.countTo) {
         if ($.fn.waypoint) {
             $countItem.waypoint( function () {
                 $(this.element).countTo();
@@ -542,7 +543,7 @@ $(document).ready(function () {
     // Scroll To button
     var $scrollTo = $('.scroll-to');
     // If button scroll elements exists
-    if ( $scrollTo.length ) {
+    if ($scrollTo.length) {
         // Scroll to - Animate scroll
         $scrollTo.on('click', function(e) {
             var target = $(this).attr('href'),
@@ -563,13 +564,13 @@ $(document).ready(function () {
         var target = $(this).attr('href'),
             $target = $(target);
 
-        if ( $('#product-accordion-review').length ) {
+        if ($('#product-accordion-review').length) {
             $('#product-accordion-review').collapse('show');
         }
 
         if ($target.length) {
             // Add offset for sticky menu
-            var scrolloffset = ( $(window).width() >= 992 ) ? ($target.offset().top - 72) : ( $target.offset().top - 10 )
+            var scrolloffset = ($(window).width() >= 992 ) ? ($target.offset().top - 72) : ($target.offset().top - 10)
             $('html, body').animate({
                 'scrollTop': scrolloffset
             }, 600);
@@ -600,7 +601,7 @@ $(document).ready(function () {
     });
 
     // Google Map api v3 - Map for contact pages
-    if ( document.getElementById("map") && typeof google === "object" ) {
+    if (document.getElementById("map") && typeof google === "object") {
 
         var content =   '<address>' +
                             '88 Pine St,<br>' +
@@ -818,6 +819,7 @@ $(document).ready(function () {
     
     //filter-price-range
 });
+
 function callpage(page)
 {
     var pagination = page;
