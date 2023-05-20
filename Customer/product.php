@@ -12,11 +12,9 @@
                 <div class="container d-flex align-items-center">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Products</a></li>
+                        <li class="breadcrumb-item"><a href="product-list.php">Products</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Product Detail</li>
                     </ol>
-
-                    
                 </div><!-- End .container -->
             </nav><!-- End .breadcrumb-nav -->
 
@@ -62,48 +60,59 @@
 
 
                                             <div class="product-price">
-                                                RM 5,499.00
+                                                RM 5,499.00 - RM 6,999.00
                                             </div><!-- End .product-price -->
 
                                             <div class="details-filter-row details-row-size">
-                                                <label for="capacity">Capacity:</label>
-                                                <div class="select-custom">
+                                                <label class="mr-5" for="capacity">Capacity:</label>
+                                                <div class="select-custom w-50">
                                                     <select name="size" id="size" class="form-control">
-                                                        <option value="#" selected="selected">Please select</option>
+                                                        <option value="#" selected disabled>Select Capacity</option>
                                                         <option value="1">128GB</option>
                                                         <option value="2">256GB</option>
                                                         <option value="3">512GB</option>
                                                         <option value="4">1TB</option>
                                                     </select>
                                                 </div><!-- End .select-custom -->
+                                            </div><!-- End .details-filter-row -->
 
+                                            <div class="details-filter-row details-row-size">
+                                                <label class="mr-5" for="color">Color:</label>
+                                                <div class="select-custom w-50">
+                                                    <select name="size" id="size" class="form-control">
+                                                        <option value="#" selected disabled>Select Color</option>
+                                                        <option value="1">Deep Purple</option>
+                                                        <option value="2">Gold</option>
+                                                        <option value="3">Silver</option>
+                                                        <option value="4">Space Black</option>
+                                                    </select>
+                                                </div><!-- End .select-custom -->
                                             </div><!-- End .details-filter-row -->
 
                                             <div class="product-details-action">
                                                 <div class="details-action-col">
-                                                    <label for="qty">Qty:</label>
+                                                    <label class="mr-5" for="qty">Qty:</label>
                                                     <div class="product-details-quantity">
                                                         <input type="number" id="qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
                                                     </div><!-- End .product-details-quantity -->
-
-                                                    
                                                 </div><!-- End .details-action-col -->
 
-                                                <div class="details-action-wrapper">
-                                                <a href="#" class="btn-product btn-cart"><span>add to cart</span></a> <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to Compare</span></a>
-                                                </div><!-- End .details-action-wrapper -->
+                                                <a href="#" class="btn-product btn-cart"><span id="addToCartText">Add to Cart</span></a>
+                                                <style>
+                                                    #addToCartText:hover {
+                                                        color: white;
+                                                    }
+                                                </style>
                                             </div><!-- End .product-details-action -->
-
-                                            
 
                                             <div class="product-details-footer details-footer-col">
                                                 <div class="product-cat">
+                                                    <span>Brand:</span>
+                                                    <a href="#">Apple</a>
+                                                    <br><br>
                                                     <span>Category:</span>
-                                                    <a href="#">Phone</a>,
-                                                    <a href="#">iPhone</a>,
-                                                    <a href="#">Black</a>
+                                                    <a href="#">Phone</a>
                                                 </div><!-- End .product-cat -->
-
                                             </div><!-- End .product-details-footer -->
                                         </div><!-- End .product-details -->
                                     </div><!-- End .col-md-6 -->
@@ -153,8 +162,6 @@
                                             </ol>
                                         </div><!-- End .product-desc-content -->
                                     </div><!-- .End .tab-pane -->
-                                    
-                                    
                                     
                                 </div><!-- End .tab-content -->
                             </div><!-- End .product-details-tab -->

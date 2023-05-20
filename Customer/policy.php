@@ -8,25 +8,24 @@
         <?php include('header.php') ?>
 
         <main class="main">
+            <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        		<div class="container">
+        			<h1 class="page-title">Privacy Policy</h1>
+        		</div><!-- End .container -->
+        	</div><!-- End .page-header -->
             <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
                 <div class="container">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Policy</li>
+                        <li class="breadcrumb-item active" aria-current="page">Privacy Policy</li>
                     </ol>
                 </div><!-- End .container -->
             </nav><!-- End .breadcrumb-nav -->
 
             <div class="container">
-            <br><br>
-			<hr class="mb-2">
-			<h1 style="text-align:center;"><b>Privacy Policy</b></h1>
-			<hr class="mb-2">
-			<br>
                 <ul>
                     <br>     
-                    <li>We take our customer’s privacy seriously and we will only collect, record, hold, store and use your personal information as outlined below.</li>
+                    <li>We take our customer's privacy seriously and we will only collect, record, hold, store and use your personal information as outlined below.</li>
                     <br>
                     <li>Data protection is a matter of trust and your privacy is important to us. We shall therefore only process your name and other information which relates to you in the manner set out in this Privacy Policy. We will only collect information where it is necessary for us to do so and we will only collect information if it is relevant to our dealings with you. We will only keep your information for as long as we are either required to by law or as is relevant for the purposes for which it was collected.</li>
                     <br>
@@ -34,14 +33,13 @@
                     <br>
                     <li>If you have any comments or suggestions, we would be pleased to receive them at our address or by contacting our Customer Service.</li>
                 </ul>
-                <br><br>
+                <br>
                 <h4>Collection of Personal Information</h4>
                 <ul>
-                    <li>4People Telco does not sell, share or trade customer’s personal information collected online with third parties.</li>
+                    <li>4People Telco does not sell, share or trade customer's personal information collected online with third parties.</li>
                     <br>
                     <li>When you visit our website, we may collect your information in a variety of ways. The information will collect by us includes personal data. Such as name, phone number, email address, birthday, gender, profile picture uploaded and so on.</li>
                 </ul>
-                <br>
 		    </div>
         	<hr class="mb-2">
         </main><!-- End .main -->

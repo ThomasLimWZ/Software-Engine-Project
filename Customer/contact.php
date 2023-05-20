@@ -12,7 +12,6 @@
                 <div class="container">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Pages</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Contact us</li>
                     </ol>
                 </div><!-- End .container -->
@@ -53,12 +52,12 @@
 
                 				<div class="col-sm-5">
                 					<div class="contact-info">
-                						<h3>The Office</h3>
+                						<h3>Operating Hours</h3>
 
                 						<ul class="contact-list">
                 							<li>
                 								<i class="icon-clock-o"></i>
-	                							<span class="text-dark">Monday-Sunday</span> <br>11am-7pm ET
+	                							<span class="text-dark">Monday - Sunday<br>09.00AM - 18.00PM</span>
 	                						</li>
                 						</ul><!-- End .contact-list -->
                 					</div><!-- End .contact-info -->

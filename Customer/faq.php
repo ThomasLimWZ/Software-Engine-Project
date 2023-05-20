@@ -8,11 +8,15 @@
         <?php include('header.php') ?>
 
         <main class="main">
+            <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        		<div class="container">
+        			<h1 class="page-title">F.A.Q</h1>
+        		</div><!-- End .container -->
+        	</div><!-- End .page-header -->
             <nav aria-label="breadcrumb" class="breadcrumb-nav">
                 <div class="container">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Pages</a></li>
                         <li class="breadcrumb-item active" aria-current="page">FAQ</li>
                     </ol>
                 </div><!-- End .container -->
@@ -20,11 +24,6 @@
 
             <div class="page-content">
                 <div class="container">
-				<br>
-				<hr class="mb-2">
-				<h1 style="text-align:center;"><b>F.A.Q</b></h1>
-				<hr class="mb-2">
-				<br>
                 	<h2 class="title text-center mb-3">My Account</h2><!-- End .title -->
         			<div class="accordion accordion-rounded" id="accordion-1">
 					<div class="card card-box card-sm bg-light">
