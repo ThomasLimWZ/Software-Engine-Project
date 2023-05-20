@@ -238,7 +238,7 @@
             </div><!-- End .header-center -->
 
             <div class="header-right">
-                <i class="la la-lightbulb-o"></i><p><span class="highlight">&nbsp;Free Shipping</span></p>
+                <i class="la la-lightbulb-o"></i><p><span class="highlight">Free Shipping</span> within Malaysia</p>
             </div>
         </div><!-- End .container -->
     </div><!-- End .header-bottom -->

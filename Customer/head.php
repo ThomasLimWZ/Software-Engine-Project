@@ -1,9 +1,10 @@
 <?php session_start()?>
+<?php include("../Admin/connection.php");?>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>4 PEOPLE TELCO</title>
+    <title>4PEOPLE TELCO</title>
 
     <!--  I think this can remove / change
     <meta name="keywords" content="HTML5 Template">
@@ -20,8 +21,6 @@
     -->
     
     <link rel="icon" type="image/png"  href="assets/images/icons/4-peoples-telco-website-favicon-color.png">
-
-    <link rel="manifest" href="assets/images/icons/site.php">
     <link rel="mask-icon" href="assets/images/icons/safari-pinned-tab.svg" color="#666666">
     <link rel="shortcut icon" href="assets/images/4-peoples-telco-website-favicon-color.png">
 
@@ -46,7 +45,7 @@
     <link rel="stylesheet" href="assets/css/demos/demo-3.css">
 
     <!-- font-awesome icon-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 
     <!-- sweetaleart-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

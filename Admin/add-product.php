@@ -14,14 +14,14 @@
                             <div class="col-sm-8">
                                 <div class="form-group">
                                     <label class="col-form-label">Name</label> <span class="text-danger">*</span>
-                                    <input type="text" class="form-control" name="prod_name" id="prodName" value="<?php echo isset($_POST["prod_id"]) ? $_POST["prod_id"] : ''; ?>" required>
+                                    <input type="text" class="form-control <?php echo isset($_POST["prod_detail_name"]) ? 'is-invalid' : ''; ?>" name="prod_name" id="prodName" value="<?php echo isset($_POST["prod_name"]) ? $_POST["prod_name"] : ''; ?>" required>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="col-form-label">Brand</label>
+                                    <label class="col-form-label">Brand</label> <span class="text-danger">*</span>
                                     <select class="form-control" name="prod_brand" id="prodBrand" required>
 										<option value="" disabled selected>Select</option>
                                         <?php
@@ -30,13 +30,16 @@
 
                                         while ($brandRow = mysqli_fetch_assoc($brandResult)) {
                                         ?>
-                                            <option value="<?php echo $brandRow["brand_id"] ?>" <?php echo isset($_POST["prod_brand"]) == $brandRow["brand_id"] ? 'selected' : ''; ?>>
+                                            <option value="<?php echo $brandRow["brand_id"] ?>">
                                                 <?php echo $brandRow["brand_name"] ?>
                                             </option>
                                         <?php
                                         }
                                         ?>
                                     </select>
+                                    <script>
+                                        document.getElementById('prodBrand').value = "<?php echo isset($_POST["prod_brand"]) ? $_POST["prod_brand"] : ''; ?>";
+                                    </script>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -50,13 +53,16 @@
 
                                         while ($catRow = mysqli_fetch_assoc($catResult)) {
                                         ?>
-                                            <option value="<?php echo $catRow["cat_id"] ?>" <?php echo isset($_POST["prod_cat"]) == $catRow["cat_id"] ? 'selected' : ''; ?>>
+                                            <option value="<?php echo $catRow["cat_id"] ?>">
                                                 <?php echo $catRow["cat_name"] ?>
                                             </option>
                                         <?php
                                         }
                                         ?>
                                     </select>
+                                    <script>
+                                        document.getElementById('prodCat').value = "<?php echo isset($_POST["prod_brand"]) ? $_POST["prod_brand"] : ''; ?>";
+                                    </script>
                                 </div>
                             </div>
                         </div>
@@ -64,7 +70,7 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label class="col-form-label">Description</label>
-                                    <textarea class="form-control" name="prod_descrip" id="prodDescrip" placeholder="Product Description ..." value="<?php echo isset($_POST["prod_descrip"]) ? $_POST["prod_descrip"] : ''; ?>"></textarea>
+                                    <textarea class="form-control" name="prod_descrip" id="prodDescrip" placeholder="Product Description ..."><?php echo isset($_POST["prod_descrip"]) ? $_POST["prod_descrip"] : ''; ?></textarea>
                                 </div>
                             </div>
                         </div>
@@ -77,13 +83,13 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="col-form-label">Display</label>
-                                    <textarea class="form-control" name="prod_display" id="prodDisplay" placeholder="Product's Display" value="<?php echo isset($_POST["prod_display"]) ? $_POST["prod_display"] : ''; ?>"></textarea>
+                                    <textarea class="form-control" name="prod_display" id="prodDisplay" placeholder="Product's Display"><?php echo isset($_POST["prod_display"]) ? $_POST["prod_display"] : ''; ?></textarea>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="col-form-label">Chip</label>
-                                    <textarea class="form-control" name="prod_chip" id="prodChip" placeholder="Product's Chipset" value="<?php echo isset($_POST["prod_chip"]) ? $_POST["prod_chip"] : ''; ?>"></textarea>
+                                    <textarea class="form-control" name="prod_chip" id="prodChip" placeholder="Product's Chipset"><?php echo isset($_POST["prod_chip"]) ? $_POST["prod_chip"] : ''; ?></textarea>
                                 </div>
                             </div>
                         </div>
@@ -91,13 +97,13 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="col-form-label">Back Camera</label>
-                                    <textarea class="form-control" name="prod_back_cam" id="prodBackCam" placeholder="Product's Back Camera" value="<?php echo isset($_POST["prod_back_cam"]) ? $_POST["prod_back_cam"] : ''; ?>"></textarea>
+                                    <textarea class="form-control" name="prod_back_cam" id="prodBackCam" placeholder="Product's Back Camera"><?php echo isset($_POST["prod_back_cam"]) ? $_POST["prod_back_cam"] : ''; ?></textarea>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="col-form-label">Front Camera</label>
-                                    <textarea class="form-control" name="prod_front_cam" id="prodFrontCam" placeholder="Product's Front Camera" value="<?php echo isset($_POST["prod_front_cam"]) ? $_POST["prod_front_cam"] : ''; ?>"></textarea>
+                                    <textarea class="form-control" name="prod_front_cam" id="prodFrontCam" placeholder="Product's Front Camera"><?php echo isset($_POST["prod_front_cam"]) ? $_POST["prod_front_cam"] : ''; ?></textarea>
                                 </div>
                             </div>
                         </div>
@@ -105,13 +111,13 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="col-form-label">Power & Battery</label>
-                                    <textarea class="form-control" name="prod_battery" id="prodBattery" placeholder="Product's Power & Battery" value="<?php echo isset($_POST["prod_battery"]) ? $_POST["prod_battery"] : ''; ?>"></textarea>
+                                    <textarea class="form-control" name="prod_battery" id="prodBattery" placeholder="Product's Power & Battery"><?php echo isset($_POST["prod_battery"]) ? $_POST["prod_battery"] : ''; ?></textarea>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="col-form-label">Others</label>
-                                    <textarea class="form-control" name="prod_others" id="prodOthers" placeholder="Product's Other Features" value="<?php echo isset($_POST["prod_others"]) ? $_POST["prod_others"] : ''; ?>"></textarea>
+                                    <textarea class="form-control" name="prod_others" id="prodOthers" placeholder="Product's Other Features"><?php echo isset($_POST["prod_others"]) ? $_POST["prod_others"] : ''; ?></textarea>
                                 </div>
                             </div>
                         </div>
@@ -131,8 +137,6 @@
 <script>
 function resetAddProductForm() {
     $('#addProduct input[type="text"]').val('');
-    $('#addProduct input[type="email"]').val('');
-    $('#addProduct input[type="date"]').val('');
     $('#addProduct textarea').val('');
     $("#prodBrand option:selected").prop("selected", false);
     $("#prodBrand option:first").prop("selected", "selected");
@@ -142,7 +146,7 @@ function resetAddProductForm() {
 </script>
 
 <?php
-if(isset($_POST["addProduct"])){
+if(isset($_POST["addProduct"])) {
     $pname = $_POST["prod_name"];
 	$pdescrip = $_POST["prod_descrip"];
 	$pbrand = $_POST["prod_brand"];
@@ -155,7 +159,7 @@ if(isset($_POST["addProduct"])){
     $pspec_battery = $_POST["prod_battery"];
     $pspec_others = $_POST["prod_others"];
 
-    $checkProdSql = "SELECT * FROM product WHERE UPPER(prod_name) = '".strtoupper($pname)."'";
+    $checkProdSql = "SELECT * FROM product WHERE UPPER(REPLACE(prod_name, ' ', '')) = '".strtoupper(str_replace(' ', '', $pname))."'";
     $checkProdResult = mysqli_query($connect, $checkProdSql);
     
     if (mysqli_num_rows($checkProdResult) != 0) {
@@ -178,7 +182,7 @@ if(isset($_POST["addProduct"])){
         $getProdRow = mysqli_fetch_assoc($getProdResult);
         $productId = $getProdRow['prod_id'];
 
-        $addProdSpecSql = "INSERT INTO product_specification (prod_spec_display, prod_spec_chip, prod_spec_back_cam, prod_spec_front_cam, prod_spec_battery, prod_spec_others, prod_id) VALUES ('$pspec_display', '$pspec_chip', '$pspec_back_cam', '$pspec_front_cam', '$pspec_battery', '$pspec_others', '$productId')";
+        $addProdSpecSql = "INSERT INTO product_specification (prod_spec_display, prod_spec_chipset, prod_spec_back_cam, prod_spec_front_cam, prod_spec_battery, prod_spec_others, prod_id) VALUES ('$pspec_display', '$pspec_chip', '$pspec_back_cam', '$pspec_front_cam', '$pspec_battery', '$pspec_others', '$productId')";
         $addProdSpecResult = mysqli_query($connect, $addProdSpecSql);
 
         echo "

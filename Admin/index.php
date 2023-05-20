@@ -87,7 +87,7 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Monthly Target
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Monthly Target - RM 100,000
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
@@ -180,10 +180,10 @@
                                             <i class="fas fa-circle text-warning"></i> Tablet
                                         </span>
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Watch
+                                            <i class="fas fa-circle text-success"></i> Audio
                                         </span>
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Audio
+                                            <i class="fas fa-circle text-primary"></i> Watch
                                         </span>
                                         <span class="mr-2">
                                             <i class="fas fa-circle text-secondary"></i> Accessories
@@ -213,6 +213,8 @@
                                                 <tr>
                                                     <th>No.</th>
                                                     <th>Name</th>
+                                                    <th>Capacity/Case Size</th>
+                                                    <th>Color</th>
                                                     <th>Brand</th>
                                                     <th>Category</th>
                                                     <th>Price</th>
@@ -221,19 +223,39 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>AirPods Pro 3rd Generation</td>
-                                                    <td>Apple</td>
-                                                    <td>Audio</td>
-                                                    <td>RM 1099.00</td>
-                                                    <td class="text-danger font-weight-bold">4</td>
-                                                    <td>
-                                                        <a class="btn btn-warning btn-sm" href="#">
-                                                            <i class="fas fa-plus"></i>&ensp;Restock
-                                                        </a>
-                                                    </td>
-                                                </tr>
+                                                <?php
+                                                $lessStockSql = "SELECT * FROM product 
+                                                                INNER JOIN product_detail ON product.prod_id = product_detail.prod_id
+                                                                INNER JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id
+                                                                INNER JOIN brand ON product.brand_id = brand.brand_id
+                                                                INNER JOIN category ON product.cat_id = category.cat_id
+                                                                WHERE product_color.prod_color_stock < 5 AND product.prod_status = 1
+                                                                ORDER BY product.prod_id ASC, product_detail.prod_detail_id ASC";
+                                                $lessStockResult = mysqli_query($connect, $lessStockSql);
+
+                                                $i = 0;
+                                                while ($lessStockRow = mysqli_fetch_array($lessStockResult)) {
+                                                    $i++;
+                                                ?>
+                                                    <tr>
+                                                        <td><?php echo $i; ?></td>
+                                                        <td><?php echo $lessStockRow['prod_name']; ?></td>
+                                                        <td><?php echo $lessStockRow['prod_detail_name']; ?></td>
+                                                        <td><?php echo $lessStockRow['prod_color_name']; ?></td>
+                                                        <td><?php echo $lessStockRow['brand_name']; ?></td>
+                                                        <td><?php echo $lessStockRow['cat_name']; ?></td>
+                                                        <td><?php echo "RM ".$lessStockRow['prod_detail_price']; ?></td>
+                                                        <td class="text-danger font-weight-bold"><?php echo $lessStockRow['prod_color_stock']; ?></td>
+                                                        <td>
+                                                            <a class="btn btn-warning btn-sm" target="_blank"
+                                                                href="all-product-color.php?productColorId=<?php echo $lessStockRow['prod_color_id']; ?>&productDetailId=<?php echo $lessStockRow['prod_detail_id']; ?>&productDetailName=<?php echo $lessStockRow['prod_detail_name']; ?>&productId=<?php echo $lessStockRow['prod_id']; ?>&productName=<?php echo $lessStockRow['prod_name']; ?>&categoryName=<?php echo $lessStockRow['cat_name']; ?>&productStatus=1">
+                                                                <i class="fas fa-plus"></i>&ensp;Restock
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                <?php
+                                                }
+                                                ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -270,6 +292,8 @@
     
     <!-- Plugins-->
     <?php include("plugins.php"); ?>
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-pie-demo.js"></script>
 </body>
 
 </html>
