@@ -1,8 +1,8 @@
 <header class="header header-intro-clearance header-3">
     <div class="header-top">
-        <div class="container" >
-            <div class="header-right" >
-                <ul class="top-menu" >
+        <div class="container">
+            <div class="header-right">
+                <ul class="top-menu">
                     <?php 
                     if (isset($_SESSION["customer_id"])) {
                         $cus_id = $_SESSION["customer_id"];
@@ -24,7 +24,7 @@
     <div class="header-middle">
         <div class="container">
             <div class="header-left">
-                <button class="mobile-menu-toggler" >
+                <button class="mobile-menu-toggler">
                     <span class="sr-only">Toggle mobile menu</span>
                     <i class="icon-bars"></i>
                 </button>
