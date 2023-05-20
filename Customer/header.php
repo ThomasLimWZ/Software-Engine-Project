@@ -30,7 +30,7 @@
                 </button>
                 
                 <a href="index.php" class="logo">
-                    <img src="assets/images/4-peoples-telco-high-resolution-logo-white-on-transparent-background.png" alt="4 People Telco Logo" width="10%">
+                    <img src="assets/images/demos/demo-3/logo.png" alt="Molla Logo" width="105" height="25">
                 </a>
             </div><!-- End .header-left -->
 
