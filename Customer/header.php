@@ -9,7 +9,9 @@
                         $result = mysqli_query($connect,"SELECT * FROM customer WHERE cus_id = '$cus_id'");
                         $row = mysqli_fetch_assoc($result);
 
-                        echo '<a class="h5" href="my-account.php">'.$row["cus_name"].'</a>';
+                        echo '
+                            <a class="h5 text-white" href="my-account.php"><img src="assets/images/profile.png" width="35px" height="35px">&nbsp;'.$row["cus_name"].'</a>
+                        ';
                     } else {                   
                         echo'<a class="h5" href="#signin-modal" data-toggle="modal">Sign in / Sign up</a>';
                     }

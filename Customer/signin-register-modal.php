@@ -18,15 +18,19 @@
                         </ul>
                         <div class="tab-content" id="tab-content-5">
                             <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
-                                <form action="#" method="POST" autocomplete="off">
+                                <form action="#" method="GET" autocomplete="off">
                                     <div class="form-group">
                                         <label for="singin-email">Email Address <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="singin-email" name="singin-email" required>
+                                        <input type="text" class="form-control" id="singin-email" name="singin-email"
+                                            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}$"
+                                            value="<?php echo isset($_GET['singin-email']) ? $_GET['singin-email'] : ''; ?>" required>
                                     </div><!-- End .form-group -->
 
                                     <div class="form-group">
                                         <label for="singin-password">Password <span class="text-danger">*</span></label>
-                                        <input type="password" class="form-control" id="singin-password" name="singin-password" required>
+                                        <input type="password" class="form-control" id="singin-password" name="singin-password"
+                                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[#?!@$%^&*-.,]).{8,}"
+                                            title="Must contain number, uppercase, special characters and lowercase letter, and at least 8 or more characters" required>
                                     </div><!-- End .form-group -->
 
                                     <div class="form-group">
@@ -37,7 +41,7 @@
                                     </div><!-- End .form-group -->
 
                                     <div class="form-footer">
-                                        <button type="submit" class="btn btn-outline-primary-2">
+                                        <button type="submit" class="btn btn-outline-primary-2" name="loginBtn">
                                             <span>LOG IN</span>
                                             <i class="icon-long-arrow-right"></i>
                                         </button>
@@ -56,19 +60,22 @@
                                 <form action="#" method="POST" autocomplete="off">
                                     <div class="form-group">
                                         <label for="register-name">Name <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="register-name" name="register-name" required>
+                                        <input type="text" class="form-control" id="register-name" name="register-name"
+                                            value="<?php echo isset($_POST['register-name']) ? $_POST['register-name'] : ''; ?>" required>
                                     </div><!-- End .form-group -->
 
                                     <div class="form-group">
                                         <label for="register-email">Email <span class="text-danger">*</span></label>
                                         <input type="email" class="form-control" id="register-email" name="register-email"
-                                            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}$" required>
+                                            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}$"
+                                            value="<?php echo isset($_POST['register-email']) ? $_POST['register-email'] : ''; ?>" required>
 										<span id="show-error-message" class="text-danger d-none">This email is already registered.</span>
                                     </div><!-- End .form-group -->
 
                                     <div class="form-group">
                                         <label for="register-phone">Phone <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="register-phone" name="register-phone" placeholder="01xxxxxxxx" min="10" max="11" required>
+                                        <input type="text" class="form-control" id="register-phone" name="register-phone" placeholder="01xxxxxxxx"
+                                            value="<?php echo isset($_POST['register-phone']) ? $_POST['register-phone'] : ''; ?>" min="10" max="11" required>
                                     </div><!-- End .form-group -->
 
                                     <div class="form-group">
@@ -182,6 +189,19 @@
             document.getElementById("modal-body").style.overflowY = "auto";
         }
     }
+
+    function clearLogin() {
+        document.getElementById("singin-email").value = "";
+        document.getElementById("singin-password").value = "";
+    }
+
+    let togglePassword = document.querySelector("#togglePassword");
+    let signinPassword = document.querySelector("#singin-password");
+
+    togglePassword.addEventListener("click", () => {
+        let type = signinPassword.getAttribute("type") === "password" && regConfirmPassword.getAttribute("type") === "password" ? "text" : "password";
+        signinPassword.setAttribute("type", type);
+    });
 
     let showPassword = document.querySelector("#show-password");
     let regPassword = document.querySelector("#register-password");
@@ -383,34 +403,95 @@
 </script>
 
 <?php
-if (isset($_POST['registerBtn'])) {
-    $name = $_POST['register-name'];
-    $email = $_POST['register-email'];
-    $phone = $_POST['register-phone'];
-    $pass = $_POST['register-password'];
-    $cpass = $_POST['register-confirm-password'];
+    if (isset($_GET["loginBtn"])) {
+        $loginEmail = $_GET["singin-email"];
+        $loginPass = $_GET["singin-password"];
 
-    $getCustomerQuery = mysqli_query($connect, "SELECT * FROM customer WHERE cus_email = '$email'");
-    $countCustomer = mysqli_num_rows($getCustomerQuery);
-    
-    if ($countCustomer == 0) {
-        $customerRow = mysqli_fetch_array($getCustomerQuery);
-        
-        if ($pass === $cpass) {
-            mysqli_query($connect,"INSERT INTO customer(cus_name, cus_email,cus_phone, cus_pass) VAlUES ('$name', '$email', '$phone','".strtoupper(md5($pass))."')");
+        $loginEmail = mysqli_real_escape_string($connect, $loginEmail);
+        $loginPass = mysqli_real_escape_string($connect, $loginPass);
 
-            $subject = "Register Successful!";
-			$message = "Dear ".$name.",\n\nWelcome to 4People Telco! Thank you for register as user in our system.\n\nTo sign in to your account, please visit http://localhost/4peopletelco/Customer/index.php. Thank you. \n\nRegards,\n4People Telco";
-			$headers = "From: 4People Telco" . "\r\n";
-            
-            if (mail($email, $subject, $message, $headers)) {
+        $cusResult = mysqli_query($connect, "SELECT * FROM customer WHERE cus_email = '$loginEmail'");
+
+        if (mysqli_num_rows($cusResult) == 1) {
+            $cusRow = mysqli_fetch_array($cusResult);
+
+            $_SESSION["customer_id"] = $cusRow["cus_id"];
+
+            if (strtoupper(md5($loginPass)) == $cusRow["cus_pass"]) {
                 echo "
                     <script>
                         Swal.fire(
-                            'Register successfull!',
-                            'Welcome to 4People Telco!',
+                            'Login Success!',
+                            '',
                             'success'
-                        ).then(() => $('#signin-modal').modal({backdrop: 'static'});
+                        ).then(() => window.location.href='index.php');
+                    </script>
+                ";
+            } else {
+                echo "
+                    <script>
+                        Swal.fire(
+                            'Login Failed!',
+                            'Email or Password is incorrect.',
+                            'warning'
+                        ).then(() => {
+                            $('#signin-modal').modal({backdrop: 'static'});
+                            $(document).ready(() => {
+                                $('#signin-tab').tab('show');
+                            });
+                        });;
+                    </script>
+                ";
+            }
+        }
+    }
+
+    if (isset($_POST['registerBtn'])) {
+        $name = $_POST['register-name'];
+        $email = $_POST['register-email'];
+        $phone = $_POST['register-phone'];
+        $pass = $_POST['register-password'];
+        $cpass = $_POST['register-confirm-password'];
+
+        $getCustomerQuery = mysqli_query($connect, "SELECT * FROM customer WHERE cus_email = '$email'");
+        $countCustomer = mysqli_num_rows($getCustomerQuery);
+        
+        if ($countCustomer == 0) {
+            $customerRow = mysqli_fetch_array($getCustomerQuery);
+            
+            if ($pass === $cpass) {
+                mysqli_query($connect,"INSERT INTO customer(cus_name, cus_email,cus_phone, cus_pass) VAlUES ('$name', '$email', '$phone','".strtoupper(md5($pass))."')");
+
+                $subject = "Register Successful!";
+                $message = "Dear ".$name.",\n\nWelcome to 4People Telco! Thank you for register as user in our system.\n\nTo sign in to your account, please visit http://localhost/4peopletelco/Customer/index.php. Thank you. \n\nRegards,\n4People Telco";
+                $headers = "From: 4People Telco" . "\r\n";
+                
+                if (mail($email, $subject, $message, $headers)) {
+                    echo "
+                        <script>
+                            Swal.fire(
+                                'Register successfull!',
+                                'Welcome to 4People Telco!',
+                                'success'
+                            ).then(() => window.location.href = 'index.php');
+                        </script>
+                    ";
+                }
+            } else {
+                echo "
+                    <script>
+                        Swal.fire(
+                            'Both password and confirm password not matched!',
+                            '',
+                            'warning'
+                        ).then(() => {
+                            $('#signin-modal').modal({backdrop: 'static'});
+                            $(document).ready(() => {
+                                $('#register-tab').tab('show');
+                                $('#register-email').addClass('is-invalid');
+                                $('#show-error-message').removeClass('d-none');
+                            });
+                        });
                     </script>
                 ";
             }
@@ -418,8 +499,8 @@ if (isset($_POST['registerBtn'])) {
             echo "
                 <script>
                     Swal.fire(
-                        'Both password and confirm password not matched!',
-                        '',
+                        'Something wrong here!',
+                        'This email is already registered in our record!',
                         'warning'
                     ).then(() => {
                         $('#signin-modal').modal({backdrop: 'static'});
@@ -428,27 +509,9 @@ if (isset($_POST['registerBtn'])) {
                             $('#register-email').addClass('is-invalid');
                             $('#show-error-message').removeClass('d-none');
                         });
-                    });
+                    });;
                 </script>
             ";
         }
-    } else {
-        echo "
-            <script>
-                Swal.fire(
-                    'Something wrong here!',
-                    'This email is already registered in our record!',
-                    'warning'
-                ).then(() => {
-                    $('#signin-modal').modal({backdrop: 'static'});
-                    $(document).ready(() => {
-                        $('#register-tab').tab('show');
-                        $('#register-email').addClass('is-invalid');
-                        $('#show-error-message').removeClass('d-none');
-                    });
-                });;
-            </script>
-        ";
     }
-}
 ?>
