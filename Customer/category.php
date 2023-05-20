@@ -18,7 +18,6 @@
                 <div class="container">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Smartphone & Accessories</li>
                     </ol>
                 </div><!-- End .container -->
@@ -30,7 +29,6 @@
         				<div class="toolbox-left">
                             <a href="#" class="sidebar-toggler"><i class="icon-bars"></i>Filters</a>
         				</div><!-- End .toolbox-left -->
-                        
                     </div>
 
                     <span id="show-product-list"></span>
@@ -39,8 +37,8 @@
                     <aside class="sidebar-shop sidebar-filter">
                         <div class="sidebar-filter-wrapper">
                             <div class="widget widget-clean">
-                                <label><i class="icon-close"></i>Filters</label>
-                                <a href="#" class="sidebar-filter-clear">Clean All</a>
+                                <label class="close-sidebar"><i class="icon-close"></i>Filters</label>
+                                <a href="#" class="sidebar-filter-clear" onclick="show_product('', 1)">Clean All</a>
                             </div><!-- End .widget -->
                             <div class="widget widget-collapsible">
                                 <h3 class="widget-title">
@@ -52,35 +50,33 @@
                                 <div class="collapse show" id="widget-1">
                                     <div class="widget-body">
                                         <div class="filter-items filter-items-count">
-                                        
-                                        <?php
-                                            
-                                            $i=0;
-                                            $data = mysqli_query($connect,"SELECT * FROM category ");
-                                            while($ctv = mysqli_fetch_assoc($data))
-                                            {
-                                                $category_id=$ctv['cat_id'];
-                                                $sql = "SELECT * FROM product join product_detail ON product.prod_id = product_detail.prod_id join product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";                                              
-                                                $sql .= " AND cat_id = '$category_id'";
-                                                
-                                                $numdata = mysqli_query($connect,$sql); 
-                                                echo '
-                                                <div class="filter-item">
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input category" id="cat-'.$i.'" name="category" value="'.$ctv['cat_id'].'">
-                                                        <label class="custom-control-label" for="cat-'.$i.'">'.$ctv['cat_name'].'</label>
-                                                    </div><!-- End .custom-checkbox -->
-                                                    <span class="item-count">'.mysqli_num_rows($numdata).'</span> 
-                                                </div><!-- End .filter-item -->';
-                                                $i++;
-                                            }
-                                        ?>
-                                           
+                                            <?php
+                                                $i = 0;
+                                                $data = mysqli_query($connect,"SELECT * FROM category");
+
+                                                while($ctv = mysqli_fetch_assoc($data))
+                                                {
+                                                    $category_id = $ctv['cat_id'];
+                                                    $sql = "SELECT * FROM product join product_detail ON product.prod_id = product_detail.prod_id join product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";                                              
+                                                    $sql .= " AND cat_id = '$category_id'";
+                                                    
+                                                    $numdata = mysqli_query($connect,$sql); 
+                                                    echo '
+                                                        <div class="filter-item">
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" class="custom-control-input category" id="cat-'.$i.'" name="category" value="'.$ctv['cat_id'].'">
+                                                                <label class="custom-control-label" for="cat-'.$i.'">'.$ctv['cat_name'].'</label>
+                                                            </div><!-- End .custom-checkbox -->
+                                                            <span class="item-count">'.mysqli_num_rows($numdata).'</span> 
+                                                        </div><!-- End .filter-item -->
+                                                    ';
+                                                    $i++;
+                                                }
+                                            ?>
                                         </div><!-- End .filter-items -->
                                     </div><!-- End .widget-body -->
                                 </div><!-- End .collapse -->
                             </div><!-- End .widget -->
-
 
                             <div class="widget widget-collapsible">
                                 <h3 class="widget-title">
@@ -92,23 +88,22 @@
                                 <div class="collapse show" id="widget-4">
                                     <div class="widget-body">
                                         <div class="filter-items ">
-                                        <?php
-                                            $i=0;
-                                            $data = mysqli_query($connect,"SELECT * FROM brand ");
-                                            while($bv = mysqli_fetch_assoc($data))
-                                            {
-                                               echo'
-                                                <div class="filter-item">
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input brand" id="brand-'.$i.'" name="brand" value="'.$bv['brand_id'].'">
-                                                        <label class="custom-control-label" for="brand-'.$i.'">'.$bv['brand_name'].'</label>
-                                                    </div><!-- End .custom-checkbox -->
-                                                    
-                                                </div><!-- End .filter-item -->';
-                                                $i++;
-                                            }
+                                            <?php
+                                                $i=0;
+                                                $data = mysqli_query($connect,"SELECT * FROM brand ");
+                                                while($bv = mysqli_fetch_assoc($data))
+                                                {
+                                                echo'
+                                                        <div class="filter-item">
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" class="custom-control-input brand" id="brand-'.$i.'" name="brand" value="'.$bv['brand_id'].'">
+                                                                <label class="custom-control-label" for="brand-'.$i.'">'.$bv['brand_name'].'</label>
+                                                            </div><!-- End .custom-checkbox -->
+                                                        </div><!-- End .filter-item -->
+                                                    ';
+                                                    $i++;
+                                                }
                                             ?>
-
                                         </div><!-- End .filter-items -->
                                     </div><!-- End .widget-body -->
                                 </div><!-- End .collapse -->
@@ -126,18 +121,17 @@
                                         <div class="filter-price">
                                             <div class="filter-price-text">
                                                 <?php
-                                                    $max_price =0;
-                                                    $data = mysqli_query($connect,"SELECT * FROM product_detail ");
+                                                    $max_price = 0;
+                                                    $data = mysqli_query($connect,"SELECT * FROM product_detail");
                                                     while($pd = mysqli_fetch_assoc($data))
                                                     {
                                                         if($max_price < $pd['prod_detail_price'])
-                                                        $max_price = $pd['prod_detail_price'];
+                                                            $max_price = $pd['prod_detail_price'];
                                                     }
 
-                                                    echo ' <input type="text" value="'.$max_price.'" id="max-price" hidden>'
+                                                    echo '<input type="text" value="'.$max_price.'" id="max-price" hidden>'
                                                 ?>
 
-                                                
                                                 Price Range:
                                                 <span id="filter-price-range"></span>
                                             </div><!-- End .filter-price-text -->

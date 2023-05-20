@@ -123,7 +123,7 @@ $(document).ready(function () {
 		e.preventDefault();
     });
 
-    $('.sidebar-filter-overlay').on('click', function (e) {
+    $('.sidebar-filter-overlay, .close-sidebar').on('click', function (e) {
 		$body.removeClass('sidebar-filter-active');
 		$sidebarToggler.removeClass('active');
 		e.preventDefault();
@@ -175,18 +175,18 @@ $(document).ready(function () {
 		if (priceSlider == null) return;
         var max_price = Math.floor(document.getElementById('max-price').value);
 		noUiSlider.create(priceSlider, {
-			start: [ 0, max_price ],
+			start: [ 0.00, max_price ],
 			connect: true,
 			step: 50,
 			margin: 100,
 			range: {
-				'min': 0,
+				'min': 0.00,
 				'max': max_price
 			},
 			tooltips: true,
 			format: wNumb({
-		        decimals: 0,
-		        prefix: 'RM'
+		        decimals: 2,
+		        prefix: 'RM '
 		    })
 		});
 
@@ -867,7 +867,7 @@ function callpage(page)
 }
 
 //call to show out product
-function show_product(result,pg)//pass the sql search value and page number
+function show_product(result,pg) //pass the sql search value and page number
 {                              
     let quary = result;
     let page = pg;

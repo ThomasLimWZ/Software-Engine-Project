@@ -14,15 +14,15 @@ if ($page == 1)
     $offset = 0;
 } 
     
-$exta = "SELECT * FROM product join product_detail ON product.prod_id = product_detail.prod_id join product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
+$exta = "SELECT * FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
 $exta .= $_POST['searchTerm'];
 $exta .= " LIMIT $view OFFSET $offset ";
-$query = mysqli_query($connect,$exta);
-$num =  mysqli_num_rows($query)+$offset;
+$query = mysqli_query($connect, $exta);
+$num =  mysqli_num_rows($query) + $offset;
 
-$exta = "SELECT * FROM product join product_detail ON product.prod_id = product_detail.prod_id join product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
+$exta = "SELECT * FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
 $exta .= $_POST['searchTerm'];
-$query2 = mysqli_query($connect,$exta);                                
+$query2 = mysqli_query($connect, $exta);                                
 $count = mysqli_num_rows($query2);
 
 $showup = '
@@ -44,7 +44,7 @@ if ($count != 0)
 {
     while ($showprod = mysqli_fetch_assoc($query)) {   
         //setting up stock label
-        if($showprod['prod_color_stock']==0)
+        if ($showprod['prod_color_stock'] == 0)
         $insert_out_of_stock = '<span class="product-label label-out">Out of stock</span>';
 
         //getting the product category name
@@ -131,12 +131,13 @@ if ($count != 0)
     
     $numpage = $count/$view;
     
-    if ($count%$view !=0)
+    if ($count%$view != 0)
     {
         $numpage+=1;
     }
     
-    if ($numpage <=7)
+    if ($numpage <= 7)
+    {
         for($i=1; $i<=$numpage; $i++)
         { 
             if ($page == $i)
@@ -144,6 +145,7 @@ if ($count != 0)
             else
                 $showup .= '<li class="page-item"><a class="page-link" onclick="callpage('.$i.')" href="#main">'.$i.'</a></li>';      
         }
+    }
     else
     {        
         $show_view_page = $page+1;
@@ -172,7 +174,7 @@ if ($count != 0)
     {
         $showup .= '
             <li class="page-item disabled">
-                <a class="page-link" href="#main" aria-label="Next" onclick="callpage('.($page+1).')">
+                <a class="page-link" href="#main" aria-label="Next" onclick="callpage('.($page + 1).')">
                     <span aria-hidden="true">&#62;</span>
                     <span class="sr-only">Next</span>
                 </a>
@@ -193,7 +195,7 @@ if ($count != 0)
     {
         $showup .= '
             <li class="page-item">
-                <a class="page-link" href="#main" onclick="callpage('.($page+1).')" aria-label="Next">
+                <a class="page-link" href="#main" onclick="callpage('.($page + 1).')" aria-label="Next">
                     <span aria-hidden="true">&#62;</span>
                     <span class="sr-only">Next</span>
                 </a>
