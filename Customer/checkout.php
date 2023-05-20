@@ -26,12 +26,6 @@
             <div class="page-content">
             	<div class="checkout">
 	                <div class="container">
-            			<div class="checkout-discount">
-            				<form action="#">
-        						<input type="text" class="form-control" required id="checkout-discount-input">
-            					<label for="checkout-discount-input" class="text-truncate">Have a coupon? <span>Click here to enter your code</span></label>
-            				</form>
-            			</div><!-- End .checkout-discount -->
             			<form action="#">
 		                	<div class="row">
 		                		<div class="col-lg-9">
@@ -113,16 +107,16 @@
 		                					<tbody>
 		                						<tr>
 		                							<td><a href="#">Beige knitted elastic runner shoes</a></td>
-		                							<td>$84.00</td>
+		                							<td>RM 84.00</td>
 		                						</tr>
 
 		                						<tr>
 		                							<td><a href="#">Blue utility pinafore denimdress</a></td>
-		                							<td>$76,00</td>
+		                							<td>RM 76.00</td>
 		                						</tr>
 		                						<tr class="summary-subtotal">
 		                							<td>Subtotal:</td>
-		                							<td>$160.00</td>
+		                							<td>RM 160.00</td>
 		                						</tr><!-- End .summary-subtotal -->
 		                						<tr>
 		                							<td>Shipping:</td>
@@ -130,7 +124,7 @@
 		                						</tr>
 		                						<tr class="summary-total">
 		                							<td>Total:</td>
-		                							<td>$160.00</td>
+		                							<td>RM 160.00</td>
 		                						</tr><!-- End .summary-total -->
 		                					</tbody>
 		                				</table><!-- End .table table-summary -->
@@ -140,81 +134,160 @@
 										        <div class="card-header" id="heading-1">
 										            <h2 class="card-title">
 										                <a role="button" data-toggle="collapse" href="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
-										                    Direct bank transfer
+														<img src="assets/images/payment-visa.jpg" alt="payments cards">
+														Visa
 										                </a>
 										            </h2>
 										        </div><!-- End .card-header -->
 										        <div id="collapse-1" class="collapse show" aria-labelledby="heading-1" data-parent="#accordion-payment">
-										            <div class="card-body">
-										                Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
-										            </div><!-- End .card-body -->
 										        </div><!-- End .collapse -->
 										    </div><!-- End .card -->
-
+		
 										    <div class="card">
 										        <div class="card-header" id="heading-2">
 										            <h2 class="card-title">
-										                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
-										                    Check payments
+										                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-2" aria-expanded="false" aria-controls="collapse-4">
+										                <img src="assets/images/payment-master.png" alt="payments cards">    
+														Master													
 										                </a>
 										            </h2>
 										        </div><!-- End .card-header -->
 										        <div id="collapse-2" class="collapse" aria-labelledby="heading-2" data-parent="#accordion-payment">
-										            <div class="card-body">
-										                Ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. 
-										            </div><!-- End .card-body -->
 										        </div><!-- End .collapse -->
 										    </div><!-- End .card -->
 
 										    <div class="card">
 										        <div class="card-header" id="heading-3">
 										            <h2 class="card-title">
-										                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-3" aria-expanded="false" aria-controls="collapse-3">
-										                    Cash on delivery
+										                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-3" aria-expanded="false" aria-controls="collapse-5">
+										                <img src="assets/images/payment-fpx.jpg" alt="payments cards">    
+														FPX
 										                </a>
 										            </h2>
 										        </div><!-- End .card-header -->
 										        <div id="collapse-3" class="collapse" aria-labelledby="heading-3" data-parent="#accordion-payment">
-										            <div class="card-body">Quisque volutpat mattis eros. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. 
-										            </div><!-- End .card-body -->
 										        </div><!-- End .collapse -->
 										    </div><!-- End .card -->
-
-										    <div class="card">
-										        <div class="card-header" id="heading-4">
-										            <h2 class="card-title">
-										                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-4" aria-expanded="false" aria-controls="collapse-4">
-										                    PayPal <small class="float-right paypal-link">What is PayPal?</small>
-										                </a>
-										            </h2>
-										        </div><!-- End .card-header -->
-										        <div id="collapse-4" class="collapse" aria-labelledby="heading-4" data-parent="#accordion-payment">
-										            <div class="card-body">
-										                Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Donec nec justo eget felis facilisis fermentum.
-										            </div><!-- End .card-body -->
-										        </div><!-- End .collapse -->
-										    </div><!-- End .card -->
-
-										    <div class="card">
-										        <div class="card-header" id="heading-5">
-										            <h2 class="card-title">
-										                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-5" aria-expanded="false" aria-controls="collapse-5">
-										                    Credit Card (Stripe)
-										                    <img src="assets/images/payments-summary.png" alt="payments cards">
-										                </a>
-										            </h2>
-										        </div><!-- End .card-header -->
-										        <div id="collapse-5" class="collapse" aria-labelledby="heading-5" data-parent="#accordion-payment">
-										            <div class="card-body"> Donec nec justo eget felis facilisis fermentum.Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Lorem ipsum dolor sit ame.
-										            </div><!-- End .card-body -->
-										        </div><!-- End .collapse -->
-										    </div><!-- End .card -->
+											
 										</div><!-- End .accordion -->
 
-		                				<button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
+		                				<button type="submit" class="btn btn-outline-primary-2 btn-order btn-block" data-toggle="modal" data-target="#staticBackdrop">
 		                					<span class="btn-text">Place Order</span>
 		                					<span class="btn-hover-text">Proceed to Checkout</span>
 		                				</button>
+										<!-- Modal -->
+										<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"> 
+											<div class="modal-dialog"> 
+												<div class="modal-content"> 
+													<div class="modal-body"> 
+														<div class="text-right"> 
+															<i class="fa fa-close close" data-dismiss="modal"></i> 
+														</div> 
+														<div class="tabs mt-5"> 
+															<ul class="nav nav-tabs" id="myTab" role="tablist"> 
+																<li class="nav-item" role="presentation"> 
+																	<a class="nav-link active" id="visa-tab" data-toggle="tab" href="#visa" role="tab" aria-controls="visa" aria-selected="true">
+																		<img src="assets/images/visa-modal.png" width="80"> 
+																	</a> 
+																</li> 
+																<li class="nav-item" role="presentation"> 
+																	<a class="nav-link middle" id="master-tab" data-toggle="tab" href="#master" role="tab" aria-controls="master" aria-selected="true">
+																		<img src="assets/images/master-modal.png" width="80"> 
+																	</a> 
+																</li> 
+																<li class="nav-item" role="presentation"> 
+																	<a class="nav-link" id="paypal-tab" data-toggle="tab" href="#paypal" role="tab" aria-controls="paypal" aria-selected="false"> 
+																		<img src="assets/images/payment-fpx.jpg" width="80"> 
+																	</a> 
+																</li> 
+															</ul> 
+															<div class="tab-content" id="myTabContent"> 
+																<div class="tab-pane fade show active" id="visa" role="tabpanel" aria-labelledby="visa-tab"> 
+																	<div class="mt-4 mx-4"> 
+																		<div class="text-center"> 
+																			<h5>Credit card</h5> 
+																		</div> 
+																		<div class="form mt-3"> 
+																			<div class="inputbox"> 
+																				<input type="text" name="name" class="form-control" required="required"> 
+																				<span>Cardholder Name</span>
+																			</div> 
+																			<div class="inputbox"> 
+																				<input type="text" name="name" min="1" max="999" class="form-control" required="required"> 
+																				<span>Card Number</span> <i class="fa fa-eye-slash" id="toggleCardNumber1"></i> 
+																			</div> 
+																			<div class="d-flex flex-row"> 
+																				<div class="inputbox"> 
+																					<input type="text" name="name" min="1" max="999" class="form-control" required="required"> 
+																					<span>Expiration Date</span> 
+																				</div> 
+																				<div class="inputbox">
+																					<input type="text" name="name" min="1" max="999" class="form-control" required="required"> 
+																					<span>CVV</span>
+																				</div> 
+																			</div> 
+																			<div class="px-5 pay">
+																				<button type="submit" class="btn btn-success btn-block">Pay</button> 
+																			</div> 
+																		</div> 
+																	</div> 
+																</div> 
+																<div class="tab-pane fade" id="master" role="tabpanel" aria-labelledby="master-tab"> 
+																	<div class="mt-4 mx-4"> 
+																		<div class="text-center"> 
+																			<h5>Master card</h5> 
+																		</div> 
+																		<div class="form mt-3"> 
+																			<div class="inputbox"> 
+																				<input type="text" name="name" class="form-control" required="required"> 
+																				<span>Cardholder Name</span>
+																			</div> 
+																			<div class="inputbox"> 
+																				<input type="text" name="name" min="1" max="999" class="form-control" required="required"> 
+																				<span>Card Number</span> <i class="fa fa-eye-slash" id="toggleCardNumber2"></i> 
+																			</div> 
+																			<div class="d-flex flex-row"> 
+																				<div class="inputbox"> 
+																					<input type="text" name="name" min="1" max="999" class="form-control" required="required"> 
+																					<span>Expiration Date</span> 
+																				</div> 
+																				<div class="inputbox">
+																					<input type="text" name="name" min="1" max="999" class="form-control" required="required"> 
+																					<span>CVV</span>
+																				</div> 
+																			</div> 
+																			<div class="px-5 pay">
+																				<button class="btn btn-success btn-block">Pay</button> 
+																			</div> 
+																		</div> 
+																	</div> 
+																</div> 
+																<div class="tab-pane fade" id="paypal" role="tabpanel" aria-labelledby="paypal-tab"> 
+																<div class="mt-4 mx-4">	
+																	<div class="text-center"> 
+																			<h5>Online Bank</h5> 
+																		</div>	
+																		<div class="px-5 mt-5"> 
+																			<div class="inputbox"> 
+																				<input type="text" name="name" class="form-control" required="required"> 
+																				<span>Username</span>
+																			</div> 
+																			<div class="inputbox"> 
+																				<input type="text" name="name" class="form-control" required="required"> 
+																				<span>Password</span><i class="fa fa-eye-slash" id="toggleBankPassword"></i>
+																			</div> 
+																			<div class="pay px-5">
+																				<button class="btn btn-primary btn-block">Pay</button> 
+																			</div> 
+																		</div> 
+																	</div> 
+																</div>
+															</div> 
+														</div> 
+													</div> 
+												</div> 
+											</div>
+										</div>
 		                			</div><!-- End .summary -->
 		                		</aside><!-- End .col-lg-3 -->
 		                	</div><!-- End .row -->
@@ -244,6 +317,11 @@
     <script src="assets/js/owl.carousel.min.js"></script>
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
+	<!-- Modal File-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
 </body>
 
 </html>
