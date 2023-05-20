@@ -7,9 +7,7 @@
     <title>4PEOPLE TELCO</title>
 
     <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/4-peoples-telco-website-favicon-color.png">
-    
-    <link rel="icon" type="image/png"  href="assets/images/icons/4-peoples-telco-website-favicon-color.png">
+    <link rel="icon" type="image/png"  href="assets/images/4-peoples-telco-website-favicon-color.png">
     <link rel="mask-icon" href="assets/images/icons/safari-pinned-tab.svg" color="#666666">
     <link rel="shortcut icon" href="assets/images/4-peoples-telco-website-favicon-color.png">
 

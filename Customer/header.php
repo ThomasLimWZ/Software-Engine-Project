@@ -157,7 +157,7 @@
                                 <?php
                                     $query = "SELECT * FROM brand WHERE brand_status='1'";
                                     $result = mysqli_query($connect, $query);
-                                    while($row = mysqli_fetch_assoc($result))
+                                    while ($row = mysqli_fetch_assoc($result))
                                     {
                                         echo '<li><a href="category/php?brand_id='.$row['brand_id'].'">'.$row['brand_name'].'</a></li>';
                                     }
@@ -182,48 +182,127 @@
                                     <div class="col-md-12">
                                         <div class="menu-col">
                                             <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="menu-title">Brand</div><!-- End .menu-title -->
-                                                    <ul>
-                                                    <?php
-                                                        $query = "SELECT * FROM brand WHERE brand_status='1'";
-                                                        $result = mysqli_query($connect, $query);
-                                                        while($row = mysqli_fetch_assoc($result))
-                                                        {
-                                                            echo '<li><a href="category/php?brand_id='.$row['brand_id'].'">'.$row['brand_name'].'</a></li>';
-                                                        }
-                                                    ?>                                                       
-                                                    </ul>                                                   
-                                                </div><!-- End .col-md-4 -->
+                                                <?php
+                                                    $cat = array();
+                                                    $catResult = mysqli_query($connect, "SELECT * FROM category");
 
-                                                <div class="col-md-4">
+                                                    while ($catRow = mysqli_fetch_assoc($catResult)){
+                                                        array_push($cat, $catRow['cat_id']);
+                                                    }
                                                     
-                                                    <div class="menu-title">Categories</div><!-- End .menu-title -->
-                                                    <ul>
-                                                    <?php
-                                                            $query = "SELECT * FROM category ";
-                                                            $result = mysqli_query($connect, $query);
-                                                            while($row = mysqli_fetch_assoc($result))
-                                                            {
-                                                                echo '<li><a href="category/php?cat_id='.$row['cat_id'].'">'.$row['cat_name'].'</a></li>';
-                                                            }
-                                                        ?>
-                                                    </ul>
-                                                </div><!-- End .col-md-4 -->
+                                                    $phoneQuery = "SELECT DISTINCT product.cat_id, product.brand_id, brand.brand_name FROM product 
+                                                                    INNER JOIN brand ON product.brand_id = brand.brand_id
+                                                                    WHERE product.cat_id = ".$cat[0]." AND brand.brand_status = 1 AND product.prod_status = 1";
+                                                    $phone = mysqli_query($connect, $phoneQuery);
+                                                    $phoneCount = mysqli_num_rows($phone);
 
+                                                    $tabletQuery = "SELECT DISTINCT product.cat_id, product.brand_id, brand.brand_name FROM product 
+                                                                    INNER JOIN brand ON product.brand_id = brand.brand_id
+                                                                    WHERE product.cat_id = ".$cat[1]." AND brand.brand_status = 1 AND product.prod_status = 1";
+                                                    $tablet = mysqli_query($connect, $tabletQuery);
+                                                    $tabletCount = mysqli_num_rows($tablet);
+
+                                                    $audioQuery = "SELECT DISTINCT product.cat_id, product.brand_id, brand.brand_name FROM product 
+                                                                    INNER JOIN brand ON product.brand_id = brand.brand_id
+                                                                    WHERE product.cat_id = ".$cat[2]." AND brand.brand_status = 1 AND product.prod_status = 1";
+                                                    $audio = mysqli_query($connect, $audioQuery);
+                                                    $audiotCount = mysqli_num_rows($audio);
+
+                                                    $watchQuery = "SELECT DISTINCT product.cat_id, product.brand_id, brand.brand_name FROM product 
+                                                                    INNER JOIN brand ON product.brand_id = brand.brand_id
+                                                                    WHERE product.cat_id = ".$cat[3]." AND brand.brand_status = 1 AND product.prod_status = 1";
+                                                    $watch = mysqli_query($connect, $watchQuery);
+                                                    $watchtCount = mysqli_num_rows($watch);
+
+                                                    $accessoriesQuery = "SELECT DISTINCT product.cat_id, product.brand_id, brand.brand_name FROM product 
+                                                                    INNER JOIN brand ON product.brand_id = brand.brand_id
+                                                                    WHERE product.cat_id = ".$cat[4]." AND brand.brand_status = 1 AND product.prod_status = 1";
+                                                    $accessories = mysqli_query($connect, $accessoriesQuery);
+                                                    $accessoriesCount = mysqli_num_rows($accessories);
+                                                ?>
                                                 <div class="col-md-4">
-                                                    <div class="menu-title">Shop Pages</div><!-- End .menu-title -->
-                                                    <ul>
-                                                        <li><a href="cart.php">Cart</a></li>
-                                                        <li><a href="checkout.php">Checkout</a></li>
-                                                        <li><a href="my-account.php">My Account</a></li>
-                                                        <?php 
-                                                        if(isset($_SESSION["customer_id"])){
-                                                        echo '<li><a href="signout.php">Log out</a></li>';
-                                                        }
+                                                    <?php
+                                                        if ($phoneCount != 0) {
                                                         ?>
-                                                    </ul>
-                                                    
+                                                            <div class="menu-title"><a href="category.php?catId=<?php echo $cat[0]; ?>">Phone</a></div><!-- End .menu-title -->
+                                                            <ul>
+                                                                <?php
+                                                                while ($phoneRow = mysqli_fetch_assoc($phone)) {
+                                                                    echo "
+                                                                        <li><a href='category/php?catId=".$phoneRow['cat_id']."&brandId=".$phoneRow['brand_id']."'>".$phoneRow['brand_name']."</a></li>
+                                                                    ";
+                                                                }
+                                                                ?>
+                                                            </ul>
+                                                        <?php
+                                                        }
+
+                                                        if ($tabletCount != 0) {
+                                                        ?>
+                                                            <div class="menu-title"><a href="category.php?catId=<?php echo $cat[1]; ?>">Tablet</a></div><!-- End .menu-title -->
+                                                            <ul>
+                                                                <?php
+                                                                while ($tabletRow = mysqli_fetch_assoc($tablet)) {
+                                                                    echo "
+                                                                        <li><a href='category/php?catId=".$tabletRow['cat_id']."&brandId=".$tabletRow['brand_id']."'>".$tabletRow['brand_name']."</a></li>
+                                                                    ";
+                                                                }
+                                                                ?>
+                                                            </ul>
+                                                        <?php
+                                                        }
+                                                    ?>
+                                                </div><!-- End .col-md-4 -->
+                                                <div class="col-md-4">
+                                                    <?php
+                                                        if ($audiotCount != 0) {
+                                                        ?>
+                                                            <div class="menu-title"><a href="category.php?catId=<?php echo $cat[2]; ?>">Audio</a></div><!-- End .menu-title -->
+                                                            <ul>
+                                                                <?php
+                                                                while ($audioRow = mysqli_fetch_assoc($audio)) {
+                                                                    echo "
+                                                                        <li><a href='category/php?catId=".$audioRow['cat_id']."&brandId=".$audioRow['brand_id']."'>".$audioRow['brand_name']."</a></li>
+                                                                    ";
+                                                                }
+                                                                ?>
+                                                            </ul>
+                                                        <?php
+                                                        }
+
+                                                        if ($watchtCount != 0) {
+                                                        ?>
+                                                            <div class="menu-title"><a href="category.php?catId=<?php echo $cat[3]; ?>">Audio</a></div><!-- End .menu-title -->
+                                                            <ul>
+                                                                <?php
+                                                                while ($watchRow = mysqli_fetch_assoc($watch)) {
+                                                                    echo "
+                                                                        <li><a href='category/php?catId=".$watchRow['cat_id']."&brandId=".$watchRow['brand_id']."'>".$watchRow['brand_name']."</a></li>
+                                                                    ";
+                                                                }
+                                                                ?>
+                                                            </ul>
+                                                        <?php
+                                                        }
+                                                    ?>
+                                                </div><!-- End .col-md-4 -->
+                                                <div class="col-md-4">
+                                                    <?php
+                                                        if ($accessoriesCount != 0) {
+                                                        ?>
+                                                            <div class="menu-title"><a href="category.php?catId=<?php echo $cat[4]; ?>">Accessories</a></div><!-- End .menu-title -->
+                                                            <ul>
+                                                                <?php
+                                                                while ($accessoriesRow = mysqli_fetch_assoc($accessories)) {
+                                                                    echo "
+                                                                        <li><a href='category/php?catId=".$accessoriesRow['cat_id']."&brandId=".$accessoriesRow['brand_id']."'>".$accessoriesRow['brand_name']."</a></li>
+                                                                    ";
+                                                                }
+                                                                ?>
+                                                            </ul>
+                                                        <?php
+                                                        }
+                                                    ?>
                                                 </div><!-- End .col-md-4 -->
                                             </div><!-- End .row -->
                                         </div><!-- End .menu-col -->
