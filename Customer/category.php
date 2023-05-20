@@ -116,7 +116,7 @@
                                     </a>
                                 </h3><!-- End .widget-title -->
 
-                                <div class="collapse show" id="widget-5">
+                                <div class="collapse show" id="widget-5" style="width: 250px;">
                                     <div class="widget-body">
                                         <div class="filter-price">
                                             <div class="filter-price-text">
