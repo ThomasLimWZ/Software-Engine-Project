@@ -19,3 +19,5 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button{-webkit-appea
 .inputbox input:focus~span{transform: translateX(-0px) translateY(-15px);font-size: 12px}
 .inputbox input:valid~span{transform: translateX(-0px) translateY(-15px);font-size: 12px}
 .pay button{height: 47px;border-radius: 37px}
+.overflow-scroll{overflow-x: scroll}
+.table-responsve{text-align: center}
