@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include('head.php') ;
-
-
-
-?>
+<?php include('head.php') ; ?>
 
 <body>
     <div class="page-wrapper">
@@ -3498,7 +3494,8 @@
     <div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
     <?php include('mobile-menu-container.php') ?>
 
-    
+    <!-- Sign in / Register Modal -->
+    <?php include('signin-register-modal.php'); ?>
 
     <!-- Plugins JS File -->
     <script src="assets/js/jquery.min.js"></script>
@@ -3514,12 +3511,6 @@
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
     <script src="assets/js/demos/demo-3.js"></script>
-
-    <!-- Sign in / Register Modal -->
-    <?php include('signin-register-modal.php'); 
-
-        
-    ?>
     
 </body>
 

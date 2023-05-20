@@ -1,18 +1,16 @@
 <header class="header header-intro-clearance header-3">
-    <div class="header-top" style="background-color: #F7E381;padding-top:1%;">
+    <div class="header-top">
         <div class="container" >
             <div class="header-right" >
                 <ul class="top-menu" >
                     <?php 
-                    if(isset($_SESSION["customer_id"])){
+                    if (isset($_SESSION["customer_id"])) {
                         $cus_id = $_SESSION["customer_id"];
                         $result = mysqli_query($connect,"SELECT * FROM customer WHERE cus_id = '$cus_id'");
                         $row = mysqli_fetch_assoc($result);
 
                         echo '<a class="h5" href="my-account.php">'.$row["cus_name"].'</a>';
-                        }
-                    else
-                    {                   
+                    } else {                   
                         echo'<a class="h5" href="#signin-modal" data-toggle="modal">Sign in / Sign up</a>';
                     }
                     
@@ -23,16 +21,16 @@
         </div><!-- End .container -->
     </div><!-- End .header-top -->
 
-    <div class="header-middle" style="background-color:#E3C327;">
-        <div class="container" >
+    <div class="header-middle">
+        <div class="container">
             <div class="header-left">
                 <button class="mobile-menu-toggler" >
                     <span class="sr-only">Toggle mobile menu</span>
                     <i class="icon-bars"></i>
                 </button>
                 
-                <a href="index.php" class="logo" >
-                    <img src="assets/images/4-peoples-telco-high-resolution-logo-white-on-transparent-background.png" alt="4 People Telco Logo" width="11%" height="">
+                <a href="index.php" class="logo">
+                    <img src="assets/images/4-peoples-telco-high-resolution-logo-white-on-transparent-background.png" alt="4 People Telco Logo" width="10%">
                 </a>
             </div><!-- End .header-left -->
 
