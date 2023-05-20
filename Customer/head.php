@@ -35,6 +35,6 @@
 
 <style>
 	.swal2-popup {
-	font-size: 1.6rem !important;
+	    font-size: 1.6rem !important;
 	}
 </style>
