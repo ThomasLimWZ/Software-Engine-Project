@@ -45,7 +45,16 @@
                                     if ($categoryName == "Phone" || $categoryName == "Tablet" || $categoryName == "Watch") {
                                     ?>
                                         <div class="col-sm-7 text-right">
-                                            <button class="btn btn-info" data-toggle="modal" data-target="#bulkAddColors"><i class="fa fa-upload"></i>&ensp;Bulk Add Colors</button>
+                                            <?php
+                                            $checkProdDetailSql = "SELECT * FROM product_detail INNER JOIN product ON product_detail.prod_id = product.prod_id WHERE product_detail.prod_id = $productId";
+                                            $countProdDetail = mysqli_num_rows(mysqli_query($connect, $checkProdDetailSql));
+
+                                            if ($countProdDetail > 0) {
+                                            ?>
+                                                <button class="btn btn-info" data-toggle="modal" data-target="#bulkAddColors"><i class="fa fa-upload"></i>&ensp;Bulk Add Colors</button>
+                                            <?php
+                                            }
+                                            ?>
                                             <button class="btn btn-primary" data-toggle="modal" data-target="#addProductDetail"><i class="fa fa-plus-circle"></i>&ensp;Add Product Detail</button>
                                         </div>
                                     <?php
@@ -102,7 +111,7 @@
                                                                 array_push($sumStock, $rowColor['prod_color_stock']);
                                                             }
 
-                                                            if (array_sum($sumStock) <= 5) {
+                                                            if (array_sum($sumStock) < 5) {
                                                                 echo "<span class='font-weight-bold text-danger'>Insufficient (".array_sum($sumStock).")</span>";
                                                             } else {
                                                                 echo "<span class='font-weight-bold text-success'>Sufficient (".array_sum($sumStock).")</span>";
