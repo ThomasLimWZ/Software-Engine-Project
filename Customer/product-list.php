@@ -16,12 +16,14 @@ if ($page == 1)
     
 $exta = "SELECT * FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
 $exta .= $_POST['searchTerm'];
+$exta .= " GROUP BY product.prod_id DESC ";
 $exta .= " LIMIT $view OFFSET $offset ";
 $query = mysqli_query($connect, $exta);
 $num =  mysqli_num_rows($query) + $offset;
 
 $exta = "SELECT * FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
 $exta .= $_POST['searchTerm'];
+$exta .= " GROUP BY product.prod_id DESC ";
 $query2 = mysqli_query($connect, $exta);                                
 $count = mysqli_num_rows($query2);
 
@@ -59,6 +61,14 @@ if ($count != 0)
         $brand_data = mysqli_fetch_assoc($data);
         $brand_name = $brand_data['brand_name'];
 
+        //price range
+        $price_range = "SELECT MIN(prod_detail_price)AS 'min_price',MAX(prod_detail_price)AS 'max_price' FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
+        $price_range .= " AND product.prod_id = ' ";
+        $price_range .= ($showprod['prod_id']);
+        $price_range .= "'";
+        $query3 = mysqli_query($connect, $price_range); 
+        $max_min_price = mysqli_fetch_assoc($query3);
+
         //product box code
         $showup .= '
             <div class="col-6 col-md-4 col-lg-4 col-xl-3">
@@ -76,7 +86,7 @@ if ($count != 0)
                         </div><!-- End .product-cat -->
                         <h3 class="product-title"><a href="product.php?prod_name='.$showprod['prod_id'].'">'.$showprod['prod_name']."".'</a></h3><!-- End .product-title -->
                         <div class="product-price">
-                        RM '.$showprod['prod_detail_price'].'
+                        RM '.$max_min_price['min_price'].' - RM '.$max_min_price['max_price'].'
                         </div><!-- End .product-price -->           
                     </div><!-- End .product-body -->
                 </div><!-- End .product -->

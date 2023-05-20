@@ -57,7 +57,7 @@
                                                 while($ctv = mysqli_fetch_assoc($data))
                                                 {
                                                     $category_id = $ctv['cat_id'];
-                                                    $sql = "SELECT * FROM product join product_detail ON product.prod_id = product_detail.prod_id join product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";                                              
+                                                    $sql = "SELECT * FROM product WHERE prod_status = '1'";                                              
                                                     $sql .= " AND cat_id = '$category_id'";
                                                     
                                                     $numdata = mysqli_query($connect,$sql); 
