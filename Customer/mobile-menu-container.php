@@ -1,4 +1,3 @@
-
 <div class="mobile-menu-container">
     <div class="mobile-menu-wrapper">
         <span class="mobile-menu-close"><i class="icon-close"></i></span>
@@ -29,20 +28,22 @@
                             <a href="category.php">Brands</a>
                             <ul>
                             <?php
-                                $query = "SELECT * FROM brand WHERE brand_status='1'";
+                                $query = "SELECT * FROM brand WHERE brand_status = 1";
                                 $result = mysqli_query($connect, $query);
-                                while($row = mysqli_fetch_assoc($result))
-                                {
-                                    echo '<li><a href="category/php?brand_id='.$row['brand_id'].'">'.$row['brand_name'].'</a></li>';
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo '<li><a href="category.php?brandId='.$row['brand_id'].'">'.$row['brand_name'].'</a></li>';
                                 }
                             ?>  
                             </ul>
                         </li>
-                        <li><a href="my-account.php">My Account</a></li>
-                        <li><a href="cart.php">Cart</a></li>                       
+                                             
                         <?php 
-                            if(isset($_SESSION["customer_id"])){
-                            echo '<li><a href="signout.php">Log out</a></li>';
+                            if (isset($_SESSION["customer_id"])) {
+                        ?>
+                                <li><a href="my-account.php">My Account</a></li>
+                                <li><a href="cart.php">Cart</a></li>
+                                <li><a href="signout.php">Log out</a></li>
+                        <?php
                             }
                         ?>
                     </ul>
@@ -54,9 +55,8 @@
                     <?php
                         $query = "SELECT * FROM category ";
                         $result = mysqli_query($connect, $query);
-                        while($row = mysqli_fetch_assoc($result))
-                        {
-                            echo '<li><a href="category/php?cat_id='.$row['cat_id'].'">'.$row['cat_name'].'</a></li>';
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo '<li><a href="category.php?catId='.$row['cat_id'].'">'.$row['cat_name'].'</a></li>';
                         }
                     ?>
                     </ul><!-- End .mobile-cats-menu -->

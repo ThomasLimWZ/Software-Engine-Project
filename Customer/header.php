@@ -159,7 +159,7 @@
                                     $result = mysqli_query($connect, $query);
                                     while ($row = mysqli_fetch_assoc($result))
                                     {
-                                        echo '<li><a href="category/php?brand_id='.$row['brand_id'].'">'.$row['brand_name'].'</a></li>';
+                                        echo '<li><a href="category.php?brand_id='.$row['brand_id'].'">'.$row['brand_name'].'</a></li>';
                                     }
                                 ?>
                             </ul><!-- End .menu-vertical -->
@@ -229,7 +229,7 @@
                                                                 <?php
                                                                 while ($phoneRow = mysqli_fetch_assoc($phone)) {
                                                                     echo "
-                                                                        <li><a href='category/php?catId=".$phoneRow['cat_id']."&brandId=".$phoneRow['brand_id']."'>".$phoneRow['brand_name']."</a></li>
+                                                                        <li><a href='category.php?catId=".$phoneRow['cat_id']."&brandId=".$phoneRow['brand_id']."'>".$phoneRow['brand_name']."</a></li>
                                                                     ";
                                                                 }
                                                                 ?>
@@ -262,7 +262,7 @@
                                                                 <?php
                                                                 while ($audioRow = mysqli_fetch_assoc($audio)) {
                                                                     echo "
-                                                                        <li><a href='category/php?catId=".$audioRow['cat_id']."&brandId=".$audioRow['brand_id']."'>".$audioRow['brand_name']."</a></li>
+                                                                        <li><a href='category.php?catId=".$audioRow['cat_id']."&brandId=".$audioRow['brand_id']."'>".$audioRow['brand_name']."</a></li>
                                                                     ";
                                                                 }
                                                                 ?>
@@ -277,7 +277,7 @@
                                                                 <?php
                                                                 while ($watchRow = mysqli_fetch_assoc($watch)) {
                                                                     echo "
-                                                                        <li><a href='category/php?catId=".$watchRow['cat_id']."&brandId=".$watchRow['brand_id']."'>".$watchRow['brand_name']."</a></li>
+                                                                        <li><a href='category.php?catId=".$watchRow['cat_id']."&brandId=".$watchRow['brand_id']."'>".$watchRow['brand_name']."</a></li>
                                                                     ";
                                                                 }
                                                                 ?>
@@ -295,7 +295,7 @@
                                                                 <?php
                                                                 while ($accessoriesRow = mysqli_fetch_assoc($accessories)) {
                                                                     echo "
-                                                                        <li><a href='category/php?catId=".$accessoriesRow['cat_id']."&brandId=".$accessoriesRow['brand_id']."'>".$accessoriesRow['brand_name']."</a></li>
+                                                                        <li><a href='category.php?catId=".$accessoriesRow['cat_id']."&brandId=".$accessoriesRow['brand_id']."'>".$accessoriesRow['brand_name']."</a></li>
                                                                     ";
                                                                 }
                                                                 ?>
