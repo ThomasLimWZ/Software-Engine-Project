@@ -14,7 +14,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="col-form-label">Admin ID</label> <span class="text-danger">*</span>
-                                    <input type="text" class="form-control" name="adm_id" id="admId" value="<?php echo isset($_POST["adm_id"]) ? $_POST["adm_id"] : ''; ?>">
+                                    <input type="text" class="form-control <?php echo isset($_POST["adm_id"]) ? 'is-invalid' : ''; ?>" name="adm_id" id="admId" oninput="this.value = this.value.toUpperCase()" value="<?php echo isset($_POST["adm_id"]) ? $_POST["adm_id"] : ''; ?>">
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -95,7 +95,7 @@ function resetAddAdminForm() {
 </script>
 
 <?php
-if(isset($_POST["addAdmin"])){
+if(isset($_POST["addAdmin"])) {
     $admId = $_POST["adm_id"];
 	$name = $_POST["adm_name"];
 	$email = $_POST["adm_email"];

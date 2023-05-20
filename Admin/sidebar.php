@@ -96,14 +96,6 @@
         </a>
     </li>
 
-    <!-- Nav Item - Sales -->
-    <li class="nav-item">
-        <a class="nav-link" href="#">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Sales</span>
-        </a>
-    </li>
-
     <!-- Divider -->
     <hr class="sidebar-divider">
 

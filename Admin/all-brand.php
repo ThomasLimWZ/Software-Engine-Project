@@ -33,10 +33,10 @@
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
                                 <div class="row">
-                                    <div class="col-sm-6 my-auto">
+                                    <div class="col-sm-5 my-auto">
                                         <h5 class="m-0 font-weight-bold text-primary">Brands</h5>
                                     </div>
-                                    <div class="col-sm-6 text-right">
+                                    <div class="col-sm-7 text-right">
                                         <button class="btn btn-primary" data-toggle="modal" data-target="#addBrand"><i class="fa fa-plus-circle"></i>&ensp;Add Brand</button>
                                     </div>
                                 </div>
@@ -69,7 +69,7 @@
                                                             <img src="../Brand/<?php echo $row['brand_logo']; ?>" height="50px" style="object-fit:contain;">
                                                         </td>
                                                         <td class="align-middle">
-                                                            <button class="btn btn-success" data-toggle="modal" data-target="#editBrand<?php echo $row['brand_id']; ?>" onclick="loadBrandLogoFile('<?php echo $row['brand_logo']; ?>')">
+                                                            <button class="btn btn-success" data-toggle="modal" data-target="#editBrand<?php echo $row['brand_id']; ?>">
                                                                 <i class="fa fa-edit"></i>
                                                             </button>
                                                         </td>
