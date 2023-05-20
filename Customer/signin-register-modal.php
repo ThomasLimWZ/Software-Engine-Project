@@ -41,7 +41,7 @@
                                             <input type="checkbox" class="custom-control-input" id="signin-remember">
                                         </div><!-- End .custom-checkbox -->
 
-                                        <a href="#" class="forgot-link">Forgot Your Password?</a>
+                                        <a href="forgot-password.php" class="forgot-link">Forgot Your Password?</a>
                                     </div><!-- End .form-footer -->
                                 </form>
                             </div><!-- .End .tab-pane -->
@@ -291,25 +291,7 @@
     }
     }
     //end extra validation 
-
-    function checkPass(){
-        var pass = document.getElementById('reg_pswd');
-        var cfpass = document.getElementById('reg_cfpswd');
-
-        if(pass.value == cfpass.value){
-            document.getElementById('regbtn').disabled=false;
-            document.getElementById("reg_cfpswd").style.border = "2px solid green";
-        document.getElementById('checkPass').innerHTML="";
-        }
-        else{
-            document.getElementById('regbtn').disabled=true;
-            document.getElementById("reg_cfpswd").style.border = "2px solid red";
-        document.getElementById('checkPass').innerHTML="•	Password not matched.";
-        }
-    }
-
-    
-    
+   
 </script>
 
 <?php
@@ -459,4 +441,36 @@ if(isset($_POST['login-btn'])){
         } 
     }
 }
+
+
+if(isset($_GET['forget_pass']))
+{
+     ?>
+        <script>
+        
+            Swal.fire({
+                title:'Forget Password',
+                html: `Please enter email address <br> <input type="email" id="reset_pass_email" class="swal2-input" placeholder="Email Address" >`,
+                
+                confirmButtonText: 'Next',
+                focusConfirm: false,
+                preConfirm: () => {
+                    const reset_pass_email = Swal.getPopup().querySelector('#reset_pass_email').value
+                    if (!reset_pass_email ) {
+                    Swal.showValidationMessage(`Please enter email address`)
+                    }
+                    return { login: reset_pass_email}
+                }}
+            )
+            
+        </script>
+    <?php
+
+    
+}
+
 ?>
+
+
+
+

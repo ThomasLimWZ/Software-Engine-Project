@@ -40,7 +40,11 @@
                         </li>
                         <li><a href="my-account.php">My Account</a></li>
                         <li><a href="cart.php">Cart</a></li>                       
-                        <li><a href="logout.php">Log out</a></li>
+                        <?php 
+                            if(isset($_SESSION["customer_id"])){
+                            echo '<li><a href="signout.php">Log out</a></li>';
+                            }
+                        ?>
                     </ul>
                 </nav><!-- End .mobile-nav -->
             </div><!-- .End .tab-pane -->
