@@ -79,6 +79,33 @@
                                             </a>
                                         </div><!-- End .intro-content -->
                                     </div><!-- End .intro-slide -->
+
+                                    <div class="intro-slide">
+                                        <figure class="slide-image">
+                                            <picture>
+                                                <div class="video-banner-box">
+                                                    <div class="row align-items-center my-4">
+                                                        <div class="col-md-6 mb-3 mb-md-0">
+                                                            <div class="video-box-content">
+                                                                <h3 class="video-banner-title h1"><span class="text-primary">New Video</span><strong>iPhone 14 Pro Max</strong></h3><!-- End .video-banner-title -->
+                                                                <p>Designed to make a difference.</p>
+                                                                <a href="#" class="btn btn-primary btn-round"><span>Click Here</span><i class="icon-long-arrow-right"></i></a>
+                                                            </div><!-- End .video-box-content -->
+                                                        </div><!-- End .col-md-6 -->
+                                                        <div class="col-md-6">
+                                                            <div class="video-poster">
+                                                                <img src="assets/images/video/poster.png" alt="poster" style="height: 400px; object-fit:contain;">
+
+                                                                <div class="video-poster-content">
+                                                                    <a href="https://www.youtube.com/watch?v=FT3ODSg1GFE" class="btn-video btn-iframe"><i class="icon-play"></i></a>
+                                                                </div><!-- End .video-poster-content -->	
+                                                            </div><!-- End .video-poster -->
+                                                        </div><!-- End .col-md-6 -->
+                                                    </div><!-- End .row -->
+                                                </div><!-- End .video-banner-box -->
+                                            </picture>
+                                        </figure><!-- End .slide-image -->
+                                    </div><!-- End .intro-slide -->
                                 </div><!-- End .intro-slider owl-carousel owl-simple -->
                                 
                                 <span class="slider-loader"></span><!-- End .slider-loader -->
