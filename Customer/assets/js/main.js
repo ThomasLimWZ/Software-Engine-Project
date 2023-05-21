@@ -1,4 +1,8 @@
 // Main Js File
+var cat_value = "";
+var brand_value = "";
+var price_value = "";
+
 $(document).ready(function () {
     'use strict';
 
@@ -19,7 +23,7 @@ $(document).ready(function () {
 	});
 
 	$body.on('click', function (e) {
-		if ( $searchWrapper.hasClass('show') ) {
+		if ($searchWrapper.hasClass('show')) {
 			$searchWrapper.removeClass('show');
 			$searchToggle.removeClass('active');
 			$body.removeClass('is-search-active');
@@ -34,21 +38,21 @@ $(document).ready(function () {
     var catDropdown = $('.category-dropdown'),
         catInitVal = catDropdown.data('visible');
         
-	if ( $('.sticky-header').length && $(window).width() >= 992 ) {
+	if ($('.sticky-header').length && $(window).width() >= 992) {
 		var sticky = new Waypoint.Sticky({
 			element: $('.sticky-header')[0],
 			stuckClass: 'fixed',
 			offset: -300,
             handler: function ( direction ) {
                 // Show category dropdown
-                if ( catInitVal &&  direction == 'up') {
+                if (catInitVal &&  direction == 'up') {
                     catDropdown.addClass('show').find('.dropdown-menu').addClass('show');
                     catDropdown.find('.dropdown-toggle').attr('aria-expanded', 'true');
                     return false;
                 }
 
                 // Hide category dropdown on fixed header
-                if ( catDropdown.hasClass('show') ) {
+                if (catDropdown.hasClass('show')) {
                     catDropdown.removeClass('show').find('.dropdown-menu').removeClass('show');
                     catDropdown.find('.dropdown-toggle').attr('aria-expanded', 'false');
                 } 
@@ -57,7 +61,7 @@ $(document).ready(function () {
 	}
 
     // Menu init with superfish plugin
-    if ( $.fn.superfish ) {
+    if ($.fn.superfish) {
         $('.menu, .menu-vertical').superfish({
             popUpSelector: 'ul, .megamenu',
             hoverClass: 'show',
@@ -119,7 +123,7 @@ $(document).ready(function () {
 		e.preventDefault();
     });
 
-    $('.sidebar-filter-overlay').on('click', function (e) {
+    $('.sidebar-filter-overlay, .close-sidebar').on('click', function (e) {
 		$body.removeClass('sidebar-filter-active');
 		$sidebarToggler.removeClass('active');
 		e.preventDefault();
@@ -128,12 +132,14 @@ $(document).ready(function () {
     // Clear All checkbox/remove filters in sidebar filter
     $('.sidebar-filter-clear').on('click', function (e) {
     	$('.sidebar-shop').find('input').prop('checked', false);
-
     	e.preventDefault();
+        cat_value ="";
+        brand_value ="";
+        price_value ="";
     });
 
     // Popup - Iframe Video - Map etc.
-    if ( $.fn.magnificPopup ) {
+    if ($.fn.magnificPopup) {
         $('.btn-iframe').magnificPopup({
             type: 'iframe',
             removalDelay: 600,
@@ -144,7 +150,7 @@ $(document).ready(function () {
     }
 
     // Product hover
-    if ( $.fn.hoverIntent ) {
+    if ($.fn.hoverIntent) {
         $('.product-3').hoverIntent(function () {
             var $this = $(this),
                 animDiff = ( $this.outerHeight() - ( $this.find('.product-body').outerHeight() + $this.find('.product-media').outerHeight()) ),
@@ -162,53 +168,54 @@ $(document).ready(function () {
     }
 
     // Slider For category pages / filter price
-    if ( typeof noUiSlider === 'object' ) {
+    if (typeof noUiSlider === 'object') {
 		var priceSlider  = document.getElementById('price-slider');
-
 		// Check if #price-slider elem is exists if not return
 		// to prevent error logs
 		if (priceSlider == null) return;
-
+        var max_price = Math.floor(document.getElementById('max-price').value);
 		noUiSlider.create(priceSlider, {
-			start: [ 0, 750 ],
+			start: [ 0.00, max_price ],
 			connect: true,
 			step: 50,
-			margin: 200,
+			margin: 100,
 			range: {
-				'min': 0,
-				'max': 1000
+				'min': 0.00,
+				'max': max_price
 			},
 			tooltips: true,
 			format: wNumb({
-		        decimals: 0,
-		        prefix: '$'
+		        decimals: 2,
+		        prefix: 'RM '
 		    })
 		});
 
 		// Update Price Range
-		priceSlider.noUiSlider.on('update', function( values, handle ){
+		priceSlider.noUiSlider.on('update', function(values, handle){
 			$('#filter-price-range').text(values.join(' - '));
+            price_value = values;
+            callpage(1);
 		});
 	}
 
 	// Product countdown
-	if ( $.fn.countdown ) {
+	if ($.fn.countdown) {
 		$('.product-countdown').each(function () {
 			var $this = $(this), 
 				untilDate = $this.data('until'),
 				compact = $this.data('compact'),
-                dateFormat = ( !$this.data('format') ) ? 'DHMS' : $this.data('format'),
-                newLabels = ( !$this.data('labels-short') ) ? 
+                dateFormat = (!$this.data('format')) ? 'DHMS' : $this.data('format'),
+                newLabels = (!$this.data('labels-short')) ? 
                                 ['Years', 'Months', 'Weeks', 'Days', 'Hours', 'Minutes', 'Seconds'] :
                                 ['Years', 'Months', 'Weeks', 'Days', 'Hours', 'Mins', 'Secs'],
-                newLabels1 = ( !$this.data('labels-short') ) ? 
+                newLabels1 = ( !$this.data('labels-short')) ? 
                                 ['Year', 'Month', 'Week', 'Day', 'Hour', 'Minute', 'Second'] :
                                 ['Year', 'Month', 'Week', 'Day', 'Hour', 'Min', 'Sec'];
 
             var newDate;
 
             // Split and created again for ie and edge 
-            if ( !$this.data('relative') ) {
+            if (!$this.data('relative')) {
                 var untilDateArr = untilDate.split(", "), // data-until 2019, 10, 8 - yy,mm,dd
                     newDate = new Date(untilDateArr[0], untilDateArr[1] - 1, untilDateArr[2]);
             } else {
@@ -234,7 +241,7 @@ $(document).ready(function () {
 
 	// Quantity Input - Cart page - Product Details pages
     function quantityInputs() {
-        if ( $.fn.inputSpinner ) {
+        if ($.fn.inputSpinner) {
             $("input[type='number']").inputSpinner({
                 decrementButton: '<i class="icon-minus"></i>',
                 incrementButton: '<i class="icon-plus"></i>',
@@ -247,7 +254,7 @@ $(document).ready(function () {
 
     // Sticky Content - Sidebar - Social Icons etc..
     // Wrap elements with <div class="sticky-content"></div> if you want to make it sticky
-    if ( $.fn.stick_in_parent && $(window).width() >= 992 ) {
+    if ($.fn.stick_in_parent && $(window).width() >= 992) {
     	$('.sticky-content').stick_in_parent({
 			offset_top: 80,
             inner_scrolling: false
@@ -255,7 +262,7 @@ $(document).ready(function () {
     }
 
     function owlCarousels($wrap, options) {
-        if ( $.fn.owlCarousel ) {
+        if ($.fn.owlCarousel) {
             var owlSettings = {
                 items: 1,
                 loop: true,
@@ -287,7 +294,7 @@ $(document).ready(function () {
     }
 
     // Product Image Zoom plugin - product pages
-    if ( $.fn.elevateZoom ) {
+    if ($.fn.elevateZoom) {
         $('#product-zoom').elevateZoom({
             gallery:'product-zoom-gallery',
             galleryActiveClass: 'active',
@@ -328,7 +335,7 @@ $(document).ready(function () {
     }
 
     // Product Gallery - product-gallery.html 
-    if ( $.fn.owlCarousel && $.fn.elevateZoom ) {
+    if ($.fn.owlCarousel && $.fn.elevateZoom) {
         var owlProductGallery = $('.product-gallery-carousel');
 
         owlProductGallery.on('initialized.owl.carousel', function () {
@@ -383,7 +390,7 @@ $(document).ready(function () {
     }
 
      // Product Gallery Separeted- product-sticky.html 
-    if ( $.fn.elevateZoom ) {
+    if ($.fn.elevateZoom) {
         $('.product-separated-item').find('img').elevateZoom({
             zoomType: "inner",
             cursor: "crosshair",
@@ -512,7 +519,7 @@ $(document).ready(function () {
 
 	// Count
     var $countItem = $('.count');
-	if ( $.fn.countTo ) {
+	if ($.fn.countTo) {
         if ($.fn.waypoint) {
             $countItem.waypoint( function () {
                 $(this.element).countTo();
@@ -536,7 +543,7 @@ $(document).ready(function () {
     // Scroll To button
     var $scrollTo = $('.scroll-to');
     // If button scroll elements exists
-    if ( $scrollTo.length ) {
+    if ($scrollTo.length) {
         // Scroll to - Animate scroll
         $scrollTo.on('click', function(e) {
             var target = $(this).attr('href'),
@@ -557,13 +564,13 @@ $(document).ready(function () {
         var target = $(this).attr('href'),
             $target = $(target);
 
-        if ( $('#product-accordion-review').length ) {
+        if ($('#product-accordion-review').length) {
             $('#product-accordion-review').collapse('show');
         }
 
         if ($target.length) {
             // Add offset for sticky menu
-            var scrolloffset = ( $(window).width() >= 992 ) ? ($target.offset().top - 72) : ( $target.offset().top - 10 )
+            var scrolloffset = ($(window).width() >= 992 ) ? ($target.offset().top - 72) : ($target.offset().top - 10)
             $('html, body').animate({
                 'scrollTop': scrolloffset
             }, 600);
@@ -594,7 +601,7 @@ $(document).ready(function () {
     });
 
     // Google Map api v3 - Map for contact pages
-    if ( document.getElementById("map") && typeof google === "object" ) {
+    if (document.getElementById("map") && typeof google === "object") {
 
         var content =   '<address>' +
                             '88 Pine St,<br>' +
@@ -779,4 +786,102 @@ $(document).ready(function () {
             }, 500)
         }, 10000)
     }
+
+   
+    
+    //get the value from filter checkbox
+
+    $(".category").click(function(){   
+        cat_value = " ' ";
+        var cout = 0;
+        $.each($("input[name='category']:checked"), function(){            
+            if(cout>0)
+            cat_value+=" ',' ";
+            cat_value+=$(this).val();           
+            cout++;
+        });
+        cat_value+="' ";
+        callpage(1);
+    });
+
+    $(".brand").click(function(){
+        brand_value = " ' "
+        var cout = 0;
+        $.each($("input[name='brand']:checked"), function(){            
+            if(cout>0)
+            brand_value+=" ',' ";
+            brand_value+=$(this).val();           
+            cout++;
+        });
+        brand_value+="' ";
+        callpage(1);
+    });
+    
+    //filter-price-range
 });
+
+function callpage(page)
+{
+    var pagination = page;
+    var result ="";
+
+    var for_category = "";
+    //set the sql script 
+    if(cat_value == "" || cat_value == " ' ' " )
+    result +="";
+    else
+    {
+        result += ' AND cat_id IN (';
+        result += cat_value;
+        result += ' ) ';
+    }
+
+    if(brand_value == "" || brand_value == " ' ' " )
+    result +="";
+    else
+    {
+        result += ' AND brand_id IN (';
+        result += brand_value;
+        result += ' ) ';
+
+        for_category += ' AND brand_id IN (';
+        for_category += brand_value;
+        for_category += ' ) ';
+    }
+    
+    
+    if(price_value == '')
+    result +="";
+    else
+    {
+        price_split_value1 = price_value[0].split("RM");
+        price_split_value2 = price_value[1].split("RM");
+
+        result += ' AND prod_detail_price BETWEEN ';
+        result += price_split_value1[1];
+        result += ' AND ';
+        result += price_split_value2[1] ;
+        result += ' ';
+    }
+    show_product(result,pagination); 
+}
+
+//call to show out product
+function show_product(result,pg) //pass the sql search value and page number
+{                              
+    let quary = result;
+    let page = pg;
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "product-list.php", true);
+    xhr.onload = ()=>{
+        if(xhr.readyState === XMLHttpRequest.DONE){
+            if(xhr.status === 200){
+                let data = xhr.response;
+                document.getElementById("show-product-list").innerHTML = data;
+                
+            }
+        }
+    }
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("searchTerm=" + quary+"&page="+page);
+}

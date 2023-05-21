@@ -8,26 +8,32 @@
         <?php include('header.php') ?>
 
         <main class="main">
+            <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        		<div class="container">
+        			<h1 class="page-title">Shipping</h1>
+        		</div><!-- End .container -->
+        	</div><!-- End .page-header -->
             <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
                 <div class="container">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">404</li>
+                        <li class="breadcrumb-item active" aria-current="page">Shipping</li>
                     </ol>
                 </div><!-- End .container -->
             </nav><!-- End .breadcrumb-nav -->
 
-        	<div class="error-content text-center" style="background-image: url(assets/images/backgrounds/error-bg.jpg)">
-            	<div class="container">
-            		<h1 class="error-title">Error 404</h1><!-- End .error-title -->
-            		<p>We are sorry, the page you've requested is not available.</p>
-            		<a href="index.php" class="btn btn-outline-primary-2 btn-minwidth-lg">
-            			<span>BACK TO HOMEPAGE</span>
-            			<i class="icon-long-arrow-right"></i>
-            		</a>
-            	</div><!-- End .container -->
-        	</div><!-- End .error-content text-center -->
+            <div class="container">
+                <br>
+                    <h4><b>Shipping Cost</b></h4>
+                    <p>Shipping is free on all orders. Items in your order may have different shipping availability.</p>
+                <br>
+                <h4><b>Transit Time</b></h4>
+                <p>Average transit time is 3 - 14 days.</p>
+                <br>
+                <h4><b>Shipping Status</b></h4>
+                <p>You can track your product shipping status in this website.</p>
+                <br>
+            </div><!-- End .container -->
         </main><!-- End .main -->
 
         <?php include('footer.php') ?>

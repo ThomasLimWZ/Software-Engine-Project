@@ -79,6 +79,9 @@
 		100% { width: 90%; background-color: #c96; }
 	}
 </style>
+<?php
+if (isset($_SESSION['customer_id'])) {
+?>
 <body>
     <div class="page-wrapper">
         <?php include('header.php') ?>
@@ -117,7 +120,7 @@
 								        <a class="nav-link" id="tab-reset-password-link" data-toggle="tab" href="#tab-reset-password" role="tab" aria-controls="tab-reset-password" aria-selected="false">Reset Password</a>
 								    </li>
 								    <li class="nav-item">
-								        <a class="nav-link" href="#">Sign Out</a>
+								        <a class="nav-link" href="signout.php">Log Out</a>
 								    </li>
 								</ul>
 	                		</aside><!-- End .col-lg-3 -->
@@ -418,5 +421,9 @@
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
 </body>
-
+<?php
+} else {
+	header('Location: 404.php');
+}
+?>
 </html>
