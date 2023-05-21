@@ -79,6 +79,9 @@
 		100% { width: 90%; background-color: #c96; }
 	}
 </style>
+<?php
+if (isset($_SESSION['customer_id'])) {
+?>
 <body>
     <div class="page-wrapper">
         <?php include('header.php') ?>
@@ -418,5 +421,9 @@
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
 </body>
-
+<?php
+} else {
+	header('Location: 404.php');
+}
+?>
 </html>

@@ -95,71 +95,76 @@
                         </div>
                     </div><!-- End .dropdown-menu -->
                 </div><!-- End .compare-dropdown -->
+                <?php
+                if (isset($_SESSION['customer_id'])) {
+                ?>
+                    <div class="dropdown cart-dropdown">
+                        <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                            <div class="icon">
+                                <i class="icon-shopping-cart"></i>
+                                <span class="cart-count">2</span>
+                            </div>
+                            <p>Cart</p>
+                        </a>
 
-                <div class="dropdown cart-dropdown">
-                    <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
-                        <div class="icon">
-                            <i class="icon-shopping-cart"></i>
-                            <span class="cart-count">2</span>
-                        </div>
-                        <p>Cart</p>
-                    </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <div class="dropdown-cart-products">
+                                <div class="product">
+                                    <div class="product-cart-details">
+                                        <h4 class="product-title">
+                                            <a href="product.php">Beige knitted elastic runner shoes</a>
+                                        </h4>
 
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <div class="dropdown-cart-products">
-                            <div class="product">
-                                <div class="product-cart-details">
-                                    <h4 class="product-title">
-                                        <a href="product.php">Beige knitted elastic runner shoes</a>
-                                    </h4>
+                                        <span class="cart-product-info">
+                                            <span class="cart-product-qty">1</span>
+                                            x $84.00
+                                        </span>
+                                    </div><!-- End .product-cart-details -->
 
-                                    <span class="cart-product-info">
-                                        <span class="cart-product-qty">1</span>
-                                        x $84.00
-                                    </span>
-                                </div><!-- End .product-cart-details -->
+                                    <figure class="product-image-container">
+                                        <a href="product.php" class="product-image">
+                                            <img src="assets/images/products/cart/product-1.jpg" alt="product">
+                                        </a>
+                                    </figure>
+                                    <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+                                </div><!-- End .product -->
 
-                                <figure class="product-image-container">
-                                    <a href="product.php" class="product-image">
-                                        <img src="assets/images/products/cart/product-1.jpg" alt="product">
-                                    </a>
-                                </figure>
-                                <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                            </div><!-- End .product -->
+                                <div class="product">
+                                    <div class="product-cart-details">
+                                        <h4 class="product-title">
+                                            <a href="product.php">Blue utility pinafore denim dress</a>
+                                        </h4>
 
-                            <div class="product">
-                                <div class="product-cart-details">
-                                    <h4 class="product-title">
-                                        <a href="product.php">Blue utility pinafore denim dress</a>
-                                    </h4>
+                                        <span class="cart-product-info">
+                                            <span class="cart-product-qty">1</span>
+                                            x $76.00
+                                        </span>
+                                    </div><!-- End .product-cart-details -->
 
-                                    <span class="cart-product-info">
-                                        <span class="cart-product-qty">1</span>
-                                        x $76.00
-                                    </span>
-                                </div><!-- End .product-cart-details -->
+                                    <figure class="product-image-container">
+                                        <a href="product.php" class="product-image">
+                                            <img src="assets/images/products/cart/product-2.jpg" alt="product">
+                                        </a>
+                                    </figure>
+                                    <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+                                </div><!-- End .product -->
+                            </div><!-- End .cart-product -->
 
-                                <figure class="product-image-container">
-                                    <a href="product.php" class="product-image">
-                                        <img src="assets/images/products/cart/product-2.jpg" alt="product">
-                                    </a>
-                                </figure>
-                                <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                            </div><!-- End .product -->
-                        </div><!-- End .cart-product -->
+                            <div class="dropdown-cart-total">
+                                <span>Total</span>
 
-                        <div class="dropdown-cart-total">
-                            <span>Total</span>
+                                <span class="cart-total-price">$160.00</span>
+                            </div><!-- End .dropdown-cart-total -->
 
-                            <span class="cart-total-price">$160.00</span>
-                        </div><!-- End .dropdown-cart-total -->
-
-                        <div class="dropdown-cart-action">
-                            <a href="cart.php" class="btn btn-primary">View Cart</a>
-                            <a href="checkout.php" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
-                        </div><!-- End .dropdown-cart-total -->
-                    </div><!-- End .dropdown-menu -->
-                </div><!-- End .cart-dropdown -->
+                            <div class="dropdown-cart-action">
+                                <a href="cart.php" class="btn btn-primary">View Cart</a>
+                                <a href="checkout.php" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
+                            </div><!-- End .dropdown-cart-total -->
+                        </div><!-- End .dropdown-menu -->
+                    </div><!-- End .cart-dropdown -->
+                <?php
+                }
+                ?>
             </div><!-- End .header-right -->
         </div><!-- End .container -->
     </div><!-- End .header-middle -->

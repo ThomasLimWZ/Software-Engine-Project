@@ -2,7 +2,9 @@
 <html lang="en">
 
 <?php include('head.php') ?>
-
+<?php
+if (isset($_SESSION['customer_id'])) {
+?>
 <body>
     <div class="page-wrapper">
         <?php include('header.php') ?>
@@ -17,7 +19,6 @@
                 <div class="container">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
                         <li class="breadcrumb-item"><a href="my-account.php">My Account</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Invoice #123456</li>
                     </ol>
@@ -121,5 +122,9 @@
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
 </body>
-
+<?php
+} else {
+	header('Location: 404.php');
+}
+?>
 </html>
