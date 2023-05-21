@@ -35,13 +35,13 @@
                                         <div class="intro-content">
                                             <h3 class="intro-subtitle text-primary">Daily Deals</h3><!-- End .h3 intro-subtitle -->
                                             <h1 class="intro-title">
-                                                AirPods <br>Earphones
+                                                AirPods Pro<br>2nd Generation
                                             </h1><!-- End .intro-title -->
 
                                             <div class="intro-price">
                                                 <sup>Today:</sup>
                                                 <span class="text-primary">
-                                                    $247<sup>.99</sup>
+                                                    RM 1099<sup>.00</sup>
                                                 </span>
                                             </div><!-- End .intro-price -->
 
@@ -67,9 +67,9 @@
                                             </h1><!-- End .intro-title -->
 
                                             <div class="intro-price">
-                                                <sup class="intro-old-price">$49,99</sup>
+                                                <sup class="intro-old-price">RM 1499.00</sup>
                                                 <span class="text-primary">
-                                                    $29<sup>.99</sup>
+                                                    RM 1299<sup>.00</sup>
                                                 </span>
                                             </div><!-- End .intro-price -->
 
@@ -83,9 +83,7 @@
                                 
                                 <span class="slider-loader"></span><!-- End .slider-loader -->
                             </div><!-- End .intro-slider-container -->
-                        </div><!-- End .col-lg-8 -->
-
-                        
+                        </div><!-- End .col-lg-10 -->
                     </div><!-- End .row -->
                 </div><!-- End .container -->
             </div><!-- End .intro-section -->
@@ -104,7 +102,6 @@
                 </ul>
 
                 <div class="tab-content tab-content-carousel">
-
                     <!-- for Featured -->
                     <div class="tab-pane p-0 fade show active" id="products-featured-tab" role="tabpanel" aria-labelledby="products-featured-link">
                         <div class="owl-carousel owl-full carousel-equal-height carousel-with-shadow" data-toggle="owl" 
@@ -130,35 +127,38 @@
                             }'>
                             <?php 
                             //random taking the product
-                            $extra = "SELECT * FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
-                            $extra .= " AND prod_color_stock > '0' ";
+                            $extra = "SELECT * FROM product 
+                                        INNER JOIN product_detail ON product.prod_id = product_detail.prod_id 
+                                        INNER JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id 
+                                        WHERE prod_status = 1";
+                            $extra .= " AND prod_color_stock > '0'";
                             $extra .= " GROUP BY product.prod_id ";
                             $extra .= " ORDER BY RAND()";
                             $extra .= " LIMIT 5  ";
-                            $query = mysqli_query($connect,$extra);
+                            $query = mysqli_query($connect, $extra);
 
-                            $sql = mysqli_query($connect,"Select * FROM product");
+                            $sql = mysqli_query($connect, "SELECT * FROM product");
                             
-                            
-                            
-                            while($random_list = mysqli_fetch_assoc($query))
-                            {
+                            while ($random_list = mysqli_fetch_assoc($query)) {
                                 $count = mysqli_num_rows($sql);
 
                                 //getting the product category name
                                 $cat_id = $random_list['cat_id'];
-                                $data = mysqli_query($connect,"SELECT * FROM category WHERE cat_id = '$cat_id'");
+                                $data = mysqli_query($connect, "SELECT * FROM category WHERE cat_id = '$cat_id'");
                                 $cat_data = mysqli_fetch_assoc($data);
                                 $categoty_name = $cat_data['cat_name'];
 
                                 //getting the product brand name
                                 $brand_id = $random_list['brand_id'];
-                                $data = mysqli_query($connect,"SELECT * FROM brand WHERE brand_id = '$brand_id'");
+                                $data = mysqli_query($connect, "SELECT * FROM brand WHERE brand_id = '$brand_id'");
                                 $brand_data = mysqli_fetch_assoc($data);
                                 $brand_name = $brand_data['brand_name'];
                                 
                                 //price range
-                                $price_range = "SELECT MIN(prod_detail_price)AS 'min_price',MAX(prod_detail_price)AS 'max_price' FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
+                                $price_range = "SELECT MIN(prod_detail_price) AS 'min_price', MAX(prod_detail_price) AS 'max_price' FROM product 
+                                                INNER JOIN product_detail ON product.prod_id = product_detail.prod_id 
+                                                INNER JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id 
+                                                WHERE prod_status = 1";
                                 $price_range .= " AND product.prod_id = ' ";
                                 $price_range .= ($random_list['prod_id']);
                                 $price_range .= "'";
@@ -166,45 +166,37 @@
                                 $max_min_price = mysqli_fetch_assoc($query3);
 
                                 echo '
-                                <div class="product product-2">
-                                    <figure class="product-media">
-                                    ';
-                                    
-                                    for($i=0;$i<4;$i++)//to show the new label - i set it as the last 4 product is the new product ~ can change if needed ~
-                                    {
-                                        if($random_list['prod_id'] == $count) 
-                                         echo '<span class="product-label label-circle label-new">New</span>';
+                                    <div class="product product-2">
+                                        <figure class="product-media">
+                                ';
+                                        
+                                for($i=0;$i<4;$i++)//to show the new label - i set it as the last 4 product is the new product ~ can change if needed ~
+                                {
+                                    if($random_list['prod_id'] == $count) 
+                                        echo '<span class="product-label label-circle label-new">New</span>';
 
-                                        $count--;
-                                    }
-                                    
-                                   echo'
-                                        <a href="product.php">
-                                            <img src="../Product/'.$random_list['prod_color_img'].'" alt="Product image" class="product-image">
-                                        </a>
+                                    $count--;
+                                }
+                                        
+                                echo'
+                                            <a href="product.php">
+                                                <img src="../Product/'.$random_list['prod_color_img'].'" alt="Product image" class="product-image">
+                                            </a>
+                                        </figure><!-- End .product-media -->
 
-                                        <div class="product-action product-action-dark">
-                                            <a href="popup/quickView.php" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat">
-                                            <span class="font-gray-400" >'.$brand_name.' &#183; '.$categoty_name.'</span>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.php?prod_name='.$random_list['prod_id'].'">'.$random_list['prod_name']."".'</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            RM '.$max_min_price['min_price'].' - RM '.$max_min_price['max_price'].'
-                                        </div><!-- End .product-price -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
+                                        <div class="product-body">
+                                            <div class="product-cat">
+                                                <span class="font-gray-400" >'.$brand_name.' &#183; '.$categoty_name.'</span>
+                                            </div><!-- End .product-cat -->
+                                            <h3 class="product-title"><a href="product.php?prod_name='.$random_list['prod_id'].'">'.$random_list['prod_name']."".'</a></h3><!-- End .product-title -->
+                                            <div class="product-price">
+                                                RM '.$max_min_price['min_price'].' - RM '.$max_min_price['max_price'].'
+                                            </div><!-- End .product-price -->
+                                        </div><!-- End .product-body -->
+                                    </div><!-- End .product -->
                                 ';
                             }
-
-                                
                             ?>
-                            
-                            
                         </div><!-- End .owl-carousel -->
                     </div><!-- .End .tab-pane -->
 
@@ -285,10 +277,6 @@
                                         <a href="product.php">
                                             <img src="../Product/'.$random_list['prod_color_img'].'" alt="Product image" class="product-image">
                                         </a>
-
-                                        <div class="product-action product-action-dark">
-                                            <a href="popup/quickView.php" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
-                                        </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
                                     <div class="product-body">
@@ -386,10 +374,6 @@
                                         <a href="product.php">
                                             <img src="../Product/'.$random_list['prod_color_img'].'" alt="Product image" class="product-image">
                                         </a>
-
-                                        <div class="product-action product-action-dark">
-                                            <a href="popup/quickView.php" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
-                                        </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
                                     <div class="product-body">
@@ -432,20 +416,21 @@
                                 <a class="nav-link active" id="top-all-link" data-toggle="tab" href="#top-all-tab" role="tab" aria-controls="top-all-tab" aria-selected="true">All</a>
                             </li>
                             <?php
-                                $sql = "SELECT cat_name FROM product JOIN category ON product.cat_id = category.cat_id WHERE prod_status = '1'  ";
-                                $sql .= " GROUP BY category.cat_id ";
-                                $sql_category_data = mysqli_query($connect,$sql);
+                                $sql = "SELECT cat_name FROM product 
+                                        INNER JOIN category ON product.cat_id = category.cat_id 
+                                        INNER JOIN brand ON product.brand_id = brand.brand_id
+                                        WHERE prod_status = 1 AND brand.brand_status = 1";
+                                $sql .= " GROUP BY category.cat_id";
+                                $sql_category_data = mysqli_query($connect, $sql);
 
-                                while($list_category_data = mysqli_fetch_assoc($sql_category_data))
-                                {
+                                while ($list_category_data = mysqli_fetch_assoc($sql_category_data)) {
                                     echo '
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="top-'.$list_category_data['cat_name'].'-link" data-toggle="tab" href="#top-'.$list_category_data['cat_name'].'-tab" role="tab" aria-controls="top-'.$list_category_data['cat_name'].'-tab" aria-selected="false">'.$list_category_data['cat_name'].'</a>
-                                    </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="top-'.$list_category_data['cat_name'].'-link" data-toggle="tab" href="#top-'.$list_category_data['cat_name'].'-tab" role="tab" aria-controls="top-'.$list_category_data['cat_name'].'-tab" aria-selected="false">'.$list_category_data['cat_name'].'</a>
+                                        </li>
                                     ';
                                 }
                             ?>
-                            
                         </ul>
                    </div><!-- End .heading-right -->
                 </div><!-- End .heading -->
@@ -476,37 +461,41 @@
                                     }
                                 }
                             }'>
-                            <?php 
-                                //random taking the product
-                                $extra = "SELECT * FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
-                                $extra .= " AND prod_color_stock > '0' ";
-                                $extra .= " GROUP BY product.prod_id ";
+                            <?php
+                                $extra = "SELECT * FROM product 
+                                            INNER JOIN product_detail ON product.prod_id = product_detail.prod_id 
+                                            INNER JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id 
+                                            INNER JOIN brand ON product.brand_id = brand.brand_id
+                                            WHERE prod_status = 1 AND brand.brand_status = 1";
+                                $extra .= " AND prod_color_stock > '0'";
+                                $extra .= " GROUP BY product.prod_id";
                                 $extra .= " ORDER BY RAND()";
-                                $extra .= " LIMIT 6  ";
+                                $extra .= " LIMIT 6";
                                 $query = mysqli_query($connect,$extra);
 
-                                $sql = mysqli_query($connect,"Select * FROM product");
+                                $sql = mysqli_query($connect, "SELECT * FROM product");
                                 
-                                
-                                
-                                while($random_list = mysqli_fetch_assoc($query))
-                                {
+                                while ($random_list = mysqli_fetch_assoc($query)) {
                                     $count = mysqli_num_rows($sql);
 
                                     //getting the product category name
                                     $cat_id = $random_list['cat_id'];
-                                    $data = mysqli_query($connect,"SELECT * FROM category WHERE cat_id = '$cat_id'");
+                                    $data = mysqli_query($connect, "SELECT * FROM category WHERE cat_id = '$cat_id'");
                                     $cat_data = mysqli_fetch_assoc($data);
                                     $categoty_name = $cat_data['cat_name'];
 
                                     //getting the product brand name
                                     $brand_id = $random_list['brand_id'];
-                                    $data = mysqli_query($connect,"SELECT * FROM brand WHERE brand_id = '$brand_id'");
+                                    $data = mysqli_query($connect, "SELECT * FROM brand WHERE brand_id = '$brand_id'");
                                     $brand_data = mysqli_fetch_assoc($data);
                                     $brand_name = $brand_data['brand_name'];
                                     
                                     //price range
-                                    $price_range = "SELECT MIN(prod_detail_price)AS 'min_price',MAX(prod_detail_price)AS 'max_price' FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
+                                    $price_range = "SELECT MIN(prod_detail_price) AS 'min_price', MAX(prod_detail_price) AS 'max_price' FROM product 
+                                                    INNER JOIN product_detail ON product.prod_id = product_detail.prod_id 
+                                                    INNER JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id
+                                                    INNER JOIN brand ON product.brand_id = brand.brand_id
+                                                    WHERE prod_status = 1 AND brand.brand_status = 1";
                                     $price_range .= " AND product.prod_id = ' ";
                                     $price_range .= ($random_list['prod_id']);
                                     $price_range .= "'";
@@ -514,103 +503,93 @@
                                     $max_min_price = mysqli_fetch_assoc($query3);
 
                                     echo '
-                                    <div class="product product-2">
-                                        <figure class="product-media">
-                                        ';
+                                        <div class="product product-2">
+                                            <figure class="product-media">
+                                    ';
                                         //TOP - <span class="product-label label-circle label-top">Top</span>
                                         //NEW - <span class="product-label label-circle label-new">New</span>
                                         //Sale - <span class="product-label label-circle label-sale">Sale</span>
 
-                                        for($i=0;$i<4;$i++)//to show the new label - i set it as the last 4 product is the new product ~ can change if needed ~
-                                        {
-                                            if($random_list['prod_id'] == $count) 
+                                    for ($i=0; $i<4; $i++) //to show the new label - i set it as the last 4 product is the new product ~ can change if needed ~
+                                    {
+                                        if ($random_list['prod_id'] == $count) 
                                             echo '<span class="product-label label-circle label-new">New</span>';
 
-                                            $count--;
-                                        }
+                                        $count--;
+                                    }
                                         
                                     echo'
-                                            <a href="product.php">
-                                                <img src="../Product/'.$random_list['prod_color_img'].'" alt="Product image" class="product-image">
-                                            </a>
+                                                <a href="product.php">
+                                                    <img src="../Product/'.$random_list['prod_color_img'].'" alt="Product image" class="product-image">
+                                                </a>
+                                            </figure><!-- End .product-media -->
 
-                                            <div class="product-action product-action-dark">
-                                                <a href="popup/quickView.php" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
-                                            </div><!-- End .product-action -->
-                                        </figure><!-- End .product-media -->
-
-                                        <div class="product-body">
-                                            <div class="product-cat">
-                                                <span class="font-gray-400" >'.$brand_name.' &#183; '.$categoty_name.'</span>
-                                            </div><!-- End .product-cat -->
-                                            <h3 class="product-title"><a href="product.php?prod_name='.$random_list['prod_id'].'">'.$random_list['prod_name']."".'</a></h3><!-- End .product-title -->
-                                            <div class="product-price">
-                                                RM '.$max_min_price['min_price'].' - RM '.$max_min_price['max_price'].'
-                                            </div><!-- End .product-price -->
-                                        </div><!-- End .product-body -->
-                                    </div><!-- End .product -->
+                                            <div class="product-body">
+                                                <div class="product-cat">
+                                                    <span class="font-gray-400" >'.$brand_name.' &#183; '.$categoty_name.'</span>
+                                                </div><!-- End .product-cat -->
+                                                <h3 class="product-title"><a href="product.php?prod_name='.$random_list['prod_id'].'">'.$random_list['prod_name']."".'</a></h3><!-- End .product-title -->
+                                                <div class="product-price">
+                                                    RM '.$max_min_price['min_price'].' - RM '.$max_min_price['max_price'].'
+                                                </div><!-- End .product-price -->
+                                            </div><!-- End .product-body -->
+                                        </div><!-- End .product -->
                                     ';
                                 }
-
-                                
                             ?>
-
-
-                            
-                            
                         </div><!-- End .owl-carousel -->
                     </div><!-- .End .tab-pane -->
                     
                     <?php
-                        $sql = "SELECT * FROM product JOIN category ON product.cat_id = category.cat_id WHERE prod_status = '1'  ";
-                        $sql .= " GROUP BY category.cat_id ";
+                        $sql = "SELECT * FROM product 
+                                INNER JOIN category ON product.cat_id = category.cat_id 
+                                WHERE prod_status = 1";
+                        $sql .= " GROUP BY category.cat_id";
                         $sql_category_data = mysqli_query($connect,$sql);
 
-                        while($list_category_data = mysqli_fetch_assoc($sql_category_data))
-                        {
+                        while ($list_category_data = mysqli_fetch_assoc($sql_category_data)) {
                             echo '   
-                            <div class="tab-pane p-0 fade" id="top-'.$list_category_data['cat_name'].'-tab" role="tabpanel" aria-labelledby="top-'.$list_category_data['cat_name'].'-link">';
-                            ?>     <div class="owl-carousel owl-full carousel-equal-height carousel-with-shadow" data-toggle="owl" 
-                                    data-owl-options='{
-                                        "nav": true, 
-                                        "dots": false,
-                                        "margin": 20,
-                                        "loop": false,
-                                        "responsive": {
-                                            "0": {
-                                                "items":2
-                                            },
-                                            "480": {
-                                                "items":2
-                                            },
-                                            "768": {
-                                                "items":3
-                                            },
-                                            "992": {
-                                                "items":4
-                                            },
-                                            "1200": {
-                                                "items":5
+                                <div class="tab-pane p-0 fade" id="top-'.$list_category_data['cat_name'].'-tab" role="tabpanel" aria-labelledby="top-'.$list_category_data['cat_name'].'-link">';
+                    ?>     
+                                    <div class="owl-carousel owl-full carousel-equal-height carousel-with-shadow" data-toggle="owl" 
+                                        data-owl-options='{
+                                            "nav": true, 
+                                            "dots": false,
+                                            "margin": 20,
+                                            "loop": false,
+                                            "responsive": {
+                                                "0": {
+                                                    "items":2
+                                                },
+                                                "480": {
+                                                    "items":2
+                                                },
+                                                "768": {
+                                                    "items":3
+                                                },
+                                                "992": {
+                                                    "items":4
+                                                },
+                                                "1200": {
+                                                    "items":5
+                                                }
                                             }
-                                        }
-                                    }'>
+                                        }'>
 
-                                    <?php 
-                                        //random taking the product
-                                        $extra = "SELECT * FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
+                                    <?php
+                                        $extra = "SELECT * FROM product 
+                                                    INNER JOIN product_detail ON product.prod_id = product_detail.prod_id 
+                                                    INNER JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id 
+                                                    WHERE prod_status = 1";
                                         $extra .= " AND prod_color_stock > '0' AND product.cat_id = ' ";
                                         $extra .= ($list_category_data['cat_id']);
-                                        $extra .= "' GROUP BY product.prod_id ";
-                                        //$extra .= " ORDER BY RAND()";
-                                        $extra .= " LIMIT 6  ";
-                                        $query = mysqli_query($connect,$extra);
+                                        $extra .= "' GROUP BY product.prod_id";
+                                        $extra .= " LIMIT 6";
+                                        $query = mysqli_query($connect, $extra);
 
-                                        $sql = mysqli_query($connect,"Select * FROM product");
+                                        $sql = mysqli_query($connect, "SELECT * FROM product");
                                         
-                                        
-                                        
-                                        while($random_list = mysqli_fetch_assoc($query))
-                                        {
+                                        while ($random_list = mysqli_fetch_assoc($query)) {
                                             $count = mysqli_num_rows($sql);
 
                                             //getting the product category name
@@ -626,7 +605,10 @@
                                             $brand_name = $brand_data['brand_name'];
                                             
                                             //price range
-                                            $price_range = "SELECT MIN(prod_detail_price)AS 'min_price',MAX(prod_detail_price)AS 'max_price' FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
+                                            $price_range = "SELECT MIN(prod_detail_price) AS 'min_price', MAX(prod_detail_price) AS 'max_price' FROM product 
+                                                            INNER JOIN product_detail ON product.prod_id = product_detail.prod_id 
+                                                            INNER JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id 
+                                                            WHERE prod_status = 1";
                                             $price_range .= " AND product.prod_id = ' ";
                                             $price_range .= ($random_list['prod_id']);
                                             $price_range .= "'";
@@ -634,46 +616,37 @@
                                             $max_min_price = mysqli_fetch_assoc($query3);
 
                                             echo '
-                                            <div class="product product-2">
-                                                <figure class="product-media">
-                                                ';
+                                                <div class="product product-2">
+                                                    <figure class="product-media">
+                                            ';
                                                 
-                                                for($i=0;$i<4;$i++)//to show the new label - i set it as the last 4 product is the new product ~ can change if needed ~
-                                                {
-                                                    if($random_list['prod_id'] == $count) 
+                                            for($i=0; $i<4; $i++) //to show the new label - i set it as the last 4 product is the new product ~ can change if needed ~
+                                            {
+                                                if ($random_list['prod_id'] == $count) 
                                                     echo '<span class="product-label label-circle label-new">New</span>';
 
-                                                    $count--;
-                                                }
+                                                $count--;
+                                            }
                                                 
                                             echo'
-                                                    <a href="product.php">
-                                                        <img src="../Product/'.$random_list['prod_color_img'].'" alt="Product image" class="product-image">
-                                                    </a>
+                                                        <a href="product.php">
+                                                            <img src="../Product/'.$random_list['prod_color_img'].'" alt="Product image" class="product-image">
+                                                        </a>
+                                                    </figure><!-- End .product-media -->
 
-                                                    <div class="product-action product-action-dark">
-                                                        <a href="popup/quickView.php" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
-                                                    </div><!-- End .product-action -->
-                                                </figure><!-- End .product-media -->
-
-                                                <div class="product-body">
-                                                    <div class="product-cat">
-                                                        <span class="font-gray-400" >'.$brand_name.' &#183; '.$categoty_name.'</span>
-                                                    </div><!-- End .product-cat -->
-                                                    <h3 class="product-title"><a href="product.php?prod_name='.$random_list['prod_id'].'">'.$random_list['prod_name']."".'</a></h3><!-- End .product-title -->
-                                                    <div class="product-price">
-                                                        RM '.$max_min_price['min_price'].' - RM '.$max_min_price['max_price'].'
-                                                    </div><!-- End .product-price -->
-                                                </div><!-- End .product-body -->
-                                            </div><!-- End .product -->
+                                                    <div class="product-body">
+                                                        <div class="product-cat">
+                                                            <span class="font-gray-400" >'.$brand_name.' &#183; '.$categoty_name.'</span>
+                                                        </div><!-- End .product-cat -->
+                                                        <h3 class="product-title"><a href="product.php?prod_name='.$random_list['prod_id'].'">'.$random_list['prod_name']."".'</a></h3><!-- End .product-title -->
+                                                        <div class="product-price">
+                                                            RM '.$max_min_price['min_price'].' - RM '.$max_min_price['max_price'].'
+                                                        </div><!-- End .product-price -->
+                                                    </div><!-- End .product-body -->
+                                                </div><!-- End .product -->
                                             ';
                                         }
-
-                                        
                                     ?>
-
-                    
-
                                 </div><!-- End .owl-carousel -->
                             </div><!-- .End .tab-pane -->
                             <?php 
@@ -700,16 +673,18 @@
                                 <a class="nav-link active" id="cat-all-link" data-toggle="tab" href="#cat-all-tab" role="tab" aria-controls="cat-all-tab" aria-selected="true">All</a>
                             </li>
                             <?php
-                                $sql = "SELECT cat_name FROM product JOIN category ON product.cat_id = category.cat_id WHERE prod_status = '1'  ";
-                                $sql .= " GROUP BY category.cat_id ";
+                                $sql = "SELECT cat_name FROM product 
+                                        INNER JOIN category ON product.cat_id = category.cat_id 
+                                        INNER JOIN brand ON product.brand_id = brand.brand_id
+                                        WHERE prod_status = 1 AND brand.brand_status = 1";
+                                $sql .= " GROUP BY category.cat_id";
                                 $sql_category_data = mysqli_query($connect,$sql);
 
-                                while($list_category_data = mysqli_fetch_assoc($sql_category_data))
-                                {
+                                while ($list_category_data = mysqli_fetch_assoc($sql_category_data)) {
                                     echo '
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="cat-'.$list_category_data['cat_name'].'-link" data-toggle="tab" href="#cat-'.$list_category_data['cat_name'].'-tab" role="tab" aria-controls="cat-'.$list_category_data['cat_name'].'-tab" aria-selected="false">'.$list_category_data['cat_name'].'</a>
-                                    </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="cat-'.$list_category_data['cat_name'].'-link" data-toggle="tab" href="#cat-'.$list_category_data['cat_name'].'-tab" role="tab" aria-controls="cat-'.$list_category_data['cat_name'].'-tab" aria-selected="false">'.$list_category_data['cat_name'].'</a>
+                                        </li>
                                     ';
                                 }
                             ?>
@@ -745,20 +720,20 @@
                                 }
                             }'>
                             <?php 
-                                //random taking the product
-                                $extra = "SELECT * FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
-                                $extra .= " AND prod_color_stock > '0' ";
-                                $extra .= " GROUP BY product.prod_id ";
+                                $extra = "SELECT * FROM product 
+                                            INNER JOIN product_detail ON product.prod_id = product_detail.prod_id 
+                                            INNER JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id 
+                                            INNER JOIN brand ON product.brand_id = brand.brand_id
+                                            WHERE prod_status = 1 AND brand.brand_status = 1";
+                                $extra .= " AND prod_color_stock > '0'";
+                                $extra .= " GROUP BY product.prod_id";
                                 $extra .= " ORDER BY RAND()";
                                 $extra .= " LIMIT 6  ";
-                                $query = mysqli_query($connect,$extra);
+                                $query = mysqli_query($connect, $extra);
 
-                                $sql = mysqli_query($connect,"Select * FROM product");
+                                $sql = mysqli_query($connect, "SELECT * FROM product");
                                 
-                                
-                                
-                                while($random_list = mysqli_fetch_assoc($query))
-                                {
+                                while ($random_list = mysqli_fetch_assoc($query)) {
                                     $count = mysqli_num_rows($sql);
 
                                     //getting the product category name
@@ -774,7 +749,11 @@
                                     $brand_name = $brand_data['brand_name'];
                                     
                                     //price range
-                                    $price_range = "SELECT MIN(prod_detail_price)AS 'min_price',MAX(prod_detail_price)AS 'max_price' FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
+                                    $price_range = "SELECT MIN(prod_detail_price) AS 'min_price', MAX(prod_detail_price) AS 'max_price' FROM product 
+                                                    INNER JOIN product_detail ON product.prod_id = product_detail.prod_id 
+                                                    INNER JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id 
+                                                    INNER JOIN brand ON product.brand_id = brand.brand_id
+                                                    WHERE prod_status = 1 AND brand.brand_status = 1";
                                     $price_range .= " AND product.prod_id = ' ";
                                     $price_range .= ($random_list['prod_id']);
                                     $price_range .= "'";
@@ -782,50 +761,40 @@
                                     $max_min_price = mysqli_fetch_assoc($query3);
 
                                     echo '
-                                    <div class="product product-2">
-                                        <figure class="product-media">
-                                        ';
+                                        <div class="product product-2">
+                                            <figure class="product-media">
+                                    ';
                                         //TOP - <span class="product-label label-circle label-top">Top</span>
                                         //NEW - <span class="product-label label-circle label-new">New</span>
                                         //Sale - <span class="product-label label-circle label-sale">Sale</span>
 
-                                        for($i=0;$i<4;$i++)//to show the new label - i set it as the last 4 product is the new product ~ can change if needed ~
-                                        {
-                                            if($random_list['prod_id'] == $count) 
+                                    for($i=0; $i<4; $i++) //to show the new label - i set it as the last 4 product is the new product ~ can change if needed ~
+                                    {
+                                        if ($random_list['prod_id'] == $count) 
                                             echo '<span class="product-label label-circle label-new">New</span>';
 
-                                            $count--;
-                                        }
+                                        $count--;
+                                    }
                                         
                                     echo'
-                                            <a href="product.php">
-                                                <img src="../Product/'.$random_list['prod_color_img'].'" alt="Product image" class="product-image">
-                                            </a>
+                                                <a href="product.php">
+                                                    <img src="../Product/'.$random_list['prod_color_img'].'" alt="Product image" class="product-image">
+                                                </a>
+                                            </figure><!-- End .product-media -->
 
-                                            <div class="product-action product-action-dark">
-                                                <a href="popup/quickView.php" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
-                                            </div><!-- End .product-action -->
-                                        </figure><!-- End .product-media -->
-
-                                        <div class="product-body">
-                                            <div class="product-cat">
-                                                <span class="font-gray-400" >'.$brand_name.' &#183; '.$categoty_name.'</span>
-                                            </div><!-- End .product-cat -->
-                                            <h3 class="product-title"><a href="product.php?prod_name='.$random_list['prod_id'].'">'.$random_list['prod_name']."".'</a></h3><!-- End .product-title -->
-                                            <div class="product-price">
-                                                RM '.$max_min_price['min_price'].' - RM '.$max_min_price['max_price'].'
-                                            </div><!-- End .product-price -->
-                                        </div><!-- End .product-body -->
-                                    </div><!-- End .product -->
+                                            <div class="product-body">
+                                                <div class="product-cat">
+                                                    <span class="font-gray-400" >'.$brand_name.' &#183; '.$categoty_name.'</span>
+                                                </div><!-- End .product-cat -->
+                                                <h3 class="product-title"><a href="product.php?prod_name='.$random_list['prod_id'].'">'.$random_list['prod_name']."".'</a></h3><!-- End .product-title -->
+                                                <div class="product-price">
+                                                    RM '.$max_min_price['min_price'].' - RM '.$max_min_price['max_price'].'
+                                                </div><!-- End .product-price -->
+                                            </div><!-- End .product-body -->
+                                        </div><!-- End .product -->
                                     ';
                                 }
-
-                                
                             ?>
-
-
-                            
-                            
                         </div><!-- End .owl-carousel -->
                     </div><!-- .End .tab-pane -->
                     
@@ -918,10 +887,6 @@
                                                     <a href="product.php">
                                                         <img src="../Product/'.$random_list['prod_color_img'].'" alt="Product image" class="product-image">
                                                     </a>
-
-                                                    <div class="product-action product-action-dark">
-                                                        <a href="popup/quickView.php" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
-                                                    </div><!-- End .product-action -->
                                                 </figure><!-- End .product-media -->
 
                                                 <div class="product-body">
@@ -967,20 +932,20 @@
                                 <a class="nav-link active" id="brand-all-link" data-toggle="tab" href="#brand-all-tab" role="tab" aria-controls="brand-all-tab" aria-selected="true">All</a>
                             </li>
                             <?php
-                                $sql = "SELECT brand_name FROM product JOIN brand ON product.brand_id = brand.brand_id WHERE prod_status = '1'  ";
-                                $sql .= " GROUP BY product.brand_id ";
+                                $sql = "SELECT brand_name FROM product 
+                                        INNER JOIN brand ON product.brand_id = brand.brand_id 
+                                        WHERE prod_status = 1 AND brand.brand_status = 1";
+                                $sql .= " GROUP BY product.brand_id";
                                 $sql_brand_data = mysqli_query($connect,$sql);
 
-                                while($list_brand_data = mysqli_fetch_assoc($sql_brand_data))
-                                {
+                                while ($list_brand_data = mysqli_fetch_assoc($sql_brand_data)) {
                                     echo '
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="brand-'.$list_brand_data['brand_name'].'-link" data-toggle="tab" href="#brand-'.$list_brand_data['brand_name'].'-tab" role="tab" aria-controls="brand-'.$list_brand_data['brand_name'].'-tab" aria-selected="false">'.$list_brand_data['brand_name'].'</a>
-                                    </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="brand-'.$list_brand_data['brand_name'].'-link" data-toggle="tab" href="#brand-'.$list_brand_data['brand_name'].'-tab" role="tab" aria-controls="brand-'.$list_brand_data['brand_name'].'-tab" aria-selected="false">'.$list_brand_data['brand_name'].'</a>
+                                        </li>
                                     ';
                                 }
                             ?>
-                            
                         </ul>
                    </div><!-- End .heading-right -->
                 </div><!-- End .heading -->
@@ -1011,21 +976,21 @@
                                     }
                                 }
                             }'>
-                            <?php 
-                                //random taking the product
-                                $extra = "SELECT * FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
-                                $extra .= " AND prod_color_stock > '0' ";
-                                $extra .= " GROUP BY product.prod_id ";
+                            <?php
+                                $extra = "SELECT * FROM product 
+                                            INNER JOIN product_detail ON product.prod_id = product_detail.prod_id 
+                                            INNER JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id 
+                                            INNER JOIN brand ON product.brand_id = brand.brand_id
+                                            WHERE prod_status = 1 AND brand.brand_status = 1";
+                                $extra .= " AND prod_color_stock > '0'";
+                                $extra .= " GROUP BY product.prod_id";
                                 $extra .= " ORDER BY RAND()";
-                                $extra .= " LIMIT 6  ";
-                                $query = mysqli_query($connect,$extra);
+                                $extra .= " LIMIT 6";
+                                $query = mysqli_query($connect, $extra);
 
-                                $sql = mysqli_query($connect,"Select * FROM product");
+                                $sql = mysqli_query($connect, "SELECT * FROM product");
                                 
-                                
-                                
-                                while($random_list = mysqli_fetch_assoc($query))
-                                {
+                                while ($random_list = mysqli_fetch_assoc($query)) {
                                     $count = mysqli_num_rows($sql);
 
                                     //getting the product category name
@@ -1041,7 +1006,11 @@
                                     $brand_name = $brand_data['brand_name'];
                                     
                                     //price range
-                                    $price_range = "SELECT MIN(prod_detail_price)AS 'min_price',MAX(prod_detail_price)AS 'max_price' FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
+                                    $price_range = "SELECT MIN(prod_detail_price) AS 'min_price', MAX(prod_detail_price) AS 'max_price' FROM product 
+                                                    INNER JOIN product_detail ON product.prod_id = product_detail.prod_id 
+                                                    INNER JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id 
+                                                    INNER JOIN brand ON product.brand_id = brand.brand_id
+                                                    WHERE prod_status = 1 AND brand.brand_status = 1";
                                     $price_range .= " AND product.prod_id = ' ";
                                     $price_range .= ($random_list['prod_id']);
                                     $price_range .= "'";
@@ -1049,50 +1018,40 @@
                                     $max_min_price = mysqli_fetch_assoc($query3);
 
                                     echo '
-                                    <div class="product product-2">
-                                        <figure class="product-media">
-                                        ';
-                                        //TOP - <span class="product-label label-circle label-top">Top</span>
-                                        //NEW - <span class="product-label label-circle label-new">New</span>
-                                        //Sale - <span class="product-label label-circle label-sale">Sale</span>
+                                        <div class="product product-2">
+                                            <figure class="product-media">
+                                    ';
+                                    //TOP - <span class="product-label label-circle label-top">Top</span>
+                                    //NEW - <span class="product-label label-circle label-new">New</span>
+                                    //Sale - <span class="product-label label-circle label-sale">Sale</span>
 
-                                        for($i=0;$i<4;$i++)//to show the new label - i set it as the last 4 product is the new product ~ can change if needed ~
-                                        {
-                                            if($random_list['prod_id'] == $count) 
+                                    for ($i=0; $i<4; $i++) //to show the new label - i set it as the last 4 product is the new product ~ can change if needed ~
+                                    {
+                                        if ($random_list['prod_id'] == $count)
                                             echo '<span class="product-label label-circle label-new">New</span>';
 
-                                            $count--;
-                                        }
+                                        $count--;
+                                    }
                                         
-                                    echo'
-                                            <a href="product.php">
-                                                <img src="../Product/'.$random_list['prod_color_img'].'" alt="Product image" class="product-image">
-                                            </a>
+                                    echo '
+                                                <a href="product.php">
+                                                    <img src="../Product/'.$random_list['prod_color_img'].'" alt="Product image" class="product-image">
+                                                </a>
+                                            </figure><!-- End .product-media -->
 
-                                            <div class="product-action product-action-dark">
-                                                <a href="popup/quickView.php" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
-                                            </div><!-- End .product-action -->
-                                        </figure><!-- End .product-media -->
-
-                                        <div class="product-body">
-                                            <div class="product-cat">
-                                                <span class="font-gray-400" >'.$brand_name.' &#183; '.$categoty_name.'</span>
-                                            </div><!-- End .product-cat -->
-                                            <h3 class="product-title"><a href="product.php?prod_name='.$random_list['prod_id'].'">'.$random_list['prod_name']."".'</a></h3><!-- End .product-title -->
-                                            <div class="product-price">
-                                                RM '.$max_min_price['min_price'].' - RM '.$max_min_price['max_price'].'
-                                            </div><!-- End .product-price -->
-                                        </div><!-- End .product-body -->
-                                    </div><!-- End .product -->
+                                            <div class="product-body">
+                                                <div class="product-cat">
+                                                    <span class="font-gray-400" >'.$brand_name.' &#183; '.$categoty_name.'</span>
+                                                </div><!-- End .product-cat -->
+                                                <h3 class="product-title"><a href="product.php?prod_name='.$random_list['prod_id'].'">'.$random_list['prod_name']."".'</a></h3><!-- End .product-title -->
+                                                <div class="product-price">
+                                                    RM '.$max_min_price['min_price'].' - RM '.$max_min_price['max_price'].'
+                                                </div><!-- End .product-price -->
+                                            </div><!-- End .product-body -->
+                                        </div><!-- End .product -->
                                     ';
                                 }
-
-                                
                             ?>
-
-
-                            
-                            
                         </div><!-- End .owl-carousel -->
                     </div><!-- .End .tab-pane -->
                     
@@ -1185,10 +1144,6 @@
                                                     <a href="product.php">
                                                         <img src="../Product/'.$random_list['prod_color_img'].'" alt="Product image" class="product-image">
                                                     </a>
-
-                                                    <div class="product-action product-action-dark">
-                                                        <a href="popup/quickView.php" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
-                                                    </div><!-- End .product-action -->
                                                 </figure><!-- End .product-media -->
 
                                                 <div class="product-body">
@@ -1231,7 +1186,7 @@
                                 </span>
                                 <div class="icon-box-content">
                                     <h3 class="icon-box-title">Free Shipping</h3><!-- End .icon-box-title -->
-                                    <p>Orders $50 or more</p>
+                                    <p>All states within Malaysia</p>
                                 </div><!-- End .icon-box-content -->
                             </div><!-- End .icon-box -->
                         </div><!-- End .col-sm-6 col-lg-3 -->
@@ -1243,8 +1198,8 @@
                                 </span>
 
                                 <div class="icon-box-content">
-                                    <h3 class="icon-box-title">Free Returns</h3><!-- End .icon-box-title -->
-                                    <p>Within 30 days</p>
+                                    <h3 class="icon-box-title">Secure Payment</h3><!-- End .icon-box-title -->
+                                    <p>Safety Payment Gateway</p>
                                 </div><!-- End .icon-box-content -->
                             </div><!-- End .icon-box -->
                         </div><!-- End .col-sm-6 col-lg-3 -->
@@ -1256,8 +1211,8 @@
                                 </span>
 
                                 <div class="icon-box-content">
-                                    <h3 class="icon-box-title">Get 20% Off 1 Item</h3><!-- End .icon-box-title -->
-                                    <p>when you sign up</p>
+                                    <h3 class="icon-box-title">Get Information</h3><!-- End .icon-box-title -->
+                                    <p>of products we're selling</p>
                                 </div><!-- End .icon-box-content -->
                             </div><!-- End .icon-box -->
                         </div><!-- End .col-sm-6 col-lg-3 -->
@@ -1269,16 +1224,14 @@
                                 </span>
 
                                 <div class="icon-box-content">
-                                    <h3 class="icon-box-title">We Support</h3><!-- End .icon-box-title -->
-                                    <p>24/7 amazing services</p>
+                                    <h3 class="icon-box-title">Customer Support</h3><!-- End .icon-box-title -->
+                                    <p>All the time</p>
                                 </div><!-- End .icon-box-content -->
                             </div><!-- End .icon-box -->
                         </div><!-- End .col-sm-6 col-lg-3 -->
                     </div><!-- End .row -->
                 </div><!-- End .container -->
             </div><!-- End .icon-boxes-container -->
-
-            
         </main><!-- End .main -->
         
         <?php include('footer.php'); ?>
