@@ -3,6 +3,9 @@
 
 <?php include('head.php') ?>
 
+<?php
+if (isset($_SESSION['customer_id'])) {
+?>
 <body>
     <div class="page-wrapper">
         <?php include('header.php') ?>
@@ -10,14 +13,14 @@
         <main class="main">
         	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
         		<div class="container">
-        			<h1 class="page-title">Checkout<span>Shop</span></h1>
+        			<h1 class="page-title">Checkout</h1>
         		</div><!-- End .container -->
         	</div><!-- End .page-header -->
             <nav aria-label="breadcrumb" class="breadcrumb-nav">
                 <div class="container">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item"><a href="cart.php">Cart</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Checkout</li>
                     </ol>
                 </div><!-- End .container -->
@@ -26,79 +29,65 @@
             <div class="page-content">
             	<div class="checkout">
 	                <div class="container">
-            			<div class="checkout-discount">
-            				<form action="#">
-        						<input type="text" class="form-control" required id="checkout-discount-input">
-            					<label for="checkout-discount-input" class="text-truncate">Have a coupon? <span>Click here to enter your code</span></label>
-            				</form>
-            			</div><!-- End .checkout-discount -->
             			<form action="#">
 		                	<div class="row">
-		                		<div class="col-lg-9">
+		                		<div class="col-lg-6">
 		                			<h2 class="checkout-title">Billing Details</h2><!-- End .checkout-title -->
 		                				<div class="row">
 		                					<div class="col-sm-6">
-		                						<label>First Name *</label>
+		                						<label>First Name <span class="text-danger">*</span></label>
 		                						<input type="text" class="form-control" required>
 		                					</div><!-- End .col-sm-6 -->
 
 		                					<div class="col-sm-6">
-		                						<label>Last Name *</label>
+		                						<label>Last Name <span class="text-danger">*</span></label>
 		                						<input type="text" class="form-control" required>
 		                					</div><!-- End .col-sm-6 -->
 		                				</div><!-- End .row -->
 
-	            						<label>Company Name (Optional)</label>
-	            						<input type="text" class="form-control">
-
-	            						<label>Country *</label>
-	            						<input type="text" class="form-control" required>
-
-	            						<label>Street address *</label>
+	            						<label>Street address <span class="text-danger">*</span></label>
 	            						<input type="text" class="form-control" placeholder="House number and Street name" required>
-	            						<input type="text" class="form-control" placeholder="Appartments, suite, unit etc ..." required>
 
 	            						<div class="row">
 		                					<div class="col-sm-6">
-		                						<label>Town / City *</label>
+		                						<label>Town / City <span class="text-danger">*</span></label>
 		                						<input type="text" class="form-control" required>
 		                					</div><!-- End .col-sm-6 -->
 
 		                					<div class="col-sm-6">
-		                						<label>State / County *</label>
+		                						<label>State / County <span class="text-danger">*</span></label>
 		                						<input type="text" class="form-control" required>
 		                					</div><!-- End .col-sm-6 -->
 		                				</div><!-- End .row -->
 
 		                				<div class="row">
 		                					<div class="col-sm-6">
-		                						<label>Postcode / ZIP *</label>
+		                						<label>Postcode / ZIP <span class="text-danger">*</span></label>
 		                						<input type="text" class="form-control" required>
-		                					</div><!-- End .col-sm-6 -->
-
-		                					<div class="col-sm-6">
-		                						<label>Phone *</label>
-		                						<input type="tel" class="form-control" required>
 		                					</div><!-- End .col-sm-6 -->
 		                				</div><!-- End .row -->
 
-	                					<label>Email address *</label>
+		                				<div class="row">
+		                					<div class="col-sm-6">
+											<label>Email address <span class="text-danger">*</span></label>
 	        							<input type="email" class="form-control" required>
+		                					</div><!-- End .col-sm-6 -->
 
-	        							<div class="custom-control custom-checkbox">
-											<input type="checkbox" class="custom-control-input" id="checkout-create-acc">
-											<label class="custom-control-label" for="checkout-create-acc">Create an account?</label>
-										</div><!-- End .custom-checkbox -->
+		                					<div class="col-sm-6">
+		                						<label>Phone <span class="text-danger">*</span></label>
+		                						<input type="tel" class="form-control" required>
+		                					</div><!-- End .col-sm-6 -->
+		                				</div><!-- End .row -->
 
 										<div class="custom-control custom-checkbox">
 											<input type="checkbox" class="custom-control-input" id="checkout-diff-address">
 											<label class="custom-control-label" for="checkout-diff-address">Ship to a different address?</label>
 										</div><!-- End .custom-checkbox -->
 
-	                					<label>Order notes (optional)</label>
+	                					<label>Order notes (Optional)</label>
 	        							<textarea class="form-control" cols="30" rows="4" placeholder="Notes about your order, e.g. special notes for delivery"></textarea>
-		                		</div><!-- End .col-lg-9 -->
-		                		<aside class="col-lg-3">
+		                		</div><!-- End .col-lg-6 -->
+		                		<aside class="col-lg-6">
 		                			<div class="summary">
 		                				<h3 class="summary-title">Your Order</h3><!-- End .summary-title -->
 
@@ -106,32 +95,36 @@
 		                					<thead>
 		                						<tr>
 		                							<th>Product</th>
-		                							<th>Total</th>
+		                							<th>Price</th>
+		                							<th>Subtotal</th>
 		                						</tr>
 		                					</thead>
 
 		                					<tbody>
 		                						<tr>
-		                							<td><a href="#">Beige knitted elastic runner shoes</a></td>
-		                							<td>$84.00</td>
+		                							<td>
+														<a href="#">iPhone 14 Pro Max</a>
+														<p>128GB - Deep Purple</p>
+													</td>
+		                							<td>1 x RM 5799.00</td>
+		                							<td>RM 5799.00</td>
 		                						</tr>
-
 		                						<tr>
-		                							<td><a href="#">Blue utility pinafore denimdress</a></td>
-		                							<td>$76,00</td>
+		                							<td>
+														<a href="#">AirPods Pro 2nd Generation</a>
+														<p>White</p>
+													</td>
+		                							<td>2 x RM 1099.00</td>
+		                							<td>RM 2198.00</td>
 		                						</tr>
-		                						<tr class="summary-subtotal">
-		                							<td>Subtotal:</td>
-		                							<td>$160.00</td>
-		                						</tr><!-- End .summary-subtotal -->
 		                						<tr>
 		                							<td>Shipping:</td>
-		                							<td>Free shipping</td>
+		                							<td colspan="2">Free shipping</td>
 		                						</tr>
-		                						<tr class="summary-total">
-		                							<td>Total:</td>
-		                							<td>$160.00</td>
-		                						</tr><!-- End .summary-total -->
+		                						<tr class="summary-subtotal">
+		                							<td>Grandtotal:</td>
+		                							<td colspan="2">RM 7977.00</td>
+		                						</tr><!-- End .summary-subtotal -->
 		                					</tbody>
 		                				</table><!-- End .table table-summary -->
 
@@ -140,83 +133,52 @@
 										        <div class="card-header" id="heading-1">
 										            <h2 class="card-title">
 										                <a role="button" data-toggle="collapse" href="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
-										                    Direct bank transfer
+														<img src="assets/images/payment-visa.jpg" alt="payments cards">
+														Visa
 										                </a>
 										            </h2>
 										        </div><!-- End .card-header -->
 										        <div id="collapse-1" class="collapse show" aria-labelledby="heading-1" data-parent="#accordion-payment">
-										            <div class="card-body">
-										                Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
-										            </div><!-- End .card-body -->
 										        </div><!-- End .collapse -->
 										    </div><!-- End .card -->
-
+		
 										    <div class="card">
 										        <div class="card-header" id="heading-2">
 										            <h2 class="card-title">
-										                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
-										                    Check payments
+										                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-2" aria-expanded="false" aria-controls="collapse-4">
+										                <img src="assets/images/payment-master.png" alt="payments cards">    
+														Master													
 										                </a>
 										            </h2>
 										        </div><!-- End .card-header -->
 										        <div id="collapse-2" class="collapse" aria-labelledby="heading-2" data-parent="#accordion-payment">
-										            <div class="card-body">
-										                Ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. 
-										            </div><!-- End .card-body -->
 										        </div><!-- End .collapse -->
 										    </div><!-- End .card -->
 
 										    <div class="card">
 										        <div class="card-header" id="heading-3">
 										            <h2 class="card-title">
-										                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-3" aria-expanded="false" aria-controls="collapse-3">
-										                    Cash on delivery
+										                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-3" aria-expanded="false" aria-controls="collapse-5">
+										                <img src="assets/images/payment-fpx.jpg" alt="payments cards">    
+														FPX
 										                </a>
 										            </h2>
 										        </div><!-- End .card-header -->
 										        <div id="collapse-3" class="collapse" aria-labelledby="heading-3" data-parent="#accordion-payment">
-										            <div class="card-body">Quisque volutpat mattis eros. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. 
-										            </div><!-- End .card-body -->
 										        </div><!-- End .collapse -->
 										    </div><!-- End .card -->
-
-										    <div class="card">
-										        <div class="card-header" id="heading-4">
-										            <h2 class="card-title">
-										                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-4" aria-expanded="false" aria-controls="collapse-4">
-										                    PayPal <small class="float-right paypal-link">What is PayPal?</small>
-										                </a>
-										            </h2>
-										        </div><!-- End .card-header -->
-										        <div id="collapse-4" class="collapse" aria-labelledby="heading-4" data-parent="#accordion-payment">
-										            <div class="card-body">
-										                Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Donec nec justo eget felis facilisis fermentum.
-										            </div><!-- End .card-body -->
-										        </div><!-- End .collapse -->
-										    </div><!-- End .card -->
-
-										    <div class="card">
-										        <div class="card-header" id="heading-5">
-										            <h2 class="card-title">
-										                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-5" aria-expanded="false" aria-controls="collapse-5">
-										                    Credit Card (Stripe)
-										                    <img src="assets/images/payments-summary.png" alt="payments cards">
-										                </a>
-										            </h2>
-										        </div><!-- End .card-header -->
-										        <div id="collapse-5" class="collapse" aria-labelledby="heading-5" data-parent="#accordion-payment">
-										            <div class="card-body"> Donec nec justo eget felis facilisis fermentum.Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Lorem ipsum dolor sit ame.
-										            </div><!-- End .card-body -->
-										        </div><!-- End .collapse -->
-										    </div><!-- End .card -->
+											
 										</div><!-- End .accordion -->
 
-		                				<button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
+		                				<button type="submit" class="btn btn-outline-primary-2 btn-order btn-block" data-toggle="modal" data-target="#staticBackdrop">
 		                					<span class="btn-text">Place Order</span>
 		                					<span class="btn-hover-text">Proceed to Checkout</span>
 		                				</button>
+
+										<!-- Modal -->
+										<?php include('payment-modal.php'); ?>
 		                			</div><!-- End .summary -->
-		                		</aside><!-- End .col-lg-3 -->
+		                		</aside><!-- End .col-lg-6 -->
 		                	</div><!-- End .row -->
             			</form>
 	                </div><!-- End .container -->
@@ -245,5 +207,9 @@
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
 </body>
-
+<?php
+} else {
+	header('Location: 404.php');
+}
+?>
 </html>
