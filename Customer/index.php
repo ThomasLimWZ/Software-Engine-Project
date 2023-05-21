@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include('head.php') ?>
+<?php include('head.php'); ; ?>
 
 <body>
     <div class="page-wrapper">
-        <?php include('header.php') ?>
+        <?php include('header.php'); ?>
 
         <main class="main">
             <div class="intro-section pt-3 pb-3 mb-2">
@@ -3486,16 +3486,16 @@
             </div><!-- End .container -->
         </main><!-- End .main -->
         
-        <?php include('footer.php') ?>
+        <?php include('footer.php'); ?>
     </div><!-- End .page-wrapper -->
     <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
 
     <!-- Mobile Menu -->
     <div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
-    <?php include('mobile-menu-container.php') ?>
+    <?php include('mobile-menu-container.php'); ?>
 
     <!-- Sign in / Register Modal -->
-    <?php include('signin-register-modal.php') ?>
+    <?php include('signin-register-modal.php'); ?>
 
     <!-- Plugins JS File -->
     <script src="assets/js/jquery.min.js"></script>
@@ -3511,6 +3511,7 @@
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
     <script src="assets/js/demos/demo-3.js"></script>
+    
 </body>
 
 </html>

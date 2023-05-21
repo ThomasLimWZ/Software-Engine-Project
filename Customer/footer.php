@@ -45,18 +45,24 @@
                         </ul><!-- End .widget-list -->
                     </div><!-- End .widget -->
                 </div><!-- End .col-sm-6 col-lg-3 -->
+                
+                <?php
+                if (isset($_SESSION["customer_id"])) {
+                ?>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="widget">
+                            <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
 
-                <div class="col-sm-6 col-lg-3">
-                    <div class="widget">
-                        <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
-
-                        <ul class="widget-list">
-                            <li><a href="profile.php">Profile</a></li>
-                            <li><a href="cart.php">View Cart</a></li>
-                            <li><a href="order-history.php">My Order</a></li>
-                        </ul><!-- End .widget-list -->
-                    </div><!-- End .widget -->
-                </div><!-- End .col-sm-6 col-lg-3 -->
+                            <ul class="widget-list">
+                                <li><a href="my-account.php">Profile</a></li>
+                                <li><a href="cart.php">View Cart</a></li>
+                                <li><a href="my-account.php">My Order</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-6 col-lg-3 -->
+                <?php
+                }
+                ?>
             </div><!-- End .row -->
         </div><!-- End .container -->
     </div><!-- End .footer-middle -->
