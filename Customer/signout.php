@@ -11,7 +11,7 @@
     echo "
         <script>
             Swal.fire(
-                'Log out Success!',
+                'Log out Successful!',
                 '',
                 'success'
             ).then(() => window.location.href='index.php');

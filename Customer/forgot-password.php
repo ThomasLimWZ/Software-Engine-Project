@@ -87,7 +87,7 @@ if (isset($_POST['forgot_pass_email_next'])) {
 		$_SESSION['reset_customer_id'] = $cus_id;
 		$_SESSION['valitation_code'] = sent_random_code_email($cus_id,$connect);
 
-		echo "<script>window.location.assign('check-get-code.php');</script>";
+		echo "<script>window.location.assign('validate-email-code.php');</script>";
 	} else {
 		echo "
 			<script>
@@ -130,12 +130,12 @@ function sent_random_code_email($cus_id,$connect)
 
 			<body >
 				<div style="width: 400px;border: 1px solid black;margin:auto;background-color: #F7E381;padding: 20px;">
-					<div align="center"><span style="font-size:20pt;background-color:#E3C327 ;color: white;border-color: #fff ;border: 2px solid #EDF1FF;padding:6px 10px">4 People Telco</span></div>
+					<div align="center"><span style="font-size:20pt;background-color:#E3C327 ;color: white;border-color: #fff ;border: 2px solid #EDF1FF;padding:6px 10px">4People Telco</span></div>
 				
 					<h3>Dear <span style="font-weight: bolder;text-decoration: underline;color:black;">'.$name.'</span>,</h3>
 						<span style="font-size: 13pt;">Your validation code is <span style="font-size: 16pt;font-weight: bold;color: black;text-decoration: underline;">'.$code.'</span></span>
 					<br><br>
-					<p style="margin: 0; font-size: 12pt; mso-line-height-alt: 21px;">For any question.Please email to 4peoplestelco@gmail.com .<br>Thanks for visting at our 4 People Telco.</p>
+					<p style="margin: 0; font-size: 12pt; mso-line-height-alt: 21px;">For any question.Please email to 4peoplestelco@gmail.com .<br>Thanks for visting at our 4People Telco.</p>
 				</div>
 			</body>
 		</html>';

@@ -117,7 +117,7 @@
 								        <a class="nav-link" id="tab-reset-password-link" data-toggle="tab" href="#tab-reset-password" role="tab" aria-controls="tab-reset-password" aria-selected="false">Reset Password</a>
 								    </li>
 								    <li class="nav-item">
-								        <a class="nav-link" href="signout.php">Sign Out</a>
+								        <a class="nav-link" href="signout.php">Log Out</a>
 								    </li>
 								</ul>
 	                		</aside><!-- End .col-lg-3 -->

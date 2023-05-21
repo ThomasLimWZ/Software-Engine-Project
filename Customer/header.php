@@ -8,14 +8,33 @@
                         $cus_id = $_SESSION["customer_id"];
                         $result = mysqli_query($connect,"SELECT * FROM customer WHERE cus_id = '$cus_id'");
                         $row = mysqli_fetch_assoc($result);
-
-                        echo '
-                            <a class="h5 text-white" href="my-account.php"><img src="assets/images/profile.png" width="35px" height="35px">&nbsp;'.$row["cus_name"].'</a>
-                        ';
+                    ?>
+                            <a class="h5 text-white" href="#" data-toggle="dropdown"><img src="assets/images/profile.png" width="35px" height="35px">&nbsp;<?php echo $row["cus_name"]; ?></a>
+                            <div class="dropdown-menu h6 mt-1" style="width: 12%;">
+                                <a class="dropdown-item p-2" href="my-account.php">My Account</a>
+                                <a class="dropdown-item p-2 text-danger" href="#" onclick="logoutConfirm();">Log Out</a>
+                            </div>
+                            <script>
+                                function logoutConfirm(){
+                                    var option;
+                                    Swal.fire({
+                                        title: 'Are you sure to log out?',
+                                        icon: 'warning',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#3085d6',
+                                        cancelButtonColor: '#d33',
+                                        confirmButtonText: 'Yes, log out now!'
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            window.location.href="signout.php";
+                                        }
+                                    });
+                                }	
+                            </script>
+                    <?php
                     } else {                   
                         echo'<a class="h5" href="#signin-modal" data-toggle="modal">Sign in / Sign up</a>';
                     }
-                    
                     ?>
                 </ul><!-- End .top-menu -->
             </div><!-- End .header-right -->

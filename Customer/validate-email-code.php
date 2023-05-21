@@ -49,8 +49,8 @@
 	
 	.enter_code input::-webkit-outer-spin-button,
 	.enter_code input::-webkit-inner-spin-button {
-	-webkit-appearance: none;
-	margin: 0;
+		-webkit-appearance: none;
+		margin: 0;
 	}
 
 	/* 2 group of 3 items */
@@ -73,21 +73,22 @@
 		white-space: nowrap !important;
 	}
 </style>
+
 <body>
     <div class="page-wrapper">
         <?php include('header.php') ?>
 
         <main class="main">
-        	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg');">
         		<div class="container">
-        			<h1 class="page-title">Validate Code</h1>
+        			<h1 class="page-title">Validate Code for Email</h1>
         		</div><!-- End .container -->
         	</div><!-- End .page-header -->
             <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
                 <div class="container">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                        <li class="breadcrumb-item"><a href="forget-password.php">Forget Password</a></li>
+                        <li class="breadcrumb-item"><a href="forget-password.php">Forgot Password</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Validate Code</li>
                     </ol>
                 </div><!-- End .container -->
@@ -97,14 +98,13 @@
             	<div class="dashboard">
 	                <div class="container">
 	                	<div class="row">
-
-							<div id="enter_code" style="margin:auto;padding:2%;width:60%;" class="enter_code">
-								<form class="otc" name="one-time-code" method="post" style="width:80%">
+							<div id="enter_code" style="margin: auto; padding: 2%; width: 60%;" class="enter_code">
+								<form class="otc" name="one-time-code" method="post" style="width: 80%；">
 									
-									Dear <span id="validation_name" style="font-weight: bold;"></span> ,<br> Validation code has been sent to <span id="validation_email" style="font-weight: bold;"></span> !!
+									Dear <span id="validation_name" class="font-weight-bold"></span> ,<br> Validate code has been sent to <span id="validation_email" class="font-weight-bold"></span>!
 									<br><br>
 									
-									<fieldset style="width:60%">
+									<fieldset style="width: 60%；">
 										<legend>Enter Code</legend>
 										<label for="otc-1">Number 1</label>
 										<label for="otc-2">Number 2</label>
@@ -114,25 +114,24 @@
 										<label for="otc-6">Number 6</label>
 
 										<div>
-										<input type="number" pattern="[0-9]*"  value="" inputtype="numeric" autocomplete="one-time-code" id="otc-1" require name="code1">
+											<input type="number" pattern="[0-9]*"  value="" inputtype="numeric" autocomplete="one-time-code" id="otc-1" require name="code1">
 
-										<!-- Autocomplete not to put on other input -->
-										<input type="number" pattern="[0-9]*" min="0" max="9" maxlength="1"  value="" inputtype="numeric" id="otc-2" require name="code2">
-										<input type="number" pattern="[0-9]*" min="0" max="9" maxlength="1"  value="" inputtype="numeric" id="otc-3" require name="code3">
-										<input type="number" pattern="[0-9]*" min="0" max="9" maxlength="1"  value="" inputtype="numeric" id="otc-4" require name="code4">
-										<input type="number" pattern="[0-9]*" min="0" max="9" maxlength="1"  value="" inputtype="numeric" id="otc-5" require name="code5"> 
-										<input type="number" pattern="[0-9]*" min="0" max="9" maxlength="1"  value="" inputtype="numeric" id="otc-6" require name="code6">
+											<!-- Autocomplete not to put on other input -->
+											<input type="number" pattern="[0-9]*" min="0" max="9" maxlength="1"  value="" inputtype="numeric" id="otc-2" require name="code2">
+											<input type="number" pattern="[0-9]*" min="0" max="9" maxlength="1"  value="" inputtype="numeric" id="otc-3" require name="code3">
+											<input type="number" pattern="[0-9]*" min="0" max="9" maxlength="1"  value="" inputtype="numeric" id="otc-4" require name="code4">
+											<input type="number" pattern="[0-9]*" min="0" max="9" maxlength="1"  value="" inputtype="numeric" id="otc-5" require name="code5"> 
+											<input type="number" pattern="[0-9]*" min="0" max="9" maxlength="1"  value="" inputtype="numeric" id="otc-6" require name="code6">
 										</div>
 									</fieldset>
 									<br>
-									<span id="show_word" style="display:none;width:fit-content;">Didn't recieve code? <a id="resent_btn" value="resent" name="resent_email_btn" href="?resentpass">Resend code</a></span>
-									<span id="coutdown" > Remaining <span id="countdowntimer">30 </span> Seconds to <a disabled id="resent_btn" style="text-decoration:underline"  >Resend code</a></span> 
+									<span id="show_word" class="d-none" style="width: fit-content;">Didn't recieve code? <a id="resent_btn" value="resent" name="resent_email_btn" href="?resentpass">Resend code</a></span>
+									<span id="coutdown"> Remaining <span id="countdowntimer">30 </span> Seconds to <a disabled id="resent_btn" style="text-decoration: underline;" >Resend code</a></span> 
 									<div class="form-footer">
 										<button type="submit" class="btn btn-outline-primary-2" name="forgot_pass_code_next">
 											<span>Next</span>
 											<i class="icon-long-arrow-right"></i>                                       
 										</button>
-										
 									</div><!-- End .form-footer -->
 								</form>
 							</div>
@@ -166,17 +165,17 @@
 
 	<!-- use for the validation code -->
 	<script>
-        function opentimeresent(){
+        function opentimeresent() {
             var timeleft = 30;
-            var downloadTimer = setInterval(function(){
+            var downloadTimer = setInterval(() => {
             timeleft--;
             document.getElementById("countdowntimer").textContent = timeleft;
             if(timeleft <= 0){
                 clearInterval(downloadTimer);
-                document.getElementById("coutdown").style.display="none";
-                document.getElementById("show_word").style.display="block";
+				$('#coutdown').addClass('d-none');
+				$('#show_word').removeClass('d-none');
             }
-            },1000);
+            }, 1000);
         }
 
 		let in1 = document.getElementById('otc-1'),
@@ -305,19 +304,19 @@ function sent_random_code_email($cus_id,$connect)
 			</head>
 
 			<body >
-				<div style="width: 400px;border: 1px solid black;margin:auto;background-color: #F7E381;padding: 20px;">
-					<div align="center"><span style="font-size:20pt;background-color:#E3C327 ;color: white;border-color: #fff ;border: 2px solid #EDF1FF;padding:6px 10px">4 People Telco</span></div>
+				<div style="width: 400px; border: 1px solid black; margin:auto; background-color: #F7E381;padding: 20px;">
+					<div align="center"><span style="font-size:20pt; background-color:#E3C327; color: white; border-color: #fff; border: 2px solid #EDF1FF; padding:6px 10px;">4People Telco</span></div>
 				
-					<h3>Dear <span style="font-weight: bolder;text-decoration: underline;color:black;">'.$name.'</span>,</h3>
-						<span style="font-size: 13pt;">Your validation code is <span style="font-size: 16pt;font-weight: bold;color: black;text-decoration: underline;">'.$code.'</span></span>
+					<h3>Dear <span style="font-weight: bolder; text-decoration: underline; color:black;">'.$name.'</span>,</h3>
+						<span style="font-size: 13pt;">Your validation code is <span style="font-size: 16pt; font-weight: bold; color: black; text-decoration: underline;">'.$code.'</span></span>
 					<br><br>
-					<p style="margin: 0; font-size: 12pt; mso-line-height-alt: 21px;">For any question.Please email to 4peoplestelco@gmail.com .<br>Thanks for visting at our 4 People Telco.</p>
+					<p style="margin: 0; font-size: 12pt; mso-line-height-alt: 21px;">For any question.Please email to 4peoplestelco@gmail.com .<br>Thanks for visting at our 4People Telco.</p>
 				</div>
 			</body>
 		</html>';
 
     $from = '4peoplestelco@gmail.com'; 
-    $fromName = '4 People Telco'; 
+    $fromName = '4People Telco'; 
     
     // Set content-type header for sending HTML email 
     $headers = "MIME-Version: 1.0" . "\r\n"; 
@@ -353,7 +352,7 @@ if(isset($_POST['forgot_pass_code_next']))
 		unset($_SESSION['valitation_code']);
 		?>
 			<script>
-				window.location.assign("change-password.php");
+				window.location.assign("reset-password.php");
 			</script>
 		<?php
 		
@@ -378,13 +377,12 @@ else{
 
 
 if(isset($_GET['resentpass'])){
-    
-    $cus_id=$_SESSION['reset_customer_id'];
-    $_SESSION['valitation_code'] = sent_random_code_email($cus_id,$connect);
+    $cus_id = $_SESSION['reset_customer_id'];
+    $_SESSION['valitation_code'] = sent_random_code_email($cus_id, $connect);
     ?>
         <script>
             opentimeresent();          
-            window.location.assign("check-get-code.php");
+            window.location.assign("validate-email-code.php");
         </script>
     <?php
 	
