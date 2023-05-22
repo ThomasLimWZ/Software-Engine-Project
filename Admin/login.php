@@ -32,7 +32,7 @@
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
                                                 id="admPass" name="admin_pass" placeholder="Password"
-                                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,}"
+                                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]){8,}"
                                                 title="Must contain number, uppercase, special characters and lowercase letter, and at least 8 or more characters" required>
                                         </div>
                                         <div class="form-group text-right">

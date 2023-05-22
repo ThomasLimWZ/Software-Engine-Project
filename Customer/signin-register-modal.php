@@ -29,7 +29,7 @@
                                     <div class="form-group">
                                         <label for="singin-password">Password <span class="text-danger">*</span></label>
                                         <input type="password" class="form-control" id="singin-password" name="singin-password"
-                                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,}"
+                                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]){8,}"
                                             title="Must contain number, uppercase, special characters and lowercase letter, and at least 8 or more characters" required>
                                     </div><!-- End .form-group -->
 
@@ -81,7 +81,7 @@
                                     <div class="form-group">
                                         <label for="register-password">Password <span class="text-danger">*</span></label>
                                         <input type="password" class="form-control" id="register-password" name="register-password"
-                                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,}"
+                                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]){8,}"
                                             title="Must contain number, uppercase, special characters and lowercase letter, and at least 8 or more characters" required>
                                     </div><!-- End .form-group -->
 
@@ -120,7 +120,7 @@
                                     <div class="form-group">
                                         <label for="register-confirm-password">Confirm Password <span class="text-danger">*</span></label>
                                         <input type="password" class="form-control" id="register-confirm-password" name="register-confirm-password"
-                                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,}"
+                                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]){8,}"
                                             title="Must contain number, uppercase, special characters and lowercase letter, and at least 8 or more characters" required>
                                     </div><!-- End .form-group -->
                                     

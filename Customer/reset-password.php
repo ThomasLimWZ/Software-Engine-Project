@@ -51,7 +51,7 @@
                                     <div class="form-group">
                                         <label for="new-password">New Password <span class="text-danger">*</span></label>
                                         <input type="password" class="form-control" minlength="8" name="new_password"  id="new_password"
-                                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,}" 
+                                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]){8,}" 
                                             title="Must contain number, uppercase, special characters and lowercase letter, and at least 8 or more characters" required>
                                     </div><!-- End .form-group -->
 
@@ -90,7 +90,7 @@
                                     <div class="form-group">
                                         <label for="new-password">Confirm New Password <span class="text-danger">*</span></label>
                                         <input type="password" class="form-control" minlength="8" name="con_new_password"  id="con_new_password"
-                                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,}" 
+                                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]){8,}" 
                                             title="Must contain number, uppercase, special characters and lowercase letter, and at least 8 or more characters" required>
                                     </div><!-- End .form-group -->  
                                     

@@ -36,13 +36,13 @@
                                         <div class="form-group">
                                             <label class="form-label">New Password&nbsp;</label><span class="text-danger">*</span>
                                             <input name="pass" id="pass" class="form-control" type="password" 
-                                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,}" 
+                                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]){8,}" 
                                                 title="Must contain number, uppercase, special characters and lowercase letter, and at least 8 or more characters" required>
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">Confirm Password&nbsp;</label><span class="text-danger">*</span>
                                             <input name="confirmPass" id="confirmPass" class="form-control" type="password" 
-                                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,}" 
+                                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]){8,}" 
                                                 title="Must contain number, uppercase, special characters and lowercase letter, and at least 8 or more characters" required>
                                         </div>
                                         <div class="form-group text-right">
