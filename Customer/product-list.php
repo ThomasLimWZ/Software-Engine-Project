@@ -28,15 +28,15 @@ $query2 = mysqli_query($connect, $exta);
 $count = mysqli_num_rows($query2);
 
 $showup = '
-<div class="toolbox">
-    <div class="toolbox-center" style="margin:auto;">
-        <div class="toolbox-info">
-            Showing <span>'.$num.' of '.$count.'</span> Products
-        </div><!-- End .toolbox-info -->
-    </div><!-- End .toolbox-center -->
-</div><!-- End .toolbox -->
+    <div class="toolbox">
+        <div class="toolbox-center" style="margin:auto;">
+            <div class="toolbox-info">
+                Showing <span>'.$num.' of '.$count.'</span> Products
+            </div><!-- End .toolbox-info -->
+        </div><!-- End .toolbox-center -->
+    </div><!-- End .toolbox -->
 
-<div class="products">
+    <div class="products">
     <div class="row" id="show-product-list">
 ';
 
@@ -44,10 +44,10 @@ $insert_out_of_stock = '';
 
 if ($count != 0)
 {
-    while ($showprod = mysqli_fetch_assoc($query)) {   
+    while ($showprod = mysqli_fetch_assoc($query)) {
         //setting up stock label
         if ($showprod['prod_color_stock'] == 0)
-        $insert_out_of_stock = '<span class="product-label label-out">Out of stock</span>';
+            $insert_out_of_stock = '<span class="product-label label-out">Out of stock</span>';
 
         //getting the product category name
         $cat_id = $showprod['cat_id'];
@@ -97,9 +97,9 @@ if ($count != 0)
     $showup .= '
                 </div><!-- End .row -->
             </div><!-- End .products -->
-        <div class="col-12 pb-1">
-        <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center mb-10" >
+            <div class="col-12 pb-1">
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center mb-10">
     ';
 
     if ($page == 1)
@@ -158,7 +158,7 @@ if ($count != 0)
     }
     else
     {        
-        $show_view_page = $page+1;
+        $show_view_page = $page + 1;
         if($show_view_page>$numpage)
             $show_view_page=$numpage;
         if($show_view_page<8)
