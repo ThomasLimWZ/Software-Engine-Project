@@ -29,7 +29,7 @@
                                     <div class="form-group">
                                         <label for="singin-password">Password <span class="text-danger">*</span></label>
                                         <input type="password" class="form-control" id="singin-password" name="singin-password"
-                                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[#?!@$%^&*-.,]).{8,}"
+                                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,}"
                                             title="Must contain number, uppercase, special characters and lowercase letter, and at least 8 or more characters" required>
                                     </div><!-- End .form-group -->
 
@@ -81,7 +81,7 @@
                                     <div class="form-group">
                                         <label for="register-password">Password <span class="text-danger">*</span></label>
                                         <input type="password" class="form-control" id="register-password" name="register-password"
-                                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[#?!@$%^&*-.,]).{8,}"
+                                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,}"
                                             title="Must contain number, uppercase, special characters and lowercase letter, and at least 8 or more characters" required>
                                     </div><!-- End .form-group -->
 
@@ -97,6 +97,11 @@
                                                     <i class="fas fa-check text-success me-2"></i>
                                                     <i class="fas fa-times text-danger me-3"></i>
                                                     &emsp;Your password must have at least 1 big letter.
+                                                </li>
+                                                <li class="requirements small-letter">
+                                                    <i class="fas fa-check text-success me-2"></i>
+                                                    <i class="fas fa-times text-danger me-3"></i>
+                                                    &emsp;Your password must have at least 1 small letter.
                                                 </li>
                                                 <li class="requirements num">
                                                     <i class="fas fa-check text-success me-2"></i>
@@ -115,7 +120,7 @@
                                     <div class="form-group">
                                         <label for="register-confirm-password">Confirm Password <span class="text-danger">*</span></label>
                                         <input type="password" class="form-control" id="register-confirm-password" name="register-confirm-password"
-                                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[#?!@$%^&*-.,]).{8,}"
+                                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,}"
                                             title="Must contain number, uppercase, special characters and lowercase letter, and at least 8 or more characters" required>
                                     </div><!-- End .form-group -->
                                     
@@ -218,9 +223,10 @@
         const passwordAlert = document.getElementById("password-alert");
         const requirements = document.querySelectorAll(".requirements");
 
-        let lengBoolean, bigLetterBoolean, numBoolean, specialCharBoolean;
+        let lengBoolean, bigLetterBoolean, smallLetterBoolean, numBoolean, specialCharBoolean;
         let leng = document.querySelector(".leng");
         let bigLetter = document.querySelector(".big-letter");
+        let smallLetter = document.querySelector(".small-letter");
         let num = document.querySelector(".num");
         let specialChar = document.querySelector(".special-char");
 
@@ -254,10 +260,18 @@
                 lengBoolean = true;
             }
 
-            if (value.toLowerCase() == value) {
-                bigLetterBoolean = false;
+            let lowerCaseLetters = /[a-z]/g;
+            if(value.match(lowerCaseLetters)) {  
+                smallLetterBoolean = true;
             } else {
+                smallLetterBoolean = false;
+            }
+            
+            let upperCaseLetters = /[A-Z]/g;
+            if(value.match(upperCaseLetters)) {  
                 bigLetterBoolean = true;
+            } else {
+                bigLetterBoolean = false;
             }
 
             numBoolean = false;
@@ -278,7 +292,7 @@
                 }
             }
 
-            if (lengBoolean == true && bigLetterBoolean == true && numBoolean == true && specialCharBoolean == true) {
+            if (lengBoolean == true && bigLetterBoolean == true && smallLetterBoolean == true && numBoolean == true && specialCharBoolean == true) {
                 passwordType.classList.remove("is-invalid");
                 passwordType.classList.add("is-valid");
 
@@ -309,6 +323,14 @@
                 } else {
                     bigLetter.classList.add("good");
                     bigLetter.classList.remove("wrong");
+                }
+
+                if (smallLetterBoolean == false) {
+                    smallLetter.classList.add("wrong");
+                    smallLetter.classList.remove("good");
+                } else {
+                    smallLetter.classList.add("good");
+                    smallLetter.classList.remove("wrong");
                 }
 
                 if (numBoolean == false) {
@@ -365,7 +387,7 @@
         function bothPasswordValidation() {
             if ($('#register-password').val() == $('#register-confirm-password').val()) {
                 samePassBoolean = true;
-                if (lengBoolean == true && bigLetterBoolean == true && numBoolean == true && specialCharBoolean == true) {
+                if (lengBoolean == true && bigLetterBoolean == true && smallLetterBoolean == true && numBoolean == true && specialCharBoolean == true) {
                     document.getElementById('registerBtn').disabled = false;
                 }
             } else {
