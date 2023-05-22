@@ -71,7 +71,7 @@
         <div class="container">
             <p class="footer-copyright">Copyright © 2023 4People Telco. All Rights Reserved.</p><!-- End .footer-copyright -->
             <figure class="footer-payments">
-                <img src="assets/images/payments.png" alt="Payment methods" width="272" height="20">
+                <img src="assets/images/payments.png" alt="Payment methods" style="height: 40px;">
             </figure><!-- End .footer-payments -->
         </div><!-- End .container -->
     </div><!-- End .footer-bottom -->

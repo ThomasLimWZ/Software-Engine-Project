@@ -36,13 +36,13 @@
                                         <div class="form-group">
                                             <label class="form-label">New Password&nbsp;</label><span class="text-danger">*</span>
                                             <input name="pass" id="pass" class="form-control" type="password" 
-                                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[#?!@$%^&*-.,]).{8,}" 
+                                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,}" 
                                                 title="Must contain number, uppercase, special characters and lowercase letter, and at least 8 or more characters" required>
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">Confirm Password&nbsp;</label><span class="text-danger">*</span>
                                             <input name="confirmPass" id="confirmPass" class="form-control" type="password" 
-                                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[#?!@$%^&*-.,]).{8,}" 
+                                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,}" 
                                                 title="Must contain number, uppercase, special characters and lowercase letter, and at least 8 or more characters" required>
                                         </div>
                                         <div class="form-group text-right">
@@ -63,6 +63,11 @@
                                                         <i class="fas fa-check text-success me-2"></i>
                                                         <i class="fas fa-times text-danger me-3"></i>
                                                         &emsp;Your password must have at least 1 big letter.
+                                                    </li>
+                                                    <li class="requirements small-letter">
+                                                        <i class="fas fa-check text-success me-2"></i>
+                                                        <i class="fas fa-times text-danger me-3"></i>
+                                                        &emsp;Your password must have at least 1 small letter.
                                                     </li>
                                                     <li class="requirements num">
                                                         <i class="fas fa-check text-success me-2"></i>
@@ -139,6 +144,7 @@ addEventListener("DOMContentLoaded", (event) => {
     let lengBoolean, bigLetterBoolean, numBoolean, specialCharBoolean;
     let leng = document.querySelector(".leng");
     let bigLetter = document.querySelector(".big-letter");
+    let smallLetter = document.querySelector(".small-letter");
     let num = document.querySelector(".num");
     let specialChar = document.querySelector(".special-char");
 
@@ -172,10 +178,18 @@ addEventListener("DOMContentLoaded", (event) => {
             lengBoolean = true;
         }
 
-        if (value.toLowerCase() == value) {
-            bigLetterBoolean = false;
+        let lowerCaseLetters = /[a-z]/g;
+        if(value.match(lowerCaseLetters)) {  
+            smallLetterBoolean = true;
         } else {
+            smallLetterBoolean = false;
+        }
+        
+        let upperCaseLetters = /[A-Z]/g;
+        if(value.match(upperCaseLetters)) {  
             bigLetterBoolean = true;
+        } else {
+            bigLetterBoolean = false;
         }
 
         numBoolean = false;
@@ -196,7 +210,7 @@ addEventListener("DOMContentLoaded", (event) => {
             }
         }
 
-        if (lengBoolean == true && bigLetterBoolean == true && numBoolean == true && specialCharBoolean == true) {
+        if (lengBoolean == true && bigLetterBoolean == true && smallLetterBoolean == true && numBoolean == true && specialCharBoolean == true) {
             passwordType.classList.remove("is-invalid");
             passwordType.classList.add("is-valid");
 
@@ -227,6 +241,14 @@ addEventListener("DOMContentLoaded", (event) => {
             } else {
                 bigLetter.classList.add("good");
                 bigLetter.classList.remove("wrong");
+            }
+
+            if (smallLetterBoolean == false) {
+                smallLetter.classList.add("wrong");
+                smallLetter.classList.remove("good");
+            } else {
+                smallLetter.classList.add("good");
+                smallLetter.classList.remove("wrong");
             }
 
             if (numBoolean == false) {
@@ -283,7 +305,7 @@ addEventListener("DOMContentLoaded", (event) => {
     function bothPasswordValidation() {
         if ($('#pass').val() == $('#confirmPass').val()) {
             samePassBoolean = true;
-            if (lengBoolean == true && bigLetterBoolean == true && numBoolean == true && specialCharBoolean == true) {
+            if (lengBoolean == true && bigLetterBoolean == true && smallLetterBoolean == true && numBoolean == true && specialCharBoolean == true) {
                 document.getElementById('reset').disabled = false;
             }
         } else {
