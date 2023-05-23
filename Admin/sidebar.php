@@ -82,7 +82,7 @@
 
     <!-- Nav Item - Customer -->
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="all-customer.php">
             <i class="fas fa-fw fa-users"></i>
             <span>Customers</span>
         </a>
