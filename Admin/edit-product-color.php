@@ -65,7 +65,7 @@ function displayImage<?php echo $row['prod_color_id']; ?>(e){
 </script>
 
 <?php
-if(isset($_POST["savebtn".$row['prod_color_id']])) {
+if (isset($_POST["savebtn".$row['prod_color_id']])) {
     $colorName = $_POST["prod_color_name"];
     $colorStock = $_POST["prod_color_stock"];
 
