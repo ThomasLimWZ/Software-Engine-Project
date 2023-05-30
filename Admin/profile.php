@@ -118,7 +118,7 @@
 																	if(empty($row['adm_profile_pic'])){
                                                                         echo '<img class="rounded-circle img-responsive" src="img/undraw_profile.svg" alt="Admin Image"  width="150px" height="150px">';
                                                                     } else {
-																		echo '<img class="rounded-circle img-responsive" src="admin-profile-pic/'.$row['adm_profile_pic'].'" alt="Admin Image" width="150px" height="150px">';
+																		echo '<img class="rounded-circle img-responsive" src="Profile Pic/'.$row['adm_profile_pic'].'" alt="Admin Image" width="150px" height="150px">';
                                                                     }
 																	?>
 																	<div class="image">
