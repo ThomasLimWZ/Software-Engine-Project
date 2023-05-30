@@ -41,25 +41,19 @@
                                     <div class="col-sm-5 my-auto">
                                         <h5 class="m-0 font-weight-bold text-primary"><?php echo $productName; ?> Details</h5>
                                     </div>
-                                    <?php
-                                    if ($categoryName == "Phone" || $categoryName == "Tablet" || $categoryName == "Watch") {
-                                    ?>
-                                        <div class="col-sm-7 text-right">
-                                            <?php
-                                            $checkProdDetailSql = "SELECT * FROM product_detail INNER JOIN product ON product_detail.prod_id = product.prod_id WHERE product_detail.prod_id = $productId";
-                                            $countProdDetail = mysqli_num_rows(mysqli_query($connect, $checkProdDetailSql));
+                                    <div class="col-sm-7 text-right">
+                                        <?php
+                                        $checkProdDetailSql = "SELECT * FROM product_detail INNER JOIN product ON product_detail.prod_id = product.prod_id WHERE product_detail.prod_id = $productId";
+                                        $countProdDetail = mysqli_num_rows(mysqli_query($connect, $checkProdDetailSql));
 
-                                            if ($countProdDetail > 0) {
-                                            ?>
-                                                <button class="btn btn-info" data-toggle="modal" data-target="#bulkAddColors"><i class="fa fa-upload"></i>&ensp;Bulk Add Colors</button>
-                                            <?php
-                                            }
-                                            ?>
-                                            <button class="btn btn-primary" data-toggle="modal" data-target="#addProductDetail"><i class="fa fa-plus-circle"></i>&ensp;Add Product Detail</button>
-                                        </div>
-                                    <?php
-                                    }
-                                    ?>
+                                        if ($countProdDetail > 0) {
+                                        ?>
+                                            <button class="btn btn-info" data-toggle="modal" data-target="#bulkAddColors"><i class="fa fa-upload"></i>&ensp;Bulk Add Colors</button>
+                                        <?php
+                                        }
+                                        ?>
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#addProductDetail"><i class="fa fa-plus-circle"></i>&ensp;Add Product Detail</button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-body">
