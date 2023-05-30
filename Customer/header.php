@@ -60,13 +60,13 @@
                     border: 1px solid #d4d4d4;
                     border-bottom: none;
                     border-top: none;
-                    z-index: 99;
-                    top: 100%;
+                    z-index: 100;
+                    top: 110%;
                     left: 0;
                     right: 0;
                 }
                 .autocomplete-items div {
-                    padding: 10px;
+                    padding-left: 5px;
                     cursor: pointer;
                     background-color: #fff; 
                     border-bottom: 1px solid #d4d4d4; 
