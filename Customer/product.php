@@ -12,55 +12,96 @@
                 <div class="container d-flex align-items-center">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                        <li class="breadcrumb-item"><a href="product-list.php">Products</a></li>
+                        <li class="breadcrumb-item"><a href="category.php">Products</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Product Detail</li>
                     </ol>
                 </div><!-- End .container -->
             </nav><!-- End .breadcrumb-nav -->
 
+            <?php
+                $product_id = $_GET["productId"];
+            ?>
             <div class="page-content">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-9">
                             <div class="product-details-top">
+                                <?php
+                                    $getProductResult = mysqli_query($connect, "SELECT * FROM product INNER JOIN brand ON product.brand_id = brand.brand_id INNER JOIN category ON product.cat_id = category.cat_id WHERE prod_id = '$product_id'");
+                                    $prodRow = mysqli_fetch_assoc($getProductResult);
+                                ?>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="product-gallery">
                                             <figure class="product-main-image">
-                                                <img id="product-zoom" src="assets/images/products/single/sidebar-gallery/1.jpg" data-zoom-image="assets/images/products/single/sidebar-gallery/1-big.jpg" alt="product image">
-
+                                                <?php
+                                                    $prodDetailRes = mysqli_query($connect, "SELECT * FROM product_detail WHERE prod_id = '".$prodRow['prod_id']."'");
+                                                    $detailRow = mysqli_fetch_assoc($prodDetailRes);
+                                                    $prodDetailColorRes = mysqli_query($connect, "SELECT * FROM product_color WHERE prod_detail_id = '".$detailRow['prod_detail_id']."'");
+                                                    $i = 0;
+                                                    while ($detailColorRow = mysqli_fetch_assoc($prodDetailColorRes)) {
+                                                        if ($i == 0) {
+                                                            echo '
+                                                                <img id="product-zoom" src="../product/'.$detailColorRow['prod_color_img'].'" 
+                                                                    data-zoom-image="../product/'.$detailColorRow['prod_color_img'].'" alt="product image">
+                                                            ';
+                                                        }
+                                                        $i++;
+                                                    }
+                                                ?>
                                                 <a href="#" id="btn-product-gallery" class="btn-product-gallery">
                                                     <i class="icon-arrows"></i>
                                                 </a>
                                             </figure><!-- End .product-main-image -->
 
                                             <div id="product-zoom-gallery" class="product-image-gallery">
-                                                <a class="product-gallery-item active" href="#" data-image="assets/images/products/single/sidebar-gallery/1.jpg" data-zoom-image="assets/images/products/single/sidebar-gallery/1-big.jpg">
-                                                    <img src="assets/images/products/single/sidebar-gallery/1-small.jpg" alt="product side">
-                                                </a>
-
-                                                <a class="product-gallery-item" href="#" data-image="assets/images/products/single/sidebar-gallery/2.jpg" data-zoom-image="assets/images/products/single/sidebar-gallery/2-big.jpg">
-                                                    <img src="assets/images/products/single/sidebar-gallery/2-small.jpg" alt="product cross">
-                                                </a>
-
-                                                <a class="product-gallery-item" href="#" data-image="assets/images/products/single/sidebar-gallery/3.jpg" data-zoom-image="assets/images/products/single/sidebar-gallery/3-big.jpg">
-                                                    <img src="assets/images/products/single/sidebar-gallery/3-small.jpg" alt="product with model">
-                                                </a>
-
-                                                <a class="product-gallery-item" href="#" data-image="assets/images/products/single/sidebar-gallery/4.jpg" data-zoom-image="assets/images/products/single/sidebar-gallery/4-big.jpg">
-                                                    <img src="assets/images/products/single/sidebar-gallery/4-small.jpg" alt="product back">
-                                                </a>
+                                                <?php
+                                                    $prodDetailRes = mysqli_query($connect, "SELECT * FROM product_detail WHERE prod_id = '".$prodRow['prod_id']."'");
+                                                    $detailRow = mysqli_fetch_assoc($prodDetailRes);
+                                                    $prodDetailColorRes = mysqli_query($connect, "SELECT * FROM product_color WHERE prod_detail_id = '".$detailRow['prod_detail_id']."'");
+                                                    $i = 0;
+                                                    while ($detailColorRow = mysqli_fetch_assoc($prodDetailColorRes)) {
+                                                ?>
+                                                        <a class="product-gallery-item<?php echo $i == 0 ? ' active' : ''; ?>" href="#" 
+                                                            data-image="../product/<?php echo $detailColorRow['prod_color_img']; ?>"
+                                                            data-zoom-image="../product/<?php echo $detailColorRow['prod_color_img']; ?>">
+                                                            <img src="../product/<?php echo $detailColorRow['prod_color_img']; ?>" alt="product side">
+                                                        </a>
+                                                <?php
+                                                        $i++;
+                                                    }
+                                                ?>
                                             </div><!-- End .product-image-gallery -->
                                         </div><!-- End .product-gallery -->
                                     </div><!-- End .col-md-6 -->
 
                                     <div class="col-md-6">
                                         <div class="product-details product-details-sidebar">
-                                            <h1 class="product-title">iPhone 14 Pro Max</h1><!-- End .product-title -->
+                                            <h1 class="product-title"><?php echo $prodRow["prod_name"]; ?></h1>
+                                            <!-- End .product-title -->
+                                            <?php
+                                                $price = array();
+												$sumStock = array();
 
+                                                $prodDetailRes = mysqli_query($connect, "SELECT * FROM product_detail WHERE prod_id = '".$prodRow['prod_id']."'");
+                                                while ($detailRow = mysqli_fetch_assoc($prodDetailRes)) {
+                                                    array_push($price, $detailRow['prod_detail_price']);
 
+                                                    $prodDetailColorRes = mysqli_query($connect, "SELECT * FROM product_color WHERE prod_detail_id = '".$detailRow['prod_detail_id']."'");
+                                                    while ($detailColorRow = mysqli_fetch_assoc($prodDetailColorRes)) {
+                                                        array_push($sumStock, $detailColorRow['prod_color_stock']);
+                                                    }
+                                                }
+                                            ?>
                                             <div class="product-price">
-                                                RM 5,499.00 - RM 6,999.00
+                                                <?php 
+                                                    if (count($price) > 1)
+                                                        echo "RM ".min($price)." - RM ".max($price);
+                                                    else if (count($price) == 1)
+                                                        echo "RM ".$price[0];
+                                                    else 
+                                                        echo "-"; 
+                                                ?>
                                             </div><!-- End .product-price -->
 
                                             <div class="details-filter-row details-row-size">
@@ -68,10 +109,12 @@
                                                 <div class="select-custom w-50">
                                                     <select name="size" id="size" class="form-control">
                                                         <option value="#" selected disabled>Select Capacity</option>
-                                                        <option value="1">128GB</option>
-                                                        <option value="2">256GB</option>
-                                                        <option value="3">512GB</option>
-                                                        <option value="4">1TB</option>
+                                                        <?php
+                                                            $prodDetailRes = mysqli_query($connect, "SELECT * FROM product_detail WHERE prod_id = '".$prodRow['prod_id']."'");
+                                                            while ($detailRow = mysqli_fetch_assoc($prodDetailRes)) {
+                                                                echo "<option value='".$detailRow['prod_detail_id']."'>".$detailRow['prod_detail_name']."</option>";
+                                                            }
+                                                        ?>
                                                     </select>
                                                 </div><!-- End .select-custom -->
                                             </div><!-- End .details-filter-row -->
@@ -81,10 +124,14 @@
                                                 <div class="select-custom w-50">
                                                     <select name="size" id="size" class="form-control">
                                                         <option value="#" selected disabled>Select Color</option>
-                                                        <option value="1">Deep Purple</option>
-                                                        <option value="2">Gold</option>
-                                                        <option value="3">Silver</option>
-                                                        <option value="4">Space Black</option>
+                                                        <?php
+                                                            $prodDetailRes = mysqli_query($connect, "SELECT * FROM product_detail WHERE prod_id = '".$prodRow['prod_id']."'");
+                                                            $detailRow = mysqli_fetch_assoc($prodDetailRes);
+                                                            $prodDetailColorRes = mysqli_query($connect, "SELECT * FROM product_color WHERE prod_detail_id = '".$detailRow['prod_detail_id']."'");
+                                                            while ($detailColorRow = mysqli_fetch_assoc($prodDetailColorRes)) {
+                                                                echo "<option>".$detailColorRow['prod_color_name']."</option>";
+                                                            }
+                                                        ?>
                                                     </select>
                                                 </div><!-- End .select-custom -->
                                             </div><!-- End .details-filter-row -->
@@ -108,10 +155,10 @@
                                             <div class="product-details-footer details-footer-col">
                                                 <div class="product-cat">
                                                     <span>Brand:</span>
-                                                    <a href="#">Apple</a>
+                                                    <a href="category.php?brandId=<?php echo $prodRow['brand_id']; ?>"><?php echo $prodRow['brand_name']; ?></a>
                                                     <br><br>
                                                     <span>Category:</span>
-                                                    <a href="#">Phone</a>
+                                                    <a href="category.php?catId=<?php echo $prodRow['cat_id']; ?>"><?php echo $prodRow['cat_name']; ?></a>
                                                 </div><!-- End .product-cat -->
                                             </div><!-- End .product-details-footer -->
                                         </div><!-- End .product-details -->
@@ -133,33 +180,81 @@
                                     <div class="tab-pane fade show active" id="product-desc-tab" role="tabpanel" aria-labelledby="product-desc-link">
                                         <div class="product-desc-content">
                                             <h3>Product Information</h3>
-                                            <p>iPhone 14 Pro Max. Capture incredible detail with a 48MP Main camera. Experience iPhone in a whole new way with Dynamic Island and Always-On display. Crash Detection,<sup>1</sup> a new safety feature, calls for help when you can’t.</p>
+                                            <p><?php echo empty($prodRow['prod_descrip']) ? "No Description Yet..." : $prodRow['prod_descrip']; ?></p>
                                             </div><!-- End .product-desc-content -->
                                     </div><!-- .End .tab-pane -->
                                     <div class="tab-pane fade" id="product-info-tab" role="tabpanel" aria-labelledby="product-info-link">
                                         <div class="product-desc-content">
-                                            <h3>Specfication</h3>
-                                            <ul>
-                                                <li>6.7-inch Super Retina XDR display<sup>2</sup> featuring Always-On and ProMotion</li>
-                                                <li>Dynamic Island, a magical new way to interact with iPhone</li>
-                                                <li>48MP Main camera for up to 4x greater resolution</li>
-                                                <li>Cinematic mode now in 4K Dolby Vision up to 30 fps</li>
-                                                <li>Action mode for smooth, steady, handheld videos</li>
-                                                <li>Vital safety technology — Crash Detection1 calls for help when you can’t</li>
-                                                <li>All-day battery life and up to 29 hours of video playback<sup>3</sup></li>
-                                                <li>A16 Bionic, the ultimate smartphone chip</li>
-                                                <li>Industry-leading durability features with Ceramic Shield and water resistance<sup>4</sup></li>
-                                                <li>iOS 16 offers even more ways to personalise, communicate and share<sup>5</sup></li>
-                                            </ul>
+                                            <?php
+                                                $getProdSpec = mysqli_query($connect, "SELECT * FROM product_specification WHERE prod_id = '".$prodRow['prod_id']."'");
+                                                $prodSpecRow = mysqli_fetch_assoc($getProdSpec);
+                                            ?>
 
-                                            <h3>Legal</h3>
-                                            <ol type="1">
-                                                <li>1 Emergency SOS uses a mobile network connection or Wi-Fi calling.</li>
-                                                <li>2 The display has rounded corners. When measured as a rectangle, the screen is 6.69 inches diagonally. Actual viewable area is less.</li>
-                                                <li>3 Battery life varies by use and configuration; see apple.com/my/batteries for more information.</li>
-                                                <li>4 iPhone 14 Pro Max is splash, water and dust resistant, and was tested under controlled laboratory conditions with a rating of IP68 under IEC standard 60529 (maximum depth of 6 metres for up to 30 minutes). Splash, water and dust resistance are not permanent conditions. Resistance might decrease as a result of normal wear. Do not attempt to charge a wet iPhone; refer to the user guide for cleaning and drying instructions. Liquid damage is not covered under warranty.</li>
-                                                <li>5 Some features may not be available for all countries or all areas.</li>
-                                            </ol>
+                                            <?php
+                                                if (!empty($prodSpecRow['prod_spec_display'])) {
+                                            ?>
+                                                    <div class="mb-3">
+                                                        <h3>Display</h3>
+                                                        <p><?php echo $prodSpecRow['prod_spec_display']; ?></p>
+                                                    </div>
+                                            <?php
+                                                }
+                                            ?>
+
+                                            <?php
+                                                if (!empty($prodSpecRow['prod_spec_chipset'])) {
+                                            ?>
+                                                    <div class="mb-3">
+                                                        <h3>Chipset</h3>
+                                                        <p><?php echo $prodSpecRow['prod_spec_display']; ?></p>
+                                                    </div>
+                                            <?php
+                                                }
+                                            ?>
+
+                                            <?php
+                                                if (!empty($prodSpecRow['prod_spec_back_cam'])) {
+                                            ?>
+                                                    <div class="mb-3">
+                                                        <h3>Back Camera</h3>
+                                                        <p><?php echo $prodSpecRow['prod_spec_back_cam']; ?></p>
+                                                    </div>
+                                            <?php
+                                                }
+                                            ?>
+
+                                            <?php
+                                                if (!empty($prodSpecRow['prod_spec_front_cam'])) {
+                                            ?>
+                                                    <div class="mb-3">
+                                                        <h3>Front Camera</h3>
+                                                        <p><?php echo $prodSpecRow['prod_spec_front_cam']; ?></p>
+                                                    </div>
+                                            <?php
+                                                }
+                                            ?>
+
+                                            <?php
+                                                if (!empty($prodSpecRow['prod_spec_battery'])) {
+                                            ?>
+                                                    <div class="mb-3">
+                                                        <h3>Power & Battery</h3>
+                                                        <p><?php echo $prodSpecRow['prod_spec_battery']; ?></p>
+                                                    </div>
+                                            <?php
+                                                }
+                                            ?>
+
+                                            <?php
+                                                if (!empty($prodSpecRow['prod_spec_others'])) {
+                                            ?>
+                                                    <div class="mb-3">
+                                                        <h3>Others</h3>
+                                                        <p><?php echo $prodSpecRow['prod_spec_others']; ?></p>
+                                                    </div>
+                                            <?php
+                                                }
+                                            ?>
                                         </div><!-- End .product-desc-content -->
                                     </div><!-- .End .tab-pane -->
                                     
@@ -170,68 +265,54 @@
                         <aside class="col-lg-3">
                             <div class="sidebar sidebar-product">
                                 <div class="widget widget-products">
-                                    <h4 class="widget-title">Related Product</h4><!-- End .widget-title -->
+                                    <h4 class="widget-title">Related Products</h4><!-- End .widget-title -->
 
                                     <div class="products">
-                                        <div class="product product-sm">
-                                            <figure class="product-media">
-                                                <a href="product.php">
-                                                    <img src="assets/images/products/single/sidebar/1.jpg" alt="Product image" class="product-image">
-                                                </a>
-                                            </figure>
+                                        <?php
+                                            $randomProdQuery = "SELECT * FROM product 
+                                                                INNER JOIN product_detail ON product.prod_id = product_detail.prod_id
+                                                                INNER JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id
+                                                                WHERE brand_id='".$prodRow['brand_id']."' AND cat_id='".$prodRow['cat_id']."' 
+                                                                ORDER BY RAND() LIMIT 4";
+                                            $getRandomProduct = mysqli_query($connect, $randomProdQuery);
+                                            while ($randomProdRow = mysqli_fetch_assoc($getRandomProduct)) {
+                                        ?>
+                                            <div class="product product-sm">
+                                                <figure class="product-media">
+                                                    <a href="product.php?prodId=<?php echo $randomProdRow['prod_id']; ?>">
+                                                        <img src="../Product/<?php echo $randomProdRow['prod_color_img']; ?>" alt="Product image" class="product-image">
+                                                    </a>
+                                                </figure>
 
-                                            <div class="product-body">
-                                                <h5 class="product-title"><a href="product.php">iPhone 13</a></h5><!-- End .product-title -->
-                                                <div class="product-price">
-                                                    RM 3,199.00
-                                                </div><!-- End .product-price -->
-                                            </div><!-- End .product-body -->
-                                        </div><!-- End .product product-sm -->
+                                                <div class="product-body">
+                                                    <h5 class="product-title"><a href="product.php?prodId=<?php echo $randomProdRow['prod_id']; ?>"><?php echo $randomProdRow['prod_name']; ?></a></h5><!-- End .product-title -->
+                                                    <div class="product-price" style="font-size: 14px;">
+                                                        <?php
+                                                            $price = array();
+                                                            $sumStock = array();
 
-                                        <div class="product product-sm">
-                                            <figure class="product-media">
-                                                <a href="product.php">
-                                                    <img src="assets/images/products/single/sidebar/2.jpg" alt="Product image" class="product-image">
-                                                </a>
-                                            </figure>
+                                                            $prodDetailRes = mysqli_query($connect, "SELECT * FROM product_detail WHERE prod_id = '".$randomProdRow['prod_id']."'");
+                                                            while ($detailRow = mysqli_fetch_assoc($prodDetailRes)) {
+                                                                array_push($price, $detailRow['prod_detail_price']);
 
-                                            <div class="product-body">
-                                                <h5 class="product-title"><a href="product.php">iPhone 14 Plus</a></h5><!-- End .product-title -->
-                                                <div class="product-price">
-                                                    RM 4,199.00
-                                                </div><!-- End .product-price -->
-                                            </div><!-- End .product-body -->
-                                        </div><!-- End .product product-sm -->
-
-                                        <div class="product product-sm">
-                                            <figure class="product-media">
-                                                <a href="product.php">
-                                                    <img src="assets/images/products/single/sidebar/3.jpg" alt="Product image" class="product-image">
-                                                </a>
-                                            </figure>
-
-                                            <div class="product-body">
-                                                <h5 class="product-title"><a href="product.php">iPhone 14 Pro</a></h5><!-- End .product-title -->
-                                                <div class="product-price">
-                                                    RM 4,999.00
-                                                </div><!-- End .product-price -->
-                                            </div><!-- End .product-body -->
-                                        </div><!-- End .product product-sm -->
-
-                                        <div class="product product-sm">
-                                            <figure class="product-media">
-                                                <a href="product.php">
-                                                    <img src="assets/images/products/single/sidebar/4.jpg" alt="Product image" class="product-image">
-                                                </a>
-                                            </figure>
-
-                                            <div class="product-body">
-                                                <h5 class="product-title"><a href="product.php">iPhone 14</a></h5><!-- End .product-title -->
-                                                <div class="product-price">
-                                                    RM 3,699.00
-                                                </div><!-- End .product-price -->
-                                            </div><!-- End .product-body -->
-                                        </div><!-- End .product product-sm -->
+                                                                $prodDetailColorRes = mysqli_query($connect, "SELECT * FROM product_color WHERE prod_detail_id = '".$detailRow['prod_detail_id']."'");
+                                                                while ($detailColorRow = mysqli_fetch_assoc($prodDetailColorRes)) {
+                                                                    array_push($sumStock, $detailColorRow['prod_color_stock']);
+                                                                }
+                                                            }
+                                                            if (count($price) > 1)
+                                                                echo "RM ".min($price)." - RM ".max($price);
+                                                            else if (count($price) == 1)
+                                                                echo "RM ".$price[0];
+                                                            else 
+                                                                echo "-"; 
+                                                        ?>
+                                                    </div><!-- End .product-price -->
+                                                </div><!-- End .product-body -->
+                                            </div><!-- End .product product-sm -->
+                                        <?php 
+                                            } 
+                                        ?>
                                     </div><!-- End .products -->
 
                                     <a href="category.php" class="btn btn-outline-dark-3"><span>View More Products</span><i class="icon-long-arrow-right"></i></a>
