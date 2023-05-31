@@ -188,25 +188,25 @@ $month = Date('m');
                                     <div class="intro-slide">
                                         <figure class="slide-image">
                                             <picture>
-                                                <source media="(max-width: 480px)" srcset="assets/images/demos/demo-3/slider/slide-1-480w.jpg">
-                                                <img src="assets/images/demos/demo-3/slider/slide-1.jpg" alt="Image Desc">
+                                                <source media="(max-width: 480px)" srcset="assets/images/index_slide/index-img.jpg">
+                                                <img src="assets/images/index_slide/index-img.jpg" alt="Image Desc">
                                             </picture>
                                         </figure><!-- End .slide-image -->
 
                                         <div class="intro-content">
-                                            <h3 class="intro-subtitle text-primary">Daily Deals</h3><!-- End .h3 intro-subtitle -->
-                                            <h1 class="intro-title">
-                                                AirPods Pro<br>2nd Generation
+                                            <h3 class="intro-subtitle text-primary">Deals and Promotions</h3><!-- End .h3 intro-subtitle -->
+                                            <h1 class="intro-title" style="color:white">
+                                                Iphone 14 Pro <br>Pro.Beyond.
                                             </h1><!-- End .intro-title -->
 
                                             <div class="intro-price">
-                                                <sup>Today:</sup>
+                                                <sup style="color:wheat">Start From:</sup>
                                                 <span class="text-primary">
-                                                    RM 1099<sup>.00</sup>
+                                                    RM 5299<sup>.00</sup>
                                                 </span>
                                             </div><!-- End .intro-price -->
 
-                                            <a href="category.php" class="btn btn-primary btn-round">
+                                            <a href="category.php?brand_id=1&cat_id=1" class="btn btn-primary btn-round">
                                                 <span>Click Here</span>
                                                 <i class="icon-long-arrow-right"></i>
                                             </a>
@@ -216,21 +216,21 @@ $month = Date('m');
                                     <div class="intro-slide">
                                         <figure class="slide-image">
                                             <picture>
-                                                <source media="(max-width: 480px)" srcset="assets/images/demos/demo-3/slider/slide-2-480w.jpg">
-                                                <img src="assets/images/demos/demo-3/slider/slide-2.jpg" alt="Image Desc">
+                                                <source media="(max-width: 480px)" srcset="assets/images/index_slide/xiaomi13pro.jpg">
+                                                <img src="assets/images/index_slide/xiaomi13pro.jpg" alt="Image Desc">
                                             </picture>
                                         </figure><!-- End .slide-image -->
 
                                         <div class="intro-content">
-                                            <h3 class="intro-subtitle text-primary">Deals and Promotions</h3><!-- End .h3 intro-subtitle -->
+                                            <h3 class="intro-subtitle text-primary">Daily Deals</h3><!-- End .h3 intro-subtitle -->
                                             <h1 class="intro-title">
-                                                Echo Dot <br>3rd Gen
+                                                XIAOMI 13 Pro<br>
                                             </h1><!-- End .intro-title -->
 
                                             <div class="intro-price">
-                                                <sup class="intro-old-price">RM 1499.00</sup>
+                                                <sup>Today:</sup>
                                                 <span class="text-primary">
-                                                    RM 1299<sup>.00</sup>
+                                                    RM 4500<sup>.00</sup>
                                                 </span>
                                             </div><!-- End .intro-price -->
 
@@ -240,6 +240,8 @@ $month = Date('m');
                                             </a>
                                         </div><!-- End .intro-content -->
                                     </div><!-- End .intro-slide -->
+
+                                    
 
                                     <div class="intro-slide">
                                         <figure class="slide-image">
