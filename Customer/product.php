@@ -120,6 +120,12 @@
                                                         </div><!-- End .select-custom -->
                                                     </div><!-- End .details-filter-row -->
                                                 <?php 
+                                                    } else {
+                                                        $onlyOneProdDetail = mysqli_query($connect, "SELECT * FROM product_detail WHERE prod_id = '".$prodRow['prod_id']."'");
+                                                        $onlyOneProductDetailRes = mysqli_fetch_assoc($onlyOneProdDetail)
+                                                ?>
+                                                        <input type="hidden" class="form-control" name="prodDetail" value="<?php echo $onlyOneProductDetailRes["prod_detail_id"]; ?>">
+                                                <?php
                                                     }
                                                 ?>
                                                 <div class="details-filter-row details-row-size">
