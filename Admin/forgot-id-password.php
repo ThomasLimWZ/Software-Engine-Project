@@ -27,7 +27,7 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-2">Forgot Your <?php echo $forgotType == "id" ? "ID" : "Password"; ?>?</h1>
                                         <p class="mb-4">We get it, stuff happens. Just enter your email address below
-                                            and we'll send you !<?php echo $forgotType == "id" ? "the ID belongs to you" : "a link to reset your password"; ?>!</p>
+                                            and we'll send you <?php echo $forgotType == "id" ? "the ID belongs to you" : "a link to reset your password"; ?>!</p>
                                     </div>
                                     <form class="user" method="GET" autocomplete="off">
                                         <div class="form-group">
