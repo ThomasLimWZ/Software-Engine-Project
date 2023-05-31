@@ -59,7 +59,7 @@
                                                     while ($detailColorRow = mysqli_fetch_assoc($prodDetailColorRes)) {
                                                 ?>
                                                         <a class="product-gallery-item<?php echo $i == 0 ? ' active' : ''; ?>" href="#"
-                                                            id="prodGallery<?php echo $detailColorRow['prod_color_id']; ?>"
+                                                            id="<?php echo str_replace(' ', '', $detailColorRow['prod_color_name']); ?>"
                                                             data-image="../product/<?php echo $detailColorRow['prod_color_img']; ?>"
                                                             data-zoom-image="../product/<?php echo $detailColorRow['prod_color_img']; ?>">
                                                             <img src="../product/<?php echo $detailColorRow['prod_color_img']; ?>" alt="product side">
@@ -101,7 +101,7 @@
                                                 ?>
                                             </div><!-- End .product-price -->
                                             
-                                            <form method="POST">
+                                            <form method="POST" action="">
                                                 <?php
                                                     if ($prodRow["cat_name"] == 'Phone' || $prodRow["cat_name"] == 'Tablet' || $prodRow["cat_name"] == 'Watch') {
                                                 ?>
@@ -120,6 +120,12 @@
                                                         </div><!-- End .select-custom -->
                                                     </div><!-- End .details-filter-row -->
                                                 <?php 
+                                                    } else {
+                                                        $onlyOneProdDetail = mysqli_query($connect, "SELECT * FROM product_detail WHERE prod_id = '".$prodRow['prod_id']."'");
+                                                        $onlyOneProductDetailRes = mysqli_fetch_assoc($onlyOneProdDetail)
+                                                ?>
+                                                        <input type="hidden" class="form-control" name="prodDetail" value="<?php echo $onlyOneProductDetailRes["prod_detail_id"]; ?>">
+                                                <?php
                                                     }
                                                 ?>
                                                 <div class="details-filter-row details-row-size">
@@ -146,15 +152,22 @@
                                                             <div class="details-action-col">
                                                                 <label class="mr-5" for="qty">Qty:</label>
                                                                 <div class="product-details-quantity">
-                                                                    <input type="number" id="qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" disabled required>
+                                                                    <input type="number" id="qty" name="qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" disabled required>
                                                                 </div><!-- End .product-details-quantity -->
                                                             </div><!-- End .details-action-col -->
                                                     <?php
                                                         }
                                                     ?>
-                                                    <a href="#" class="btn-product btn-cart" id="cartBtn" disabled><?php echo empty($_SESSION['customer_id']) ? "LOGIN TO BUY" : "ADD TO CART"; ?></a>
+                                                    <button type="submit" class="btn-product btn-cart" id="cartBtn" name="cartBtn" disabled>
+                                                        <?php echo empty($_SESSION['customer_id']) ? "LOGIN TO BUY" : "ADD TO CART"; ?>
+                                                    </button>
                                                     <style>
+                                                        #cartBtn {
+                                                            background-color: white;
+                                                        }
                                                         #cartBtn:hover {
+                                                            background-color: #fcb941;
+                                                            cursor: pointer;
                                                             color: white;
                                                         }
                                                     </style>
@@ -438,7 +451,14 @@
             success: (result) => {
                 document.getElementById("product-zoom").src="../product/" + result;
                 $('#product-zoom-gallery').find('a').removeClass('active');
-                document.getElementById("prodGallery" + selectedProdColor).classList.add("active");
+                $.ajax({
+                    type: "GET",
+                    url: "get-product-color-name.php",
+                    data: {selectedProdColor},
+                    success: (colorName) => {
+                        document.getElementById(colorName).classList.add("active");
+                    }
+                });
             }
         });
     }
@@ -460,6 +480,7 @@
                 success: (result) => {
                     document.getElementById('stockAvailability').classList.remove("d-none");
                     document.getElementById('qty').disabled = false;
+                    document.getElementById('cartBtn').disabled = false;
                     if (result > 5) {
                         document.getElementById('stockAvailability').innerHTML = "Stock is available!";
                         document.getElementById('stockAvailability').classList.add("text-success");
@@ -475,9 +496,83 @@
                         document.getElementById('stockAvailability').classList.add("text-danger");
                         document.getElementById('qty').value = "0";
                         document.getElementById('qty').disabled = true;
+                        document.getElementById('cartBtn').disabled = true;
                     }
                 }
             });
         }
     }
 </script>
+
+<?php
+    if (isset($_POST['cartBtn'])) {
+        $prodId = $prodRow['prod_id'];
+        $prodDetId = $_POST['prodDetail'];
+        $prodColId = $_POST['prodColor'];
+        $qty = $_POST['qty'];
+
+        $getPrice = mysqli_query($connect, "SELECT * FROM product_detail WHERE prod_detail_id = $prodDetId");
+        $priceRow = mysqli_fetch_assoc($getPrice);
+
+        $price = $priceRow['prod_detail_price'];
+
+        $subtotal = $price * $qty;
+
+        $checkCart = mysqli_query($connect, "SELECT * FROM cart_item WHERE cus_id = '".$_SESSION['customer_id']."'
+                                            AND prod_id = '$prodId' AND prod_detail_id = '$prodDetId' AND prod_color_id = '$prodColId' AND cart_item_status = '1'");
+        $countCart = mysqli_num_rows($checkCart);
+
+        if ($countCart != 0) {
+            $cartRow = mysqli_fetch_assoc($checkCart);
+            $cartCurrentQty = $cartRow['quantity'];
+
+            $getStockAvailability = mysqli_query($connect, "SELECT * FROM product_color WHERE prod_color_id = '$prodColId'");
+            $stockRow = mysqli_fetch_assoc($getStockAvailability);
+
+            $qtyToUpdate = $cartCurrentQty + $qty;
+            $subtotalToUpdate = $price * $qtyToUpdate;
+            if ($qtyToUpdate > $stockRow['prod_color_stock']) {
+                $qtyToUpdate = $stockRow['prod_color_stock'];
+                $subtotalToUpdate = $price * $qtyToUpdate;
+            }
+            mysqli_query($connect, "UPDATE cart_item SET quantity = '$qtyToUpdate', cart_subtotal = '$subtotalToUpdate' WHERE cus_id = '".$_SESSION['customer_id']."' 
+                                    AND prod_id = '$prodId' AND prod_detail_id = '$prodDetId' AND prod_color_id = '$prodColId' AND cart_item_status = '1'");
+?>
+            <script>
+                Swal.fire({
+                    text: "Cart has been updated!",
+                    icon: "success",
+                    showDenyButton: true,
+                    confirmButtonText: "View Cart",
+                    denyButtonText: "Continue Shopping"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "cart.php";
+                    } else if (result.isDenied) {
+                        window.location.href = "product.php?productId=<?php echo $prodId; ?>";
+                    }
+                });
+            </script>
+<?php
+        } else {
+            mysqli_query($connect, "INSERT INTO cart_item (quantity, cart_subtotal, prod_id, prod_detail_id, prod_color_id, cus_id) VALUES ('$qty', '$subtotal', '$prodId', '$prodDetId', '$prodColId', '".$_SESSION['customer_id']."')");
+?>
+            <script>
+                Swal.fire({
+                    text: "Product has been added into your cart!",
+                    icon: "success",
+                    showDenyButton: true,
+                    confirmButtonText: "View Cart",
+                    denyButtonText: "Continue Shopping"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "cart.php";
+                    } else if (result.isDenied) {
+                        window.location.href = "product.php?productId=<?php echo $prodId; ?>";
+                    }
+                });
+            </script>
+<?php
+        }
+    }
+?>
