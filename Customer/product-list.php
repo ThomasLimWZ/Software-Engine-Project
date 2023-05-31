@@ -23,19 +23,30 @@ if ($page == 1)
     $offset = 0;
 } 
     
-$exta = "SELECT * FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
-$exta .= $_POST['searchTerm'];
-$exta .= " GROUP BY product.prod_id DESC ";
-$exta .= " LIMIT $view OFFSET $offset ";
-$query = mysqli_query($connect, $exta);
-$num =  mysqli_num_rows($query) + $offset;
+//$exta = "SELECT * FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
+//$exta .= $_POST['searchTerm'];
+//$exta .= " GROUP BY product.prod_id DESC ";
+//$exta .= " LIMIT $view OFFSET $offset ";
+//$query = mysqli_query($connect, $exta);
+//$num =  mysqli_num_rows($query) + $offset;
+
+$num =  $view + $offset;
 
 $exta = "SELECT * FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
 $exta .= $_POST['searchTerm'];
 $exta .= " GROUP BY product.prod_id DESC ";
 $query2 = mysqli_query($connect, $exta);                                
 $count = mysqli_num_rows($query2);
+
+if($num>$count)
+$num = $count;
+
 $count2 = mysqli_num_rows($query2);
+$prod_id_array = [];
+while ($get_id = mysqli_fetch_assoc($query2))
+{
+    array_push($prod_id_array, $get_id['prod_id']);
+}
 
 //new product
 $exta = "SELECT * FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
@@ -47,6 +58,7 @@ $query5 = mysqli_query($connect, $exta);
 $valid_new = [];
 while($get_id = mysqli_fetch_assoc($query5)){
     array_push($valid_new, $get_id['prod_id']);
+    
 }
 
 //set for the sales
@@ -56,6 +68,10 @@ $query6 = mysqli_query($connect, $sale_sql);
 $valid_sales = [];
 while($get_id = mysqli_fetch_assoc($query6)){
     array_push($valid_sales, $get_id['prod_id']);
+    if (($key = array_search($get_id['prod_id'], $prod_id_array)) !== false) {
+        unset($prod_id_array[$key]);
+        array_unshift($prod_id_array,$get_id['prod_id']);
+    }
 }
 
 //get month
@@ -67,6 +83,10 @@ $query7 = mysqli_query($connect, $sale_sql);
 $valid_top = [];
 while($get_id = mysqli_fetch_assoc($query7)){
     array_push($valid_top, $get_id['prod_id']);
+    if (($key = array_search($get_id['prod_id'], $prod_id_array)) !== false) {
+        unset($prod_id_array[$key]);
+        array_unshift($prod_id_array,$get_id['prod_id']);
+    }
 }
 
 
@@ -87,7 +107,12 @@ $showup = '
 
 if ($count != 0)
 {
-    while ($showprod = mysqli_fetch_assoc($query)) {
+    //while ($showprod = mysqli_fetch_assoc($query)) {
+    for ($p_view=$offset; $p_view<$num; $p_view++){
+        $exta = "SELECT * FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
+        $exta .= " AND product.prod_id = '$prod_id_array[$p_view]' ";
+        $query = mysqli_query($connect, $exta);
+        $showprod = mysqli_fetch_assoc($query);
 
         $show_label='';
         //setting for sales label
