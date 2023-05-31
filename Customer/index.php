@@ -205,8 +205,8 @@
                                     $count--;
                                 }
                                         
-                                echo'
-                                            <a href="product.php">
+                                echo '
+                                            <a href="product.php?productId='.$random_list['prod_id'].'">
                                                 <img src="../Product/'.$random_list['prod_color_img'].'" alt="Product image" class="product-image">
                                             </a>
                                         </figure><!-- End .product-media -->
@@ -215,7 +215,7 @@
                                             <div class="product-cat">
                                                 <span class="font-gray-400" >'.$brand_name.' &#183; '.$categoty_name.'</span>
                                             </div><!-- End .product-cat -->
-                                            <h3 class="product-title"><a href="product.php?prod_name='.$random_list['prod_id'].'">'.$random_list['prod_name']."".'</a></h3><!-- End .product-title -->
+                                            <h3 class="product-title"><a href="product.php?productId='.$random_list['prod_id'].'">'.$random_list['prod_name']."".'</a></h3><!-- End .product-title -->
                                             <div class="product-price">
                                                 RM '.$max_min_price['min_price'].' - RM '.$max_min_price['max_price'].'
                                             </div><!-- End .product-price -->
@@ -301,7 +301,7 @@
                                     }
                                     
                                    echo'
-                                        <a href="product.php">
+                                        <a href="product.php?productId='.$random_list['prod_id'].'">
                                             <img src="../Product/'.$random_list['prod_color_img'].'" alt="Product image" class="product-image">
                                         </a>
                                     </figure><!-- End .product-media -->
@@ -310,7 +310,7 @@
                                         <div class="product-cat">
                                             <span class="font-gray-400" >'.$brand_name.' &#183; '.$categoty_name.'</span>
                                         </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.php?prod_name='.$random_list['prod_id'].'">'.$random_list['prod_name']."".'</a></h3><!-- End .product-title -->
+                                        <h3 class="product-title"><a href="product.php?productId='.$random_list['prod_id'].'">'.$random_list['prod_name']."".'</a></h3><!-- End .product-title -->
                                         <div class="product-price">
                                             RM '.$max_min_price['min_price'].' - RM '.$max_min_price['max_price'].'
                                         </div><!-- End .product-price -->
@@ -398,7 +398,7 @@
                                     }
                                     
                                    echo'
-                                        <a href="product.php">
+                                        <a href="product.php?productId='.$random_list['prod_id'].'">
                                             <img src="../Product/'.$random_list['prod_color_img'].'" alt="Product image" class="product-image">
                                         </a>
                                     </figure><!-- End .product-media -->
@@ -407,7 +407,7 @@
                                         <div class="product-cat">
                                             <span class="font-gray-400" >'.$brand_name.' &#183; '.$categoty_name.'</span>
                                         </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.php?prod_name='.$random_list['prod_id'].'">'.$random_list['prod_name']."".'</a></h3><!-- End .product-title -->
+                                        <h3 class="product-title"><a href="product.php?productId='.$random_list['prod_id'].'">'.$random_list['prod_name']."".'</a></h3><!-- End .product-title -->
                                         <div class="product-price">
                                             RM '.$max_min_price['min_price'].' - RM '.$max_min_price['max_price'].'
                                         </div><!-- End .product-price -->
@@ -546,7 +546,7 @@
                                     }
                                         
                                     echo'
-                                                <a href="product.php">
+                                                <a href="product.php?productId='.$random_list['prod_id'].'">
                                                     <img src="../Product/'.$random_list['prod_color_img'].'" alt="Product image" class="product-image">
                                                 </a>
                                             </figure><!-- End .product-media -->
@@ -555,7 +555,7 @@
                                                 <div class="product-cat">
                                                     <span class="font-gray-400" >'.$brand_name.' &#183; '.$categoty_name.'</span>
                                                 </div><!-- End .product-cat -->
-                                                <h3 class="product-title"><a href="product.php?prod_name='.$random_list['prod_id'].'">'.$random_list['prod_name']."".'</a></h3><!-- End .product-title -->
+                                                <h3 class="product-title"><a href="product.php?productId='.$random_list['prod_id'].'">'.$random_list['prod_name']."".'</a></h3><!-- End .product-title -->
                                                 <div class="product-price">
                                                     RM '.$max_min_price['min_price'].' - RM '.$max_min_price['max_price'].'
                                                 </div><!-- End .product-price -->
@@ -656,7 +656,7 @@
                                             }
                                                 
                                             echo'
-                                                        <a href="product.php">
+                                                        <a href="product.php?productId='.$random_list['prod_id'].'">
                                                             <img src="../Product/'.$random_list['prod_color_img'].'" alt="Product image" class="product-image">
                                                         </a>
                                                     </figure><!-- End .product-media -->
@@ -665,7 +665,7 @@
                                                         <div class="product-cat">
                                                             <span class="font-gray-400" >'.$brand_name.' &#183; '.$categoty_name.'</span>
                                                         </div><!-- End .product-cat -->
-                                                        <h3 class="product-title"><a href="product.php?prod_name='.$random_list['prod_id'].'">'.$random_list['prod_name']."".'</a></h3><!-- End .product-title -->
+                                                        <h3 class="product-title"><a href="product.php?productId='.$random_list['prod_id'].'">'.$random_list['prod_name']."".'</a></h3><!-- End .product-title -->
                                                         <div class="product-price">
                                                             RM '.$max_min_price['min_price'].' - RM '.$max_min_price['max_price'].'
                                                         </div><!-- End .product-price -->
@@ -804,7 +804,7 @@
                                     }
                                         
                                     echo'
-                                                <a href="product.php">
+                                                <a href="product.php?productId='.$random_list['prod_id'].'">
                                                     <img src="../Product/'.$random_list['prod_color_img'].'" alt="Product image" class="product-image">
                                                 </a>
                                             </figure><!-- End .product-media -->
@@ -813,7 +813,7 @@
                                                 <div class="product-cat">
                                                     <span class="font-gray-400" >'.$brand_name.' &#183; '.$categoty_name.'</span>
                                                 </div><!-- End .product-cat -->
-                                                <h3 class="product-title"><a href="product.php?prod_name='.$random_list['prod_id'].'">'.$random_list['prod_name']."".'</a></h3><!-- End .product-title -->
+                                                <h3 class="product-title"><a href="product.php?productId='.$random_list['prod_id'].'">'.$random_list['prod_name']."".'</a></h3><!-- End .product-title -->
                                                 <div class="product-price">
                                                     RM '.$max_min_price['min_price'].' - RM '.$max_min_price['max_price'].'
                                                 </div><!-- End .product-price -->
@@ -911,7 +911,7 @@
                                                 }
                                                 
                                             echo'
-                                                    <a href="product.php">
+                                                    <a href="product.php?productId='.$random_list['prod_id'].'">
                                                         <img src="../Product/'.$random_list['prod_color_img'].'" alt="Product image" class="product-image">
                                                     </a>
                                                 </figure><!-- End .product-media -->
@@ -920,7 +920,7 @@
                                                     <div class="product-cat">
                                                         <span class="font-gray-400" >'.$brand_name.' &#183; '.$categoty_name.'</span>
                                                     </div><!-- End .product-cat -->
-                                                    <h3 class="product-title"><a href="product.php?prod_name='.$random_list['prod_id'].'">'.$random_list['prod_name']."".'</a></h3><!-- End .product-title -->
+                                                    <h3 class="product-title"><a href="product.php?productId='.$random_list['prod_id'].'">'.$random_list['prod_name']."".'</a></h3><!-- End .product-title -->
                                                     <div class="product-price">
                                                         RM '.$max_min_price['min_price'].' - RM '.$max_min_price['max_price'].'
                                                     </div><!-- End .product-price -->
@@ -1061,7 +1061,7 @@
                                     }
                                         
                                     echo '
-                                                <a href="product.php">
+                                                <a href="product.php?productId='.$random_list['prod_id'].'">
                                                     <img src="../Product/'.$random_list['prod_color_img'].'" alt="Product image" class="product-image">
                                                 </a>
                                             </figure><!-- End .product-media -->
@@ -1070,7 +1070,7 @@
                                                 <div class="product-cat">
                                                     <span class="font-gray-400" >'.$brand_name.' &#183; '.$categoty_name.'</span>
                                                 </div><!-- End .product-cat -->
-                                                <h3 class="product-title"><a href="product.php?prod_name='.$random_list['prod_id'].'">'.$random_list['prod_name']."".'</a></h3><!-- End .product-title -->
+                                                <h3 class="product-title"><a href="product.php?productId='.$random_list['prod_id'].'">'.$random_list['prod_name']."".'</a></h3><!-- End .product-title -->
                                                 <div class="product-price">
                                                     RM '.$max_min_price['min_price'].' - RM '.$max_min_price['max_price'].'
                                                 </div><!-- End .product-price -->
@@ -1168,7 +1168,7 @@
                                                 }
                                                 
                                             echo'
-                                                    <a href="product.php">
+                                                    <a href="product.php?productId='.$random_list['prod_id'].'">
                                                         <img src="../Product/'.$random_list['prod_color_img'].'" alt="Product image" class="product-image">
                                                     </a>
                                                 </figure><!-- End .product-media -->
@@ -1177,7 +1177,7 @@
                                                     <div class="product-cat">
                                                         <span class="font-gray-400" >'.$brand_name.' &#183; '.$categoty_name.'</span>
                                                     </div><!-- End .product-cat -->
-                                                    <h3 class="product-title"><a href="product.php?prod_name='.$random_list['prod_id'].'">'.$random_list['prod_name']."".'</a></h3><!-- End .product-title -->
+                                                    <h3 class="product-title"><a href="product.php?productId='.$random_list['prod_id'].'">'.$random_list['prod_name']."".'</a></h3><!-- End .product-title -->
                                                     <div class="product-price">
                                                         RM '.$max_min_price['min_price'].' - RM '.$max_min_price['max_price'].'
                                                     </div><!-- End .product-price -->
