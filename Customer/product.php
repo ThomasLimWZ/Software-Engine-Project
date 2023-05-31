@@ -279,11 +279,11 @@
 
                                     <div class="products">
                                         <?php
-                                            $randomProdQuery = "SELECT * FROM product 
+                                            $randomProdQuery = "SELECT DISTINCT * FROM product 
                                                                 INNER JOIN product_detail ON product.prod_id = product_detail.prod_id
                                                                 INNER JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id
                                                                 WHERE brand_id='".$prodRow['brand_id']."' AND cat_id='".$prodRow['cat_id']."' AND product.prod_id!='".$prodRow['prod_id']."'
-                                                                ORDER BY RAND() LIMIT 4";
+                                                                GROUP BY product.prod_id ORDER BY RAND() LIMIT 4";
                                             $getRandomProduct = mysqli_query($connect, $randomProdQuery);
                                             $getRandomProductCount = mysqli_num_rows($getRandomProduct);
 
@@ -292,13 +292,13 @@
                                         ?>
                                                     <div class="product product-sm">
                                                         <figure class="product-media">
-                                                            <a href="product.php?prodId=<?php echo $randomProdRow['prod_id']; ?>">
+                                                            <a href="product.php?productId=<?php echo $randomProdRow['prod_id']; ?>">
                                                                 <img src="../Product/<?php echo $randomProdRow['prod_color_img']; ?>" alt="Product image" class="product-image">
                                                             </a>
                                                         </figure>
 
                                                         <div class="product-body">
-                                                            <h5 class="product-title"><a href="product.php?prodId=<?php echo $randomProdRow['prod_id']; ?>"><?php echo $randomProdRow['prod_name']; ?></a></h5><!-- End .product-title -->
+                                                            <h5 class="product-title"><a href="product.php?productId=<?php echo $randomProdRow['prod_id']; ?>"><?php echo $randomProdRow['prod_name']; ?></a></h5><!-- End .product-title -->
                                                             <div class="product-price" style="font-size: 14px;">
                                                                 <?php
                                                                     $price = array();
