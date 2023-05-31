@@ -50,7 +50,7 @@
                     <i class="icon-bars"></i>
                 </button>
                 
-                <a href="index.php" class="logo">
+                <a href="index.php" class="logo mx-auto">
                     <img src="assets/images/Logo/Color logo - no background.png" alt="4 People Telco Logo" width="100" height="25">
                 </a>
             </div><!-- End .header-left -->
