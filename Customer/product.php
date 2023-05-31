@@ -540,7 +540,7 @@
 ?>
             <script>
                 Swal.fire({
-                    title: "Cart has been updated!",
+                    text: "Cart has been updated!",
                     icon: "success",
                     showDenyButton: true,
                     confirmButtonText: "View Cart",
@@ -559,7 +559,7 @@
 ?>
             <script>
                 Swal.fire({
-                    title: "Product has been added into your cart!",
+                    text: "Product has been added into your cart!",
                     icon: "success",
                     showDenyButton: true,
                     confirmButtonText: "View Cart",

@@ -71,15 +71,17 @@ if (isset($_SESSION['customer_id'])) {
 														<a href="product.php?productId=<?php echo $cartRow['prod_id']; ?>"><?php echo $cartRow['prod_name']; ?></a>
 														<br>[<?php echo $cartRow['prod_color_name']; ?>]
 												</td>
-												<td><?php echo !empty($cartRow['prod_detail_name']) ? $cartRow['prod_detail_name'] : '-'; ?></td>
+												<td class="product-title text-center"><?php echo !empty($cartRow['prod_detail_name']) ? $cartRow['prod_detail_name'] : '-'; ?></td>
 												<td class="price-col">RM <?php echo $cartRow['prod_detail_price']; ?></td>
 												<td class="quantity-col">
 													<div class="cart-product-quantity">
-														<input type="number" class="form-control" value="<?php echo $cartRow['quantity']; ?>" min="1" max="<?php echo $cartRow['prod_color_stock']; ?>" step="1" data-decimals="0" required>
+														<input type="number" class="form-control" value="<?php echo $cartRow['quantity']; ?>"
+															onchange="updateQty(<?php echo $cartRow['cart_item_id']; ?>, <?php echo $cartRow['prod_detail_price']; ?>, this.value)"
+															min="1" max="<?php echo $cartRow['prod_color_stock']; ?>" step="1" data-decimals="0" required>
 													</div><!-- End .cart-product-quantity -->
 												</td>
-												<td class="total-col mx-0" style="width: 12%;">RM <?php echo $cartRow['cart_subtotal']; ?></td>
-												<td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
+												<td class="total-col mx-0" style="width: 12%;" id="subtotal-<?php echo $cartRow['cart_item_id'];?>">RM <?php echo $cartRow['cart_subtotal']; ?></td>
+												<td class="remove-col"><button class="btn-remove" onclick="deleteCartItem(<?php echo $cartRow['cart_item_id']; ?>)"><i class="icon-close"></i></button></td>
 											</tr>
 										</tbody>
 									<?php
@@ -90,6 +92,7 @@ if (isset($_SESSION['customer_id'])) {
 												<tr>
 													<td colspan="7">
 														Your cart is empty.
+														<a href="category.php" class="btn btn-outline-dark-2 btn-block mb-3"><span>SHOPPING NOW</span></a>
 													</td>
 												</tr>
 											</tbody>
@@ -121,7 +124,7 @@ if (isset($_SESSION['customer_id'])) {
 	                						
 	                						<tr class="summary-total">
 	                							<td>Total:</td>
-	                							<td>RM <?php echo sprintf('%0.2f', $total); ?></td>
+	                							<td id="cartTotal">RM <?php echo sprintf('%0.2f', $total); ?></td>
 	                						</tr><!-- End .summary-total -->
 	                					</tbody>
 	                				</table><!-- End .table table-summary -->
@@ -165,3 +168,56 @@ if (isset($_SESSION['customer_id'])) {
 }
 ?>
 </html>
+
+<script>
+	function updateQty(cartItemId, productPrice, qty) {
+		$.ajax({
+			type: 'POST',
+			url: 'cart-qty-onchange.php',
+			data: {
+				cusId: <?php echo $_SESSION['customer_id']; ?>,
+				cartItemId: cartItemId,
+				price: productPrice,
+				quantity: qty
+			},
+			success:function(data){
+				document.getElementById('subtotal-' + cartItemId).innerHTML = "RM " + data;
+				$.ajax({
+					type: 'GET',
+					url: 'get-cart-total.php',
+					data: {
+						cusId: <?php echo $_SESSION['customer_id']; ?>
+					},
+					success:function(total){
+						document.getElementById('cartTotal').innerHTML = "RM " + total;
+					}
+				});
+			}
+		});
+	}
+
+	function deleteCartItem(cartItemId) {
+		Swal.fire({
+			text: "Are you sure you want to remove it from cart?",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, remove it!'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				$.ajax({
+					type: "POST",
+					url: "delete-cart-item.php",
+					data: {cartItemId},
+					success: () => {
+						Swal.fire({
+							title: "Cart has been updated!",
+							icon: "success",
+						}).then(() => window.location.href = "cart.php");
+					}
+				});
+			}
+		});
+	}
+</script>
