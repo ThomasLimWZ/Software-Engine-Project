@@ -147,25 +147,25 @@
                                                             confirmButtonColor: '#3085d6',
                                                             cancelButtonColor: '#d33',
                                                             confirmButtonText: `Yes, ${currentStatus == 1 ? "deactivate" : "activate"}!`
-                                                            }).then((result) => {
-                                                                if (result.isConfirmed) {
-                                                                    $.ajax({
-                                                                        type: 'POST',
-                                                                        url: 'API/product-update-status.php',
-                                                                        data: {
-                                                                            prodId
-                                                                        },
-                                                                        success: () => {
-                                                                            Swal.fire(
-                                                                                `${prodName}'s Status Updated!`,
-                                                                                '',
-                                                                                'success'
-                                                                            ).then(() => {
-                                                                                window.location.href = <?php echo $productStatusList; ?> == 1 ? 'all-product.php?status=1' : 'all-product.php?status=0';
-                                                                            });
-                                                                        }
-                                                                    });
-                                                                }
+                                                        }).then((result) => {
+                                                            if (result.isConfirmed) {
+                                                                $.ajax({
+                                                                    type: 'POST',
+                                                                    url: 'API/product-update-status.php',
+                                                                    data: {
+                                                                        prodId
+                                                                    },
+                                                                    success: () => {
+                                                                        Swal.fire(
+                                                                            `${prodName}'s Status Updated!`,
+                                                                            '',
+                                                                            'success'
+                                                                        ).then(() => {
+                                                                            window.location.href = <?php echo $productStatusList; ?> == 1 ? 'all-product.php?status=1' : 'all-product.php?status=0';
+                                                                        });
+                                                                    }
+                                                                });
+                                                            }
                                                         });
                                                     }
                                                 </script>

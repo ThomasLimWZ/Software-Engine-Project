@@ -54,7 +54,33 @@
                     <img src="assets/images/Logo/Color logo - no background.png" alt="4 People Telco Logo" width="100" height="25">
                 </a>
             </div><!-- End .header-left -->
-
+            <style>
+                .autocomplete-items {
+                    position: absolute;
+                    border: 1px solid #d4d4d4;
+                    border-bottom: none;
+                    border-top: none;
+                    z-index: 100;
+                    top: 110%;
+                    left: 0;
+                    right: 0;
+                }
+                .autocomplete-items div {
+                    padding-left: 5px;
+                    cursor: pointer;
+                    background-color: #fff; 
+                    border-bottom: 1px solid #d4d4d4; 
+                }
+                .autocomplete-items div:hover {
+                    background-color: #e9e9e9; 
+                }
+                #findProd{
+                    background-color: transparent; 
+                }
+                #findProd:hover{
+                    cursor:pointer;
+                }
+            </style>
             <div class="header-center">
                 <div class="header-search header-search-extended header-search-visible d-none d-lg-block">
                     <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
@@ -62,11 +88,80 @@
                         <div class="header-search-wrapper search-wrapper-wide">
                             <label for="q" class="sr-only">Search</label>
                             <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
-                            <input type="search" class="form-control" name="q" id="q" placeholder="Search product ..." required>
+                            <input type="search" class="form-control" name="searchProd" id="searchProd" placeholder="Search product ..." required>
                         </div><!-- End .header-search-wrapper -->
                     </form>
                 </div><!-- End .header-search -->
             </div>
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+            <script>
+                var searchThings = document.getElementById("searchProd");
+                var result;
+                $(document).ready(function(){
+                    $("#searchProd").keyup(function(){
+                        $.ajax({
+                            type: "POST",
+                            url: "search-product-suggestion.php",
+                            data:'keyword=' + $(this).val(),
+                            success: function(data) {
+                                function autocomplete(inp, arr, n) {
+                                    var currentFocus;
+                                    inp.addEventListener("input", function(e) {
+                                        var a, b, i, val = this.value;
+                                        closeAllLists();
+                                        if (!val) { return false;}
+                                        currentFocus = -1;
+                                        a = document.createElement("DIV");
+                                        a.setAttribute("id", this.id + "autocomplete-list");
+                                        a.setAttribute("class", "autocomplete-items");
+                                        this.parentNode.appendChild(a);
+                                        var filter = val.toUpperCase();
+                                        for (i = 0; i < n; i++) {
+                                            if (arr[i].toUpperCase().indexOf(filter) > -1) {
+                                                b = document.createElement("DIV");
+                                                b.innerHTML += "<input class='form-control' id='findProd' type='text' value='" + arr[i] + "'>";
+                                                b.addEventListener("click", function(e) {
+                                                    inp.value = this.getElementsByTagName("input")[0].value;
+                                                    var prodName = inp.value;
+                                                    $.ajax({
+                                                        type:'POST',
+                                                        url:'return-product.php',
+                                                        data: {
+                                                            prodName
+                                                        },
+                                                        success:(data) => {
+                                                            window.location.href = 'product.php?productId=' + data;
+                                                        }
+                                                    })
+                                                    closeAllLists();
+                                                });
+                                                a.appendChild(b);
+                                            }
+                                        }
+                                    });
+
+                                    function closeAllLists(elmnt) {
+                                        var x = document.getElementsByClassName("autocomplete-items");
+                                        for (var i = 0; i < x.length; i++) {
+                                        if (elmnt != x[i] && elmnt != inp) {
+                                            x[i].parentNode.removeChild(x[i]);
+                                        }
+                                        }
+                                    }
+
+                                    document.addEventListener("click", function (e) {
+                                        closeAllLists(e.target);
+                                    });
+                                }
+                                    
+                                result = $.parseJSON(data);
+                                var n =  Object.keys(result).length;
+                                autocomplete(searchThings, result, n);
+                            }
+                        });
+                    });
+                });
+            </script>
 
             <div class="header-right">
                 <div class="dropdown compare-dropdown">

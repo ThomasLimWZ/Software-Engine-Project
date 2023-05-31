@@ -325,11 +325,11 @@ $(document).ready(function () {
         $('#product-zoom').elevateZoom({
             gallery:'product-zoom-gallery',
             galleryActiveClass: 'active',
-            zoomType: "inner",
+            zoomType: "none",
             cursor: "crosshair",
-            zoomWindowFadeIn: 400,
-            zoomWindowFadeOut: 400,
-            responsive: true
+            zoomWindowFadeIn: 500,
+            zoomWindowFadeOut: 500,
+            responsive: true,
         });
 
         // On click change thumbs active item

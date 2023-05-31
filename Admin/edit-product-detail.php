@@ -11,29 +11,35 @@
                 <div class="modal-body">
                     <div class="col-sm-12">
                         <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="col-form-label">
-                                        <?php echo $categoryName == "Phone" || $categoryName == "Tablet" ? "RAM + ROM" : "Case Size"; ?>
-                                    </label> <span class="text-danger">*</span>
-                                    <?php
-                                    if ($categoryName == "Phone" || $categoryName == "Tablet") {
-                                    ?>
-                                        <input type="text" class="form-control <?php echo isset($_POST["prod_detail_name"]) ? 'is-invalid' : ''; ?>" name="prod_detail_name" 
-                                            placeholder='E.g. 8+128GB / 128GB' oninput="this.value = this.value.toUpperCase().replace(/[^0-9.+.G.T.B]/g, '').replace(/(\..*)\./g, '$1');"
-                                            value="<?php echo isset($_POST["prod_detail_name"]) ? $_POST["prod_detail_name"] : $row['prod_detail_name']; ?>" required>
-                                    <?php
-                                    } else {
-                                    ?>
-                                        <input type="text" class="form-control <?php echo isset($_POST["prod_detail_name"]) ? 'is-invalid' : ''; ?>" name="prod_detail_name" 
-                                            placeholder='E.g. 40mm / 44mm' maxlength='4' minlength='4' 
-                                            oninput="this.value = this.value.replace(/[^0-9.m]/g, '').replace(/(\..*)\./g, '$1');"
-                                            value="<?php echo isset($_POST["prod_detail_name"]) ? $_POST["prod_detail_name"] : $row['prod_detail_name']; ?>" required>
-                                    <?php
-                                    }
-                                    ?>
-                                </div>
-                            </div>
+                            <?php 
+                                if ($categoryName == "Phone" || $categoryName == "Tablet" || $categoryName == "Watch") {
+                            ?>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">
+                                                <?php echo $categoryName == "Phone" || $categoryName == "Tablet" ? "RAM + ROM" : "Case Size"; ?>
+                                            </label> <span class="text-danger">*</span>
+                                            <?php
+                                            if ($categoryName == "Phone" || $categoryName == "Tablet") {
+                                            ?>
+                                                <input type="text" class="form-control <?php echo isset($_POST["prod_detail_name"]) ? 'is-invalid' : ''; ?>" name="prod_detail_name" 
+                                                    placeholder='E.g. 8+128GB / 128GB' oninput="this.value = this.value.toUpperCase().replace(/[^0-9.+.G.T.B]/g, '').replace(/(\..*)\./g, '$1');"
+                                                    value="<?php echo isset($_POST["prod_detail_name"]) ? $_POST["prod_detail_name"] : $row['prod_detail_name']; ?>" required>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <input type="text" class="form-control <?php echo isset($_POST["prod_detail_name"]) ? 'is-invalid' : ''; ?>" name="prod_detail_name" 
+                                                    placeholder='E.g. 40mm / 44mm' maxlength='4' minlength='4' 
+                                                    oninput="this.value = this.value.replace(/[^0-9.m]/g, '').replace(/(\..*)\./g, '$1');"
+                                                    value="<?php echo isset($_POST["prod_detail_name"]) ? $_POST["prod_detail_name"] : $row['prod_detail_name']; ?>" required>
+                                            <?php
+                                            }
+                                            ?>
+                                        </div>
+                                    </div>
+                            <?php
+                                }
+                            ?>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="col-form-label">Price (RM)</label> <span class="text-danger">*</span>
