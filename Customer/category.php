@@ -2,10 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include('head.php') ;
-
-
-?>
+<?php include('head.php'); ?>
 
 <body>
     <div class="page-wrapper">
@@ -54,9 +51,8 @@
                                     <div class="widget-body">
                                         <div class="filter-items filter-items-count">
                                             <?php
-                                            
                                                 $i = 0;
-                                                $data = mysqli_query($connect,"SELECT * FROM category join product ON category.cat_id = product.cat_id WHERE product.prod_status = '1' GROUP BY category.cat_id");
+                                                $data = mysqli_query($connect,"SELECT * FROM category INNER JOIN product ON category.cat_id = product.cat_id WHERE product.prod_status = '1' GROUP BY category.cat_id");
 
                                                 while($ctv = mysqli_fetch_assoc($data))
                                                 {
@@ -78,11 +74,11 @@
                                                 }
                                                 if(isset($_GET['cat_id']))
                                                 {
-                                                    ?>
+                                            ?>
                                                     <script>
                                                         document.getElementById("cat-<?php echo $_GET['cat_id']; ?>").checked = true;   
                                                     </script>
-                                                    <?php
+                                            <?php
                                                 }                                               
                                             ?>
                                         </div><!-- End .filter-items -->
@@ -116,13 +112,13 @@
                                                     ';
                                                    
                                                 }
-                                                if(isset($_GET['brand_id']))
+                                                if (isset($_GET['brand_id']))
                                                 {
-                                                    ?>
+                                            ?>
                                                     <script>
                                                         document.getElementById("brand-<?php echo $_GET['brand_id']; ?>").checked = true;
                                                     </script>
-                                                    <?php
+                                            <?php
                                                 }
                                             ?>
                                         </div><!-- End .filter-items -->
@@ -192,10 +188,7 @@
     <script src="assets/js/jquery.magnific-popup.min.js"></script>   
     <script src="assets/js/nouislider.min.js"></script>
     <!-- Main JS File -->
-    <script src="assets/js/main.js"></script>
-
-    
+    <script src="assets/js/main.js"></script> 
 </body>
 
 </html>
-

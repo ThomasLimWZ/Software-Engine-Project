@@ -178,10 +178,10 @@
                                             <div class="product-details-footer details-footer-col">
                                                 <div class="product-cat">
                                                     <span>Brand:</span>
-                                                    <a href="category.php?brandId=<?php echo $prodRow['brand_id']; ?>"><?php echo $prodRow['brand_name']; ?></a>
+                                                    <a href="category.php?brand_id=<?php echo $prodRow['brand_id']; ?>"><?php echo $prodRow['brand_name']; ?></a>
                                                     <br><br>
                                                     <span>Category:</span>
-                                                    <a href="category.php?catId=<?php echo $prodRow['cat_id']; ?>" id="category"><?php echo $prodRow['cat_name']; ?></a>
+                                                    <a href="category.php?cat_id=<?php echo $prodRow['cat_id']; ?>" id="category"><?php echo $prodRow['cat_name']; ?></a>
                                                 </div><!-- End .product-cat -->
                                             </div><!-- End .product-details-footer -->
                                         </div><!-- End .product-details -->
