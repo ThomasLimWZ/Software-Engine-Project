@@ -75,7 +75,7 @@ if ($count != 0)
                 <div class="product" style="border:1px solid #ccc;">
                     <figure class="product-media">
                         '.$insert_out_of_stock.'
-                            <a href="product.php">
+                            <a href="product.php?productId='.$showprod['prod_id'].'">
                                 <img src="../Product/'.$showprod['prod_color_img'].'" alt="Product image" class="product-image">
                             </a>
                     </figure><!-- End .product-media -->
@@ -84,7 +84,7 @@ if ($count != 0)
                         <div>
                             <span class="font-gray-400" >'.$brand_name.' &#183; '.$categoty_name.'</span>
                         </div><!-- End .product-cat -->
-                        <h3 class="product-title"><a href="product.php?prod_name='.$showprod['prod_id'].'">'.$showprod['prod_name']."".'</a></h3><!-- End .product-title -->
+                        <h3 class="product-title"><a href="product.php?productId='.$showprod['prod_id'].'">'.$showprod['prod_name']."".'</a></h3><!-- End .product-title -->
                         <div class="product-price">
                         RM '.$max_min_price['min_price'].' - RM '.$max_min_price['max_price'].'
                         </div><!-- End .product-price -->           
