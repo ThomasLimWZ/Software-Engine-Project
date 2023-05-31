@@ -250,12 +250,12 @@
                                                     <?php
                                                         if ($phoneCount != 0) {
                                                         ?>
-                                                            <div class="menu-title"><a href="category.php?catId=<?php echo $cat[0]; ?>">Phone</a></div><!-- End .menu-title -->
+                                                            <div class="menu-title"><a href="category.php?cat_id=<?php echo $cat[0]; ?>">Phone</a></div><!-- End .menu-title -->
                                                             <ul>
                                                                 <?php
                                                                 while ($phoneRow = mysqli_fetch_assoc($phone)) {
                                                                     echo "
-                                                                        <li><a href='category.php?catId=".$phoneRow['cat_id']."&brandId=".$phoneRow['brand_id']."'>".$phoneRow['brand_name']."</a></li>
+                                                                        <li><a href='category.php?cat_id=".$phoneRow['cat_id']."&brand_id=".$phoneRow['brand_id']."'>".$phoneRow['brand_name']."</a></li>
                                                                     ";
                                                                 }
                                                                 ?>
@@ -270,7 +270,7 @@
                                                                 <?php
                                                                 while ($tabletRow = mysqli_fetch_assoc($tablet)) {
                                                                     echo "
-                                                                        <li><a href='category/php?catId=".$tabletRow['cat_id']."&brandId=".$tabletRow['brand_id']."'>".$tabletRow['brand_name']."</a></li>
+                                                                        <li><a href='category.php?cat_id=".$tabletRow['cat_id']."&brand_id=".$tabletRow['brand_id']."'>".$tabletRow['brand_name']."</a></li>
                                                                     ";
                                                                 }
                                                                 ?>
@@ -283,12 +283,12 @@
                                                     <?php
                                                         if ($audiotCount != 0) {
                                                         ?>
-                                                            <div class="menu-title"><a href="category.php?catId=<?php echo $cat[2]; ?>">Audio</a></div><!-- End .menu-title -->
+                                                            <div class="menu-title"><a href="category.php?cat_id=<?php echo $cat[2]; ?>">Audio</a></div><!-- End .menu-title -->
                                                             <ul>
                                                                 <?php
                                                                 while ($audioRow = mysqli_fetch_assoc($audio)) {
                                                                     echo "
-                                                                        <li><a href='category.php?catId=".$audioRow['cat_id']."&brandId=".$audioRow['brand_id']."'>".$audioRow['brand_name']."</a></li>
+                                                                        <li><a href='category.php?cat_id=".$audioRow['cat_id']."&brand_id=".$audioRow['brand_id']."'>".$audioRow['brand_name']."</a></li>
                                                                     ";
                                                                 }
                                                                 ?>
@@ -298,12 +298,12 @@
 
                                                         if ($watchtCount != 0) {
                                                         ?>
-                                                            <div class="menu-title"><a href="category.php?catId=<?php echo $cat[3]; ?>">Audio</a></div><!-- End .menu-title -->
+                                                            <div class="menu-title"><a href="category.php?cat_id=<?php echo $cat[3]; ?>">Watch</a></div><!-- End .menu-title -->
                                                             <ul>
                                                                 <?php
                                                                 while ($watchRow = mysqli_fetch_assoc($watch)) {
                                                                     echo "
-                                                                        <li><a href='category.php?catId=".$watchRow['cat_id']."&brandId=".$watchRow['brand_id']."'>".$watchRow['brand_name']."</a></li>
+                                                                        <li><a href='category.php?cat_id=".$watchRow['cat_id']."&brand_id=".$watchRow['brand_id']."'>".$watchRow['brand_name']."</a></li>
                                                                     ";
                                                                 }
                                                                 ?>
@@ -316,13 +316,13 @@
                                                     <?php
                                                         if ($accessoriesCount != 0) {
                                                         ?>
-                                                            <div class="menu-title"><a href="category.php?catId=<?php echo $cat[4]; ?>">Accessories</a></div><!-- End .menu-title -->
+                                                            <div class="menu-title"><a href="category.php?cat_id=<?php echo $cat[4]; ?>">Accessories</a></div><!-- End .menu-title -->
                                                             <ul>
                                                                 <?php
                                                                 while ($accessoriesRow = mysqli_fetch_assoc($accessories)) {
                                                                     echo "
-                                                                        <li><a href='category.php?catId=".$accessoriesRow['cat_id']."&brandId=".$accessoriesRow['brand_id']."'>".$accessoriesRow['brand_name']."</a></li>
-                                                                    ";
+                                                                        <li><a href='category.php?cat_id=".$accessoriesRow['cat_id']."&brand_id=".$accessoriesRow['brand_id']."'>".$accessoriesRow['brand_name']."</a></li>
+                                                                    ";  
                                                                 }
                                                                 ?>
                                                             </ul>
