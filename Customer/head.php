@@ -37,4 +37,7 @@
 	.swal2-popup {
 	    font-size: 1.6rem !important;
 	}
+    .swal2-confirm {
+        margin: 10px !important;
+    }
 </style>

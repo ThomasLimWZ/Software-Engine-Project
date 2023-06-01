@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include('head.php') ;?>
+<?php include('head.php'); ?>
 
 <body>
     <div class="page-wrapper">
@@ -52,26 +52,34 @@
                                         <div class="filter-items filter-items-count">
                                             <?php
                                                 $i = 0;
-                                                $data = mysqli_query($connect,"SELECT * FROM category");
+                                                $data = mysqli_query($connect,"SELECT * FROM category INNER JOIN product ON category.cat_id = product.cat_id WHERE product.prod_status = '1' GROUP BY category.cat_id");
 
                                                 while($ctv = mysqli_fetch_assoc($data))
                                                 {
                                                     $category_id = $ctv['cat_id'];
-                                                    $sql = "SELECT * FROM product WHERE prod_status = '1'";                                              
-                                                    $sql .= " AND cat_id = '$category_id'";
+                                                    $sql = "SELECT * FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";                                              
+                                                    $sql .= " AND cat_id = '$category_id' GROUP BY product.prod_id"; 
                                                     
                                                     $numdata = mysqli_query($connect,$sql); 
                                                     echo '
                                                         <div class="filter-item">
                                                             <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input category" id="cat-'.$i.'" name="category" value="'.$ctv['cat_id'].'">
-                                                                <label class="custom-control-label" for="cat-'.$i.'">'.$ctv['cat_name'].'</label>
+                                                                <input type="checkbox" class="custom-control-input category" id="cat-'.$ctv['cat_id'].'" name="category" value="'.$ctv['cat_id'].'">
+                                                                <label class="custom-control-label" for="cat-'.$ctv['cat_id'].'">'.$ctv['cat_name'].'</label>
                                                             </div><!-- End .custom-checkbox -->
                                                             <span class="item-count">'.mysqli_num_rows($numdata).'</span> 
                                                         </div><!-- End .filter-item -->
                                                     ';
                                                     $i++;
                                                 }
+                                                if(isset($_GET['cat_id']))
+                                                {
+                                            ?>
+                                                    <script>
+                                                        document.getElementById("cat-<?php echo $_GET['cat_id']; ?>").checked = true;   
+                                                    </script>
+                                            <?php
+                                                }                                               
                                             ?>
                                         </div><!-- End .filter-items -->
                                     </div><!-- End .widget-body -->
@@ -89,19 +97,28 @@
                                     <div class="widget-body">
                                         <div class="filter-items ">
                                             <?php
-                                                $i=0;
-                                                $data = mysqli_query($connect,"SELECT * FROM brand ");
+                                                
+                                                $data = mysqli_query($connect,"SELECT * FROM brand WHERE brand_status = 1");
                                                 while($bv = mysqli_fetch_assoc($data))
                                                 {
-                                                echo'
+
+                                                    echo'
                                                         <div class="filter-item">
                                                             <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input brand" id="brand-'.$i.'" name="brand" value="'.$bv['brand_id'].'">
-                                                                <label class="custom-control-label" for="brand-'.$i.'">'.$bv['brand_name'].'</label>
+                                                                <input type="checkbox" class="custom-control-input brand" id="brand-'.$bv['brand_id'].'" name="brand" value="'.$bv['brand_id'].'">
+                                                                <label class="custom-control-label" for="brand-'.$bv['brand_id'].'">'.$bv['brand_name'].'</label>
                                                             </div><!-- End .custom-checkbox -->
                                                         </div><!-- End .filter-item -->
                                                     ';
-                                                    $i++;
+                                                   
+                                                }
+                                                if (isset($_GET['brand_id']))
+                                                {
+                                            ?>
+                                                    <script>
+                                                        document.getElementById("brand-<?php echo $_GET['brand_id']; ?>").checked = true;
+                                                    </script>
+                                            <?php
                                                 }
                                             ?>
                                         </div><!-- End .filter-items -->
@@ -148,6 +165,7 @@
         </main><!-- End .main -->
 
         <?php include('footer.php') ?>
+
     </div><!-- End .page-wrapper -->
     <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
 
@@ -170,11 +188,7 @@
     <script src="assets/js/jquery.magnific-popup.min.js"></script>   
     <script src="assets/js/nouislider.min.js"></script>
     <!-- Main JS File -->
-    <script src="assets/js/main.js"></script>
-
-    <script>
-        show_product("",1);  
-    </script>
+    <script src="assets/js/main.js"></script> 
 </body>
 
 </html>
