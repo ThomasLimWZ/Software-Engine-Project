@@ -685,7 +685,7 @@ if (isset($_SESSION['customer_id'])) {
 				
 				$email = $custResult['cus_email'];
 				$subject = "Change Password Successful!";
-				$message = "Dear ".$name.",\n\nYour password has been change. \n\nRegards,\n4People Telco";
+				$message = "Dear ".$custResult['cus_name'].",\n\nYour password has been change. \n\nRegards,\n4People Telco";
 				$headers = "From: 4People Telco" . "\r\n";
 				
 				if (mail($email, $subject, $message, $headers)) {
