@@ -51,7 +51,7 @@
                 </button>
                 
                 <a href="index.php" class="logo mx-auto">
-                    <img src="assets/images/Logo/Color logo - no background.png" alt="4 People Telco Logo" width="100" height="25">
+                    <img src="assets/images/Logo/Color logo - no background.png" alt="4 People Telco Logo" style="height: 70px;">
                 </a>
             </div><!-- End .header-left -->
             <style>
