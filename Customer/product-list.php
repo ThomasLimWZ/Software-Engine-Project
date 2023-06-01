@@ -48,8 +48,8 @@ while ($get_id = mysqli_fetch_assoc($query2))
 //new product
 $exta = "SELECT * FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
 $exta .= $_POST['searchTerm'];
-$exta .= " GROUP BY product.prod_id DESC ";
-$exta .= " LIMIT $new_product ";
+$exta .= " GROUP BY product.prod_id DESC";
+$exta .= " LIMIT $new_product";
 $query5 = mysqli_query($connect, $exta);
 
 $valid_new = [];
@@ -59,7 +59,7 @@ while($get_id = mysqli_fetch_assoc($query5)){
 }
 
 //set for the top
-$sale_sql = "SELECT product.prod_id, SUM(quantity)AS 'sale_num' FROM `order` INNER JOIN cart_item ON `order`.order_id = cart_item.order_id INNER JOIN product ON cart_item.prod_id = product.prod_id GROUP BY cart_item.prod_id ORDER BY sale_num DESC LIMIT $show_top_limit";
+$sale_sql = "SELECT product.prod_id, SUM(quantity) AS 'sale_num' FROM `order` INNER JOIN cart_item ON `order`.order_id = cart_item.order_id INNER JOIN product ON cart_item.prod_id = product.prod_id GROUP BY cart_item.prod_id ORDER BY sale_num DESC LIMIT $show_top_limit";
 $query6 = mysqli_query($connect, $sale_sql); 
 
 $valid_top = [];
@@ -74,7 +74,7 @@ while($get_id = mysqli_fetch_assoc($query6)){
 //get month
 $month = Date('m');
 //set for the sales
-$sale_sql = "SELECT product.prod_id, SUM(quantity)AS 'sale_num' FROM `order` INNER JOIN cart_item ON `order`.order_id = cart_item.order_id INNER JOIN product ON cart_item.prod_id = product.prod_id where month(order_datetime)='$month' GROUP BY cart_item.prod_id ORDER BY sale_num DESC ";
+$sale_sql = "SELECT product.prod_id, SUM(quantity) AS 'sale_num' FROM `order` INNER JOIN cart_item ON `order`.order_id = cart_item.order_id INNER JOIN product ON cart_item.prod_id = product.prod_id where month(order_datetime)='$month' GROUP BY cart_item.prod_id ORDER BY sale_num DESC ";
 $query7 = mysqli_query($connect, $sale_sql); 
 
 $valid_sales = [];
