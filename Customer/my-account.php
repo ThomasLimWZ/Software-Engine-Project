@@ -675,15 +675,15 @@ if (isset($_SESSION['customer_id'])) {
 		$new_pass = $_POST['new_password'];
 		$con_new_pass = $_POST['new_comfirm_password'];
 		
-		$getCustomerQuery = mysqli_query($connect, "SELECT * FROM customer WHERE cus_id='$id' AND cus_pass = '".strtoupper(md5($old_pass))."'");
-		$countCustomer = mysqli_num_rows($getCustomerQuery);
+		$getCustomerQuery = mysqli_query($connect, "SELECT * FROM customer WHERE cus_id='$id'");
+		$custResult = mysqli_fetch_assoc($getCustomerQuery);
 
-		if ($countCustomer == 1) {
-			if ($new_pass === $con_new_pass) {
-				$customerRow = mysqli_fetch_assoc($getCustomerQuery);
+		if (strtoupper(md5($old_pass)) == $custResult['cus_pass']) {
+			
+			if ($new_pass != $old_pass) {
 				mysqli_query($connect,"UPDATE customer SET cus_pass = '".strtoupper(md5($new_pass))."' WHERE cus_id = '$id' ");
 				
-				$email = $customerRow['cus_email'];
+				$email = $custResult['cus_email'];
 				$subject = "Change Password Successful!";
 				$message = "Dear ".$name.",\n\nYour password has been change. \n\nRegards,\n4People Telco";
 				$headers = "From: 4People Telco" . "\r\n";
@@ -699,35 +699,28 @@ if (isset($_SESSION['customer_id'])) {
 						</script>
 					";
 				}
-				else
-				{
-					echo `
-						<script>
-							$('a[href="#<?php echo $go;?>"]').tab('show');
-						</script>
-					`;
-				}
+				
 			} else {
-				echo "
+				?>
 					<script>
 						Swal.fire(
-							'Both password and confirm password not matched!',
-							'',
+							'Something wrong!',
+							'New password cannot same as current password!',
 							'warning'
-						);		
+						).then(() => window.location.href = "my-account.php?goto=tab-reset-password");		
 					</script>
-				";
+				<?php
 			}
 		} else {
-			echo `
+			?>
 				<script>
 					Swal.fire(
-						'Fail to Reset Password',
-						'Current Password not matched with Record',
+						'Something wrong!',
+						'Password does not match with record!',
 						'warning'
 					).then(() => window.location.href = "my-account.php?goto=tab-reset-password");
 				</script>
-			`;
+			<?php
 		}
 	}
 
