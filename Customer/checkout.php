@@ -122,30 +122,42 @@ if (isset($_SESSION['customer_id'])) {
 												</thead>
 
 												<tbody>
-													<tr>
-														<td>
-															<a href="#">iPhone 14 Pro Max</a>
-															<p>128GB - Deep Purple</p>
-														</td>
-														<td>1 x RM 5799.00</td>
-														<td>RM 5799.00</td>
-													</tr>
-													<tr>
-														<td>
-															<a href="#">AirPods Pro 2nd Generation</a>
-															<p>White</p>
-														</td>
-														<td>2 x RM 1099.00</td>
-														<td>RM 2198.00</td>
-													</tr>
-													<tr>
-														<td>Shipping:</td>
-														<td colspan="2">Free shipping</td>
-													</tr>
-													<tr class="summary-subtotal">
-														<td>Grandtotal:</td>
-														<td colspan="2">RM 7977.00</td>
-													</tr><!-- End .summary-subtotal -->
+													<?php
+														$getCartQuery = "SELECT * FROM cart_item 
+																			INNER JOIN product ON cart_item.prod_id = product.prod_id
+																			INNER JOIN product_detail ON cart_item.prod_detail_id = product_detail.prod_detail_id
+																			INNER JOIN product_color ON cart_item.prod_color_id = product_color.prod_color_id
+																			WHERE cus_id = '".$_SESSION['customer_id']."' AND cart_item_status='1' AND order_id IS NULL";
+														$getCart = mysqli_query($connect, $getCartQuery);
+														$countCart = mysqli_num_rows($getCart);
+														$orderTotal = 0;
+
+														if ($countCart != 0) {
+															while($cartRow = mysqli_fetch_assoc($getCart)) {
+																$orderTotal += $cartRow['cart_subtotal'];
+													?>
+																<tr>
+																	<td>
+																		<a href="#"><?php echo $cartRow['prod_name']; ?></a>
+																		<p><?php echo $cartRow['prod_detail_name']; ?> <?php echo empty($cartRow['prod_detail_name']) ? "" : " - "; ?><?php echo $cartRow['prod_color_name']; ?></p>
+																	</td>
+																	<td><?php echo $cartRow['quantity']; ?> x RM <?php echo $cartRow['prod_detail_price']; ?></td>
+																	<td>RM <?php echo $cartRow['cart_subtotal']; ?></td>
+																</tr>
+													<?php
+															}
+													?>
+														<tr>
+															<td>Shipping:</td>
+															<td colspan="2">Free shipping</td>
+														</tr>
+														<tr class="summary-subtotal">
+															<td>Grandtotal:</td>
+															<td colspan="2">RM <?php echo sprintf('%0.2f', $orderTotal); ?></td>
+														</tr><!-- End .summary-subtotal -->
+													<?php
+														}
+													?>
 												</tbody>
 											</table><!-- End .table table-summary -->
 
