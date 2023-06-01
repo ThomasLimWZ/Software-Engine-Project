@@ -8,11 +8,8 @@ function get_top_sales_new_label($connect,$prod_id_array)
     //define how many product specific as new product
     $new_product = 6;
 
-    //define how many product specific as sales
-    $show_sale_limit = 6;
-
     //define how many product specific as top
-    $show_top_limit = 6;
+    $show_top_limit = 10;
 
     //new product
     $exta = "SELECT * FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
@@ -29,12 +26,14 @@ function get_top_sales_new_label($connect,$prod_id_array)
         }
     }
 
+    //get month
+    $month = Date('m');
     //set for the sales
-    $sale_sql = "SELECT product.prod_id, SUM(quantity)AS 'sale_num' FROM `order` INNER JOIN cart_item ON `order`.order_id = cart_item.order_id INNER JOIN product ON cart_item.prod_id = product.prod_id GROUP BY cart_item.prod_id ORDER BY sale_num DESC LIMIT $show_sale_limit";
-    $query6 = mysqli_query($connect, $sale_sql); 
+    $sale_sql = "SELECT product.prod_id, SUM(quantity)AS 'sale_num' FROM `order` INNER JOIN cart_item ON `order`.order_id = cart_item.order_id INNER JOIN product ON cart_item.prod_id = product.prod_id where month(order_datetime)='$month' GROUP BY cart_item.prod_id ORDER BY sale_num DESC";
+    $query7 = mysqli_query($connect, $sale_sql); 
 
     $valid_sales = [];
-    while($get_id = mysqli_fetch_assoc($query6)){
+    while($get_id = mysqli_fetch_assoc($query7)){
         array_push($valid_sales, $get_id['prod_id']);
         if (($key = array_search($get_id['prod_id'], $prod_id_array)) !== false) {
             unset($prod_id_array[$key]);
@@ -42,20 +41,20 @@ function get_top_sales_new_label($connect,$prod_id_array)
         }
     }
 
-    //get month
-    $month = Date('m');
     //set for the top
-    $sale_sql = "SELECT product.prod_id, SUM(quantity)AS 'sale_num' FROM `order` INNER JOIN cart_item ON `order`.order_id = cart_item.order_id INNER JOIN product ON cart_item.prod_id = product.prod_id where month(order_datetime)='$month' GROUP BY cart_item.prod_id ORDER BY sale_num DESC LIMIT $show_top_limit";
-    $query7 = mysqli_query($connect, $sale_sql); 
+    $sale_sql = "SELECT product.prod_id, SUM(quantity)AS 'sale_num' FROM `order` INNER JOIN cart_item ON `order`.order_id = cart_item.order_id INNER JOIN product ON cart_item.prod_id = product.prod_id GROUP BY cart_item.prod_id ORDER BY sale_num DESC LIMIT $show_top_limit";
+    $query6 = mysqli_query($connect, $sale_sql); 
 
     $valid_top = [];
-    while($get_id = mysqli_fetch_assoc($query7)){
+    while($get_id = mysqli_fetch_assoc($query6)){
         array_push($valid_top, $get_id['prod_id']);
         if (($key = array_search($get_id['prod_id'], $prod_id_array)) !== false) {
             unset($prod_id_array[$key]);
             array_unshift($prod_id_array,$get_id['prod_id']);
         }
     }
+
+    
 
     return [$valid_new,$valid_sales,$valid_top,$prod_id_array];
 }
@@ -343,8 +342,8 @@ $month = Date('m');
                         </div><!-- End .owl-carousel -->
                     </div><!-- .End .tab-pane -->
 
-                    <!-- for On Sale -->
-                    <div class="tab-pane p-0 fade" id="products-sale-tab" role="tabpanel" aria-labelledby="products-sale-link">
+                    <!-- for On top -->
+                    <div class="tab-pane p-0 fade" id="products-top-tab" role="tabpanel" aria-labelledby="products-top-link">
                         <div class="owl-carousel owl-full carousel-equal-height carousel-with-shadow" data-toggle="owl" 
                             data-owl-options='{
                                 "nav": true, 
@@ -400,8 +399,8 @@ $month = Date('m');
                         </div><!-- End .owl-carousel -->
                     </div><!-- .End .tab-pane -->
 
-                    <!-- for Top -->
-                    <div class="tab-pane p-0 fade" id="products-top-tab" role="tabpanel" aria-labelledby="products-top-link">
+                    <!-- for sale -->
+                    <div class="tab-pane p-0 fade" id="products-sale-tab" role="tabpanel" aria-labelledby="products-sale-link">
                         <div class="owl-carousel owl-full carousel-equal-height carousel-with-shadow" data-toggle="owl" 
                             data-owl-options='{
                                 "nav": true, 
@@ -487,7 +486,7 @@ $month = Date('m');
                                         INNER JOIN brand ON product.brand_id = brand.brand_id
                                         INNER JOIN product_detail ON product.prod_id = product_detail.prod_id 
                                         INNER JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id                                         
-                                        WHERE prod_status = 1 AND brand.brand_status = 1 AND month(order_datetime)='$month'
+                                        WHERE prod_status = 1 AND brand.brand_status = 1 
                                         GROUP BY category.cat_id ORDER BY SUM(quantity) DESC";
                                 $sql_category_data = mysqli_query($connect, $sql);
 
@@ -537,7 +536,7 @@ $month = Date('m');
                                         INNER JOIN brand ON product.brand_id = brand.brand_id
                                         INNER JOIN product_detail ON product.prod_id = product_detail.prod_id 
                                         INNER JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id                                         
-                                        WHERE prod_status = 1 AND brand.brand_status = 1 AND month(order_datetime)='$month' ";
+                                        WHERE prod_status = 1 AND brand.brand_status = 1  ";
                                 $extra .= " GROUP BY product.prod_id ";
                                 $extra .= " ORDER BY SUM(quantity) DESC";
                                 $query = mysqli_query($connect,$extra);
@@ -569,7 +568,7 @@ $month = Date('m');
                                 INNER JOIN brand ON product.brand_id = brand.brand_id
                                 INNER JOIN product_detail ON product.prod_id = product_detail.prod_id 
                                 INNER JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id                                         
-                                WHERE prod_status = 1 AND brand.brand_status = 1 AND month(order_datetime)='$month'
+                                WHERE prod_status = 1 AND brand.brand_status = 1    
                                 GROUP BY category.cat_id ORDER BY SUM(quantity) DESC";
                         $sql_category_data = mysqli_query($connect,$sql);
 
@@ -611,7 +610,7 @@ $month = Date('m');
                                                 INNER JOIN brand ON product.brand_id = brand.brand_id
                                                 INNER JOIN product_detail ON product.prod_id = product_detail.prod_id 
                                                 INNER JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id                                         
-                                                WHERE prod_status = 1 AND brand.brand_status = 1 AND month(order_datetime)='$month' ";
+                                                WHERE prod_status = 1 AND brand.brand_status = 1 ";
                                         $extra .= " AND product.cat_id = ' ";
                                         $extra .= ($list_category_data['cat_id']);
                                         $extra .= "' GROUP BY product.prod_id ORDER BY SUM(quantity) DESC ";
