@@ -737,10 +737,10 @@ if (isset($_SESSION['customer_id'])) {
 
 		echo $go;
 
-		echo `
-			<script>
-				$('a[href="#`.$go.`"]').tab('show');
-			</script>
-		`;
+?>
+		<script>
+			$('a[href="#<?php echo $go; ?>"]').tab('show');
+		</script>
+<?php
 	}
 ?>
