@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include('head.php'); 
+<?php include('head.php'); ?>
 
-function get_top_sales_new_label($connect,$prod_id_array)
+<?php
+function get_top_sales_new_label($connect, $prod_id_array)
 {
     //define how many product specific as new product
     $new_product = 6;
@@ -54,12 +55,10 @@ function get_top_sales_new_label($connect,$prod_id_array)
         }
     }
 
-    
-
     return [$valid_new,$valid_sales,$valid_top,$prod_id_array];
 }
 
-function show_product($connect,$validate,$p_view)
+function show_product($connect, $validate, $p_view)
 {
     $valid_top = $validate[2];
     $valid_sales =$validate[1];
@@ -249,9 +248,9 @@ $month = Date('m');
                                                     <div class="row align-items-center my-4">
                                                         <div class="col-md-6 mb-3 mb-md-0">
                                                             <div class="video-box-content">
-                                                                <h3 class="video-banner-title h1"><span class="text-primary">New Video</span><strong>iPhone 14 Pro Max</strong></h3><!-- End .video-banner-title -->
+                                                                <h3 class="video-banner-title h1"><span class="text-primary">New</span><strong>iPhone 14 Pro Max</strong></h3><!-- End .video-banner-title -->
                                                                 <p>Designed to make a difference.</p>
-                                                                <a href="#" class="btn btn-primary btn-round"><span>Click Here</span><i class="icon-long-arrow-right"></i></a>
+                                                                <a href="category.php?brand_id=1&cat_id=1" class="btn btn-primary btn-round"><span>Click Here</span><i class="icon-long-arrow-right"></i></a>
                                                             </div><!-- End .video-box-content -->
                                                         </div><!-- End .col-md-6 -->
                                                         <div class="col-md-6">
