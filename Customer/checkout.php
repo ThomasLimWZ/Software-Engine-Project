@@ -31,154 +31,176 @@ if (isset($_SESSION['customer_id'])) {
 	                <div class="container">
             			<form action="#">
 		                	<div class="row">
-		                		<div class="col-lg-6">
-		                			<h2 class="checkout-title">Billing Details</h2><!-- End .checkout-title -->
-		                				<div class="row">
-		                					<div class="col-sm-6">
-		                						<label>First Name <span class="text-danger">*</span></label>
-		                						<input type="text" class="form-control" required>
-		                					</div><!-- End .col-sm-6 -->
+								<?php
+									$getCustomer = mysqli_query($connect, "SELECT * FROM customer WHERE cus_id = '".$_SESSION['customer_id']."'");
+									$cus_info = mysqli_fetch_assoc($getCustomer);
+								?>
+								<form method="POST">
+									<div class="col-lg-6">
+										<h2 class="checkout-title">Billing Details</h2><!-- End .checkout-title -->
+											<div class="row">
+												<div class="col-sm-12">
+													<label>Name <span class="text-danger">*</span></label>
+													<input type="text" class="form-control" name="checkoutName" id="checkoutName" value="<?php echo $cus_info['cus_name']; ?>" oninput="checkRequiredInputs()" required>
+												</div><!-- End .col-sm-12 -->
+											</div><!-- End .row -->
 
-		                					<div class="col-sm-6">
-		                						<label>Last Name <span class="text-danger">*</span></label>
-		                						<input type="text" class="form-control" required>
-		                					</div><!-- End .col-sm-6 -->
-		                				</div><!-- End .row -->
+											<label>Address <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" placeholder="House number and Street name" name="address" id="address" value="<?php echo $cus_info['cus_address']; ?>" oninput="checkRequiredInputs()" required>
 
-	            						<label>Street address <span class="text-danger">*</span></label>
-	            						<input type="text" class="form-control" placeholder="House number and Street name" required>
+											<div class="row">
+												<div class="col-sm-6">
+													<label>City <span class="text-danger">*</span></label>
+													<input type="text" class="form-control" name="city" id="city" value="<?php echo $cus_info['cus_city']; ?>" oninput="checkRequiredInputs()" required>
+												</div><!-- End .col-sm-6 -->
 
-	            						<div class="row">
-		                					<div class="col-sm-6">
-		                						<label>Town / City <span class="text-danger">*</span></label>
-		                						<input type="text" class="form-control" required>
-		                					</div><!-- End .col-sm-6 -->
+												<div class="col-sm-6">
+													<label>State <span class="text-danger">*</span></label>
+													<select class="form-control" name="state" id="state" required><i class="fa fa-x"></i>
+														<option value="" disabled>Select State</option>
+														<option <?php if ($cus_info['cus_state'] == "Melaka") echo "selected";?>>Melaka</option>
+														<option <?php if ($cus_info['cus_state'] == "Johor") echo "selected";?>>Johor</option>
+														<option <?php if ($cus_info['cus_state'] == "Selangor") echo "selected";?>>Selangor</option>
+														<option <?php if ($cus_info['cus_state'] == "Negeri Sembilan") echo "selected";?>>Negeri Sembilan</option>
+														<option <?php if ($cus_info['cus_state'] == "Pulau Pinang") echo "selected";?>>Pulau Pinang</option>
+														<option <?php if ($cus_info['cus_state'] == "Kedah") echo "selected";?>>Kedah</option>
+														<option <?php if ($cus_info['cus_state'] == "Kelantan") echo "selected";?>>Kelantan</option>
+														<option <?php if ($cus_info['cus_state'] == "Pahang") echo "selected";?>>Pahang</option>
+														<option <?php if ($cus_info['cus_state'] == "Perlis") echo "selected";?>>Perlis</option>
+														<option <?php if ($cus_info['cus_state'] == "Perak") echo "selected";?>>Perak</option>
+														<option <?php if ($cus_info['cus_state'] == "Sabah") echo "selected";?>>Sabah</option>
+														<option <?php if ($cus_info['cus_state'] == "Sarawak") echo "selected";?>>Sarawak</option>
+														<option <?php if ($cus_info['cus_state'] == "Terengganu") echo "selected";?>>Terengganu</option>
+													</select>
+												</div><!-- End .col-sm-6 -->
+											</div><!-- End .row -->
 
-		                					<div class="col-sm-6">
-		                						<label>State / County <span class="text-danger">*</span></label>
-		                						<input type="text" class="form-control" required>
-		                					</div><!-- End .col-sm-6 -->
-		                				</div><!-- End .row -->
+											<div class="row">
+												<div class="col-sm-6">
+													<label>Postcode <span class="text-danger">*</span></label>
+													<input type="text" pattern="\d*" minlength="5" maxlength="5" class="form-control" name="postcode" id="postcode" value="<?php echo $cus_info['cus_postcode']; ?>" oninput="checkRequiredInputs()" required>
+												</div><!-- End .col-sm-6 -->
+											</div><!-- End .row -->
 
-		                				<div class="row">
-		                					<div class="col-sm-6">
-		                						<label>Postcode / ZIP <span class="text-danger">*</span></label>
-		                						<input type="text" class="form-control" required>
-		                					</div><!-- End .col-sm-6 -->
-		                				</div><!-- End .row -->
+											<div class="row">
+												<div class="col-sm-6">
+												<label>Email address <span class="text-danger">*</span></label>
+											<input type="email" class="form-control" name="checkoutEmail" id="checkoutEmail" value="<?php echo $cus_info['cus_email']; ?>" oninput="checkRequiredInputs()" required>
+												</div><!-- End .col-sm-6 -->
 
-		                				<div class="row">
-		                					<div class="col-sm-6">
-											<label>Email address <span class="text-danger">*</span></label>
-	        							<input type="email" class="form-control" required>
-		                					</div><!-- End .col-sm-6 -->
+												<div class="col-sm-6">
+													<label>Phone <span class="text-danger">*</span></label>
+													<input type="text" pattern="\d*" minlength="10" maxlength="11" class="form-control" name="checkoutPhone" id="checkoutPhone" value="<?php echo $cus_info['cus_phone']; ?>" oninput="checkRequiredInputs()" required>
+												</div><!-- End .col-sm-6 -->
+											</div><!-- End .row -->
 
-		                					<div class="col-sm-6">
-		                						<label>Phone <span class="text-danger">*</span></label>
-		                						<input type="tel" class="form-control" required>
-		                					</div><!-- End .col-sm-6 -->
-		                				</div><!-- End .row -->
+											<?php
+												if (!empty($cus_info['cus_address']) && !empty($cus_info['cus_city']) && !empty($cus_info['cus_state']) && !empty($cus_info['cus_postcode'])) {
+											?>
+													<div class="custom-control custom-checkbox">
+														<input type="checkbox" class="custom-control-input" id="checkout-diff-address" onchange="shipDifferentAddress()">
+														<label class="custom-control-label" for="checkout-diff-address">Ship to a different address?</label>
+													</div><!-- End .custom-checkbox -->
+											<?php
+												}
+											?>
 
-										<div class="custom-control custom-checkbox">
-											<input type="checkbox" class="custom-control-input" id="checkout-diff-address">
-											<label class="custom-control-label" for="checkout-diff-address">Ship to a different address?</label>
-										</div><!-- End .custom-checkbox -->
+											<label>Order notes (Optional)</label>
+											<textarea class="form-control" cols="30" rows="4" placeholder="Notes about your order, e.g. special notes for delivery"></textarea>
+									</div><!-- End .col-lg-6 -->
+									<aside class="col-lg-6">
+										<div class="summary">
+											<h3 class="summary-title">Your Order</h3><!-- End .summary-title -->
 
-	                					<label>Order notes (Optional)</label>
-	        							<textarea class="form-control" cols="30" rows="4" placeholder="Notes about your order, e.g. special notes for delivery"></textarea>
-		                		</div><!-- End .col-lg-6 -->
-		                		<aside class="col-lg-6">
-		                			<div class="summary">
-		                				<h3 class="summary-title">Your Order</h3><!-- End .summary-title -->
+											<table class="table table-summary">
+												<thead>
+													<tr>
+														<th>Product</th>
+														<th>Price</th>
+														<th>Subtotal</th>
+													</tr>
+												</thead>
 
-		                				<table class="table table-summary">
-		                					<thead>
-		                						<tr>
-		                							<th>Product</th>
-		                							<th>Price</th>
-		                							<th>Subtotal</th>
-		                						</tr>
-		                					</thead>
+												<tbody>
+													<tr>
+														<td>
+															<a href="#">iPhone 14 Pro Max</a>
+															<p>128GB - Deep Purple</p>
+														</td>
+														<td>1 x RM 5799.00</td>
+														<td>RM 5799.00</td>
+													</tr>
+													<tr>
+														<td>
+															<a href="#">AirPods Pro 2nd Generation</a>
+															<p>White</p>
+														</td>
+														<td>2 x RM 1099.00</td>
+														<td>RM 2198.00</td>
+													</tr>
+													<tr>
+														<td>Shipping:</td>
+														<td colspan="2">Free shipping</td>
+													</tr>
+													<tr class="summary-subtotal">
+														<td>Grandtotal:</td>
+														<td colspan="2">RM 7977.00</td>
+													</tr><!-- End .summary-subtotal -->
+												</tbody>
+											</table><!-- End .table table-summary -->
 
-		                					<tbody>
-		                						<tr>
-		                							<td>
-														<a href="#">iPhone 14 Pro Max</a>
-														<p>128GB - Deep Purple</p>
-													</td>
-		                							<td>1 x RM 5799.00</td>
-		                							<td>RM 5799.00</td>
-		                						</tr>
-		                						<tr>
-		                							<td>
-														<a href="#">AirPods Pro 2nd Generation</a>
-														<p>White</p>
-													</td>
-		                							<td>2 x RM 1099.00</td>
-		                							<td>RM 2198.00</td>
-		                						</tr>
-		                						<tr>
-		                							<td>Shipping:</td>
-		                							<td colspan="2">Free shipping</td>
-		                						</tr>
-		                						<tr class="summary-subtotal">
-		                							<td>Grandtotal:</td>
-		                							<td colspan="2">RM 7977.00</td>
-		                						</tr><!-- End .summary-subtotal -->
-		                					</tbody>
-		                				</table><!-- End .table table-summary -->
+											<div class="accordion-summary" id="accordion-payment">
+												<div class="card">
+													<div class="card-header" id="heading-1">
+														<h2 class="card-title">
+															<a role="button" data-toggle="collapse" href="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
+															<img src="assets/images/payment-visa.jpg" alt="payments cards">
+															Visa
+															</a>
+														</h2>
+													</div><!-- End .card-header -->
+													<div id="collapse-1" class="collapse show" aria-labelledby="heading-1" data-parent="#accordion-payment">
+													</div><!-- End .collapse -->
+												</div><!-- End .card -->
+			
+												<div class="card">
+													<div class="card-header" id="heading-2">
+														<h2 class="card-title">
+															<a class="collapsed" role="button" data-toggle="collapse" href="#collapse-2" aria-expanded="false" aria-controls="collapse-4">
+															<img src="assets/images/payment-master.png" alt="payments cards">    
+															Master													
+															</a>
+														</h2>
+													</div><!-- End .card-header -->
+													<div id="collapse-2" class="collapse" aria-labelledby="heading-2" data-parent="#accordion-payment">
+													</div><!-- End .collapse -->
+												</div><!-- End .card -->
 
-		                				<div class="accordion-summary" id="accordion-payment">
-										    <div class="card">
-										        <div class="card-header" id="heading-1">
-										            <h2 class="card-title">
-										                <a role="button" data-toggle="collapse" href="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
-														<img src="assets/images/payment-visa.jpg" alt="payments cards">
-														Visa
-										                </a>
-										            </h2>
-										        </div><!-- End .card-header -->
-										        <div id="collapse-1" class="collapse show" aria-labelledby="heading-1" data-parent="#accordion-payment">
-										        </div><!-- End .collapse -->
-										    </div><!-- End .card -->
-		
-										    <div class="card">
-										        <div class="card-header" id="heading-2">
-										            <h2 class="card-title">
-										                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-2" aria-expanded="false" aria-controls="collapse-4">
-										                <img src="assets/images/payment-master.png" alt="payments cards">    
-														Master													
-										                </a>
-										            </h2>
-										        </div><!-- End .card-header -->
-										        <div id="collapse-2" class="collapse" aria-labelledby="heading-2" data-parent="#accordion-payment">
-										        </div><!-- End .collapse -->
-										    </div><!-- End .card -->
+												<div class="card">
+													<div class="card-header" id="heading-3">
+														<h2 class="card-title">
+															<a class="collapsed" role="button" data-toggle="collapse" href="#collapse-3" aria-expanded="false" aria-controls="collapse-5">
+															<img src="assets/images/payment-fpx.jpg" alt="payments cards">    
+															FPX
+															</a>
+														</h2>
+													</div><!-- End .card-header -->
+													<div id="collapse-3" class="collapse" aria-labelledby="heading-3" data-parent="#accordion-payment">
+													</div><!-- End .collapse -->
+												</div><!-- End .card -->
+												
+											</div><!-- End .accordion -->
 
-										    <div class="card">
-										        <div class="card-header" id="heading-3">
-										            <h2 class="card-title">
-										                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-3" aria-expanded="false" aria-controls="collapse-5">
-										                <img src="assets/images/payment-fpx.jpg" alt="payments cards">    
-														FPX
-										                </a>
-										            </h2>
-										        </div><!-- End .card-header -->
-										        <div id="collapse-3" class="collapse" aria-labelledby="heading-3" data-parent="#accordion-payment">
-										        </div><!-- End .collapse -->
-										    </div><!-- End .card -->
-											
-										</div><!-- End .accordion -->
+											<button class="btn btn-outline-primary-2 btn-order btn-block" data-toggle="modal" data-target="#staticBackdrop" id="paymentBtn" disabled>
+												<span class="btn-text">Place Order</span>
+												<span class="btn-hover-text">Proceed to Payment</span>
+											</button>
 
-		                				<button type="submit" class="btn btn-outline-primary-2 btn-order btn-block" data-toggle="modal" data-target="#staticBackdrop">
-		                					<span class="btn-text">Place Order</span>
-		                					<span class="btn-hover-text">Proceed to Checkout</span>
-		                				</button>
-
-										<!-- Modal -->
-										<?php include('payment-modal.php'); ?>
-		                			</div><!-- End .summary -->
-		                		</aside><!-- End .col-lg-6 -->
+											<!-- Modal -->
+											<?php include('payment-modal.php'); ?>
+										</div><!-- End .summary -->
+									</aside><!-- End .col-lg-6 -->
+								</form>
 		                	</div><!-- End .row -->
             			</form>
 	                </div><!-- End .container -->
@@ -213,3 +235,54 @@ if (isset($_SESSION['customer_id'])) {
 }
 ?>
 </html>
+
+<script>
+	function shipDifferentAddress() {
+		isCheckboxChecked = document.getElementById('checkout-diff-address');
+
+		if (isCheckboxChecked.checked) {
+			address = document.getElementById('address').value = "";
+			city = document.getElementById('city').value = "";
+			state = document.getElementById('state').value = "";
+			postcode = document.getElementById('postcode').value = "";
+			checkRequiredInputs();
+		} else {
+			$.ajax({
+				type: 'GET',
+				url: 'autofill-address.php',
+				data: {
+					cus_id: <?php echo $_SESSION['customer_id']; ?>
+				},
+				success: (data) => {
+					let result = JSON.parse(data);
+					document.getElementById('address').value = result[0];
+					document.getElementById('city').value = result[1];
+					document.getElementById('state').value = result[2];
+					document.getElementById('postcode').value = result[3];
+					checkRequiredInputs();
+				}
+			});
+		}
+	}
+	
+	function checkRequiredInputs() {
+		name = document.getElementById('checkoutName');
+		email = document.getElementById('checkoutEmail');
+		phone = document.getElementById('checkoutPhone');
+
+		address = document.getElementById('address');
+		city = document.getElementById('city');
+		state = document.getElementById('state');
+		postcode = document.getElementById('postcode');
+
+		if (name.value != "" && email.value != "" && phone.value != "" && address.value != "" && city.value != "" && state.value != "" && postcode.value != "") {
+			document.getElementById('paymentBtn').disabled = false;
+		} else {
+			document.getElementById('paymentBtn').disabled = true;
+		}
+	}
+
+	addEventListener("DOMContentLoaded", (event) => {
+		checkRequiredInputs();
+    });
+</script>
