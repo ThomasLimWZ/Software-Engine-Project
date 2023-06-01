@@ -3,38 +3,38 @@
         <div class="container">
             <div class="header-right">
                 <ul class="top-menu">
-                    <?php 
-                    if (isset($_SESSION["customer_id"])) {
-                        $cus_id = $_SESSION["customer_id"];
-                        $result = mysqli_query($connect,"SELECT * FROM customer WHERE cus_id = '$cus_id'");
-                        $row = mysqli_fetch_assoc($result);
-                    ?>
-                            <a class="h5 text-white" href="#" data-toggle="dropdown"><img src="assets/images/profile.png" width="35px" height="35px">&nbsp;<?php echo $row["cus_name"]; ?></a>
-                            <div class="dropdown-menu h6 mt-1" style="width: 12%;">
-                                <a class="dropdown-item p-2" href="my-account.php">My Account</a>
-                                <a class="dropdown-item p-2 text-danger" href="#" onclick="logoutConfirm();">Log Out</a>
-                            </div>
-                            <script>
-                                function logoutConfirm(){
-                                    var option;
-                                    Swal.fire({
-                                        title: 'Are you sure to log out?',
-                                        icon: 'warning',
-                                        showCancelButton: true,
-                                        confirmButtonColor: '#3085d6',
-                                        cancelButtonColor: '#d33',
-                                        confirmButtonText: 'Yes, log out now!'
-                                    }).then((result) => {
-                                        if (result.isConfirmed) {
-                                            window.location.href="signout.php";
-                                        }
-                                    });
-                                }	
-                            </script>
                     <?php
-                    } else {                   
-                        echo'<a class="h5" href="#signin-modal" data-toggle="modal">Sign in / Sign up</a>';
-                    }
+                        if (isset($_SESSION["customer_id"])) {
+                            $cus_id = $_SESSION["customer_id"];
+                            $result = mysqli_query($connect,"SELECT * FROM customer WHERE cus_id = '$cus_id'");
+                            $row = mysqli_fetch_assoc($result);
+                        ?>
+                                <a class="h5 text-white" href="#" data-toggle="dropdown"><img src="assets/images/profile.png" width="35px" height="35px">&nbsp;<?php echo $row["cus_name"]; ?></a>
+                                <div class="dropdown-menu h6 mt-1" style="width: 12%;">
+                                    <a class="dropdown-item p-2" href="my-account.php">My Account</a>
+                                    <a class="dropdown-item p-2 text-danger" href="#" onclick="logoutConfirm();">Log Out</a>
+                                </div>
+                                <script>
+                                    function logoutConfirm(){
+                                        var option;
+                                        Swal.fire({
+                                            title: 'Are you sure to log out?',
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#3085d6',
+                                            cancelButtonColor: '#d33',
+                                            confirmButtonText: 'Yes, log out now!'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                window.location.href="signout.php";
+                                            }
+                                        });
+                                    }	
+                                </script>
+                        <?php
+                        } else {                   
+                            echo'<a class="h5" href="#signin-modal" data-toggle="modal">Sign in / Sign up</a>';
+                        }
                     ?>
                 </ul><!-- End .top-menu -->
             </div><!-- End .header-right -->
@@ -192,63 +192,86 @@
                 </div><!-- End .compare-dropdown -->
                 <?php
                 if (isset($_SESSION['customer_id'])) {
+                    $getCartQuery = "SELECT * FROM cart_item
+                                    INNER JOIN product ON cart_item.prod_id = product.prod_id
+                                    INNER JOIN product_detail ON cart_item.prod_detail_id = product_detail.prod_detail_id
+                                    INNER JOIN product_color ON cart_item.prod_color_id = product_color.prod_color_id
+                                    WHERE cus_id = '".$_SESSION['customer_id']."' AND cart_item_status='1' AND order_id IS NULL";
+                    $getCart = mysqli_query($connect, $getCartQuery);
+                    $countCart = mysqli_num_rows($getCart);
+                    $totalCartHeader = 0;
                 ?>
                     <div class="dropdown cart-dropdown">
                         <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                             <div class="icon">
                                 <i class="icon-shopping-cart"></i>
-                                <span class="cart-count">2</span>
+                                <span class="cart-count"><?php echo $countCart; ?></span>
                             </div>
                             <p>Cart</p>
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right">
                             <div class="dropdown-cart-products">
-                                <div class="product">
-                                    <div class="product-cart-details">
-                                        <h4 class="product-title">
-                                            <a href="product.php">Beige knitted elastic runner shoes</a>
-                                        </h4>
+                                <?php
+                                    if ($countCart != 0) {
+                                        while($cartRow = mysqli_fetch_assoc($getCart)) {
+                                            $totalCartHeader += $cartRow['cart_subtotal'];
+                                ?>
+                                            <div class="product">
+                                                <div class="product-cart-details">
+                                                    <h4 class="product-title">
+                                                        <a href="product.php?productId=<?php echo $cartRow['prod_id']; ?>"><?php echo $cartRow['prod_name']; ?></a>
+                                                    </h4>
 
-                                        <span class="cart-product-info">
-                                            <span class="cart-product-qty">1</span>
-                                            x $84.00
-                                        </span>
-                                    </div><!-- End .product-cart-details -->
+                                                    <span class="cart-product-info">
+                                                        <span class="cart-product-qty"><?php echo $cartRow['quantity']; ?></span>
+                                                        x RM <?php echo $cartRow['cart_subtotal']; ?>
+                                                    </span>
+                                                </div><!-- End .product-cart-details -->
 
-                                    <figure class="product-image-container">
-                                        <a href="product.php" class="product-image">
-                                            <img src="assets/images/products/cart/product-1.jpg" alt="product">
-                                        </a>
-                                    </figure>
-                                    <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                </div><!-- End .product -->
-
-                                <div class="product">
-                                    <div class="product-cart-details">
-                                        <h4 class="product-title">
-                                            <a href="product.php">Blue utility pinafore denim dress</a>
-                                        </h4>
-
-                                        <span class="cart-product-info">
-                                            <span class="cart-product-qty">1</span>
-                                            x $76.00
-                                        </span>
-                                    </div><!-- End .product-cart-details -->
-
-                                    <figure class="product-image-container">
-                                        <a href="product.php" class="product-image">
-                                            <img src="assets/images/products/cart/product-2.jpg" alt="product">
-                                        </a>
-                                    </figure>
-                                    <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                </div><!-- End .product -->
+                                                <figure class="product-image-container">
+                                                    <a href="product.php?productId=<?php echo $cartRow['prod_id']; ?>" class="product-image">
+                                                        <img src="../Product/<?php echo $cartRow['prod_color_img']; ?>" alt="product">
+                                                    </a>
+                                                </figure>
+                                                <a href="#" class="btn-remove" title="Remove Product" onclick="deleteCartItemHeader(<?php echo $cartRow['cart_item_id']; ?>)"><i class="icon-close"></i></a>
+                                            </div><!-- End .product -->
+                                <?php
+                                        }
+                                    }
+                                ?>
                             </div><!-- End .cart-product -->
+                            <script>
+                                function deleteCartItemHeader(cartItemId) {
+                                    Swal.fire({
+                                        text: "Are you sure you want to remove it from cart?",
+                                        icon: 'warning',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#3085d6',
+                                        cancelButtonColor: '#d33',
+                                        confirmButtonText: 'Yes, remove it!'
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            $.ajax({
+                                                type: "POST",
+                                                url: "delete-cart-item.php",
+                                                data: {cartItemId},
+                                                success: () => {
+                                                    Swal.fire({
+                                                        title: "Cart has been updated!",
+                                                        icon: "success",
+                                                    }).then(() => window.location.reload());
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            </script>
 
                             <div class="dropdown-cart-total">
                                 <span>Total</span>
 
-                                <span class="cart-total-price">$160.00</span>
+                                <span class="cart-total-price">RM <?php echo sprintf('%0.2f', $totalCartHeader); ?></span>
                             </div><!-- End .dropdown-cart-total -->
 
                             <div class="dropdown-cart-action">

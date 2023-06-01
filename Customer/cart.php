@@ -91,8 +91,8 @@ if (isset($_SESSION['customer_id'])) {
 											<tbody>
 												<tr>
 													<td colspan="7">
-														Your cart is empty.
-														<a href="category.php" class="btn btn-outline-dark-2 btn-block mb-3"><span>SHOPPING NOW</span></a>
+														<h5 class="text-center mb-3">Your cart is empty.</h5>
+														<a href="category.php" class="btn btn-primary btn-block mb-3"><span>SHOPPING NOW</span></a>
 													</td>
 												</tr>
 											</tbody>
