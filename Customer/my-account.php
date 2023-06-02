@@ -131,38 +131,51 @@ if (isset($_SESSION['customer_id'])) {
 	                		<div class="col-md-8 col-lg-9">
 	                			<div class="tab-content">
 								    <div class="tab-pane fade show active" id="tab-orders" role="tabpanel" aria-labelledby="tab-orders-link">
-										<div class="card shadow-0 border mb-4">
-											<div class="card-body">
-												<div class="row pt-2">
-													<div class="col-sm-9">
-														<h4 class="text-muted mb-0">INVOICE <span class="font-weight-bold"># 111</span></h4>
-													</div>
-													<div class="col-sm-3" style="text-align-last: end; font-size: 18pt;">
-														<p class="text-muted mb-0 small">RM 10000.00</p>
-
+									<?php 
+										$orderDet = mysqli_query($connect, "SELECT * FROM customer
+																			INNER JOIN `order` ON `order`.cus_id = customer.cus_id 
+																			INNER JOIN payment ON `order`.order_id = payment.order_id
+																			INNER JOIN shipping ON `order`.order_id = shipping.order_id
+																			WHERE customer.cus_id = '$cus_id' ");
+										$count = mysqli_num_rows($orderDet);
+										if ($count != 0) {
+											while ($orderDet_row = mysqli_fetch_assoc($orderDet)) {
+									?>	
+												<div class="card shadow-0 border mb-4">
+													<div class="card-body">
+														<div class="row pt-2">
+															<div class="col-sm-9">
+																<h4 class="text-muted mb-0"># <span class="font-weight-bold"><?php echo $orderDet_row['invoice_number'] ?></span></h4>
+															</div>
+															<div class="col-sm-3" style="text-align-last: end; font-size: 18pt;">
+																<p class="text-muted mb-0 small">RM <?php echo $orderDet_row['order_grandtotal'] ?></span></p>
+															</div>
+														</div>
+														<div class="row pt-1">
+															<div class="col-sm-6">
+																<p class="text-muted mb-0">Created: <span class="font-weight-bold"><?php echo $orderDet_row['order_datetime'] ?></span></span></p>
+															</div>
+															<div class="col-md-6 text-right">
+																<a href="order-details.php?details&code=<?php echo $orderDet_row['order_id']; ?>" class="btn btn-primary text-white" style="border-radius:10px;">Show Details</a>
+															</div>
+														</div>
+														<hr class="mb-2" style="background-color: #e0e0e0; opacity: 1;">
+														<div class="row d-flex align-items-center" >
+															<div class="w-100" style="z-index:1;">
+																<ul class="progressbar">
+																	<li class="active">Preparing</li>
+																	<li class="<?php echo $orderDet_row['ship_status'] >= 1 ? 'active' : ''; ?>">Shipped Out</li>
+																	<li class="<?php echo $orderDet_row['ship_status'] >= 2 ? 'active' : ''; ?>">Out of Delivering</li>
+																	<li class="<?php echo $orderDet_row['ship_status'] >= 3 ? 'active' : ''; ?>">Delivered</li>
+																</ul>
+															</div>
+														</div>
 													</div>
 												</div>
-												<div class="row pt-1">
-													<div class="col-sm-3">
-														<p class="text-muted mb-0">Created: <span class="font-weight-bold">2023-5-17</span></p>
-													</div>
-													<div class="col-md-9 text-right">
-														<a href="order-details.php?details&code=" class="btn btn-primary text-white" style="border-radius:10px;">Show Details</a>
-													</div>
-												</div>
-												<hr class="mb-2" style="background-color: #e0e0e0; opacity: 1;">
-												<div class="row d-flex align-items-center" >
-												<div class="w-100" style="z-index:1;">
-													<ul class="progressbar">
-														<li class="active">Preparing</li>
-														<li class="active">Shipped Out</li>
-														<li class="active load">Out of Delivering</li>
-														<li >Delivered</li>
-													</ul>
-												</div>
-											</div>
-										</div>
-									</div>
+									<?php
+											}
+										}
+									?>
 								</div><!-- .End .tab-pane -->
 
 								<div class="tab-pane fade" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
