@@ -676,13 +676,13 @@ if (isset($_SESSION['customer_id'])) {
 		$new_pass = $_POST['new_password'];
 		$con_new_pass = $_POST['new_comfirm_password'];
 		
-		$getCustomerQuery = mysqli_query($connect, "SELECT * FROM customer WHERE cus_id='$id'");
+		$getCustomerQuery = mysqli_query($connect, "SELECT * FROM customer WHERE cus_id = '$id'");
 		$custResult = mysqli_fetch_assoc($getCustomerQuery);
 
 		if (strtoupper(md5($old_pass)) == $custResult['cus_pass']) {
 			
 			if ($new_pass != $old_pass) {
-				mysqli_query($connect,"UPDATE customer SET cus_pass = '".strtoupper(md5($new_pass))."' WHERE cus_id = '$id' ");
+				mysqli_query($connect,"UPDATE customer SET cus_pass = '".strtoupper(md5($new_pass))."' WHERE cus_id = '$id'");
 				
 				$email = $custResult['cus_email'];
 				$subject = "Change Password Successful!";
@@ -702,7 +702,7 @@ if (isset($_SESSION['customer_id'])) {
 				}
 				
 			} else {
-				?>
+?>
 					<script>
 						Swal.fire(
 							'Something wrong!',
@@ -710,10 +710,10 @@ if (isset($_SESSION['customer_id'])) {
 							'warning'
 						).then(() => window.location.href = "my-account.php?goto=tab-reset-password");		
 					</script>
-				<?php
+<?php
 			}
 		} else {
-			?>
+?>
 				<script>
 					Swal.fire(
 						'Something wrong!',
@@ -721,7 +721,7 @@ if (isset($_SESSION['customer_id'])) {
 						'warning'
 					).then(() => window.location.href = "my-account.php?goto=tab-reset-password");
 				</script>
-			<?php
+<?php
 		}
 	}
 
@@ -730,7 +730,6 @@ if (isset($_SESSION['customer_id'])) {
 		$go = $_GET['goto'];
 
 		echo $go;
-
 ?>
 		<script>
 			$('a[href="#<?php echo $go; ?>"]').tab('show');
