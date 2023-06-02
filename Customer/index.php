@@ -65,47 +65,42 @@ function show_product($connect, $validate, $p_view)
     $valid_new =$validate[0];
     $prod_id_array =$validate[3];
 
-    $exta = "SELECT * FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
-    $exta .= " AND product.prod_id = '$prod_id_array[$p_view]' ";
+    $exta = "SELECT *, MAX(prod_color_stock) AS 'max_stock' , MIN(prod_detail_price) AS 'min_price', MAX(prod_detail_price) AS 'max_price' FROM product 
+            INNER JOIN product_detail ON product.prod_id = product_detail.prod_id 
+            INNER JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id 
+            WHERE prod_status = '1'";
+    $exta .= " AND product.prod_id = '$prod_id_array[$p_view]'";
     $query = mysqli_query($connect, $exta);
     $showprod = mysqli_fetch_assoc($query);    
 
-    $insert_out_of_stock = '';
     $show_label='';
+
+    if ($showprod['max_stock'] <= 0)
+        $show_label = '<span class="product-label label-out">Out of stock</span>';
+    else
+    {
         //setting for sales label
-    for ($ln=0; $ln<count($valid_top); $ln++) //to show the new label
-    {
-        if ($showprod['prod_id'] == $valid_top[$ln]) 
-            $show_label.= '<span class="product-label label-circle label-top">Top</span>';
+        for ($ln=0; $ln<count($valid_top); $ln++) //to show the new label
+        {
+            if ($showprod['prod_id'] == $valid_top[$ln]) 
+                $show_label.= '<span class="product-label label-circle label-top">Top</span>';
+        }
+
+        //setting for sales label
+        for ($ln=0; $ln<count($valid_sales); $ln++) //to show the new label
+        {
+            if ($showprod['prod_id'] == $valid_sales[$ln]) 
+                $show_label.= '<span class="product-label label-circle label-sale">Sale</span>';
+        }
+
+        //setting for new stock label
+        for ($ln=0; $ln<count($valid_new); $ln++) //to show the new label
+        {
+            if ($showprod['prod_id'] == $valid_new[$ln]) 
+                $show_label.= '<span class="product-label label-circle label-new">New</span>';
+        }
     }
-
-    //setting for sales label
-    for ($ln=0; $ln<count($valid_sales); $ln++) //to show the new label
-    {
-        if ($showprod['prod_id'] == $valid_sales[$ln]) 
-            $show_label.= '<span class="product-label label-circle label-sale">Sale</span>';
-    }
-
-    //setting for new stock label
-    for ($ln=0; $ln<count($valid_new); $ln++) //to show the new label
-    {
-        if ($showprod['prod_id'] == $valid_new[$ln]) 
-            $show_label.= '<span class="product-label label-circle label-new">New</span>';
-    }
-
-    //setting up out of stock label
-    $out_of_stock_sql = "SELECT MAX(prod_color_stock)AS 'max_stock'  FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
-    $out_of_stock_sql .= " AND product.prod_id = ' ";
-    $out_of_stock_sql .= ($showprod['prod_id']);
-    $out_of_stock_sql .= "'";
-    $query4 = mysqli_query($connect, $out_of_stock_sql); 
-    $max_stock_num = mysqli_fetch_assoc($query4);
-
-    $insert_out_of_stock = '';
-    if ($max_stock_num['max_stock'] <= 0)
-        $insert_out_of_stock = '<span class="product-label label-out">Out of stock</span>';
-    
-
+        
     //getting the product category name
     $cat_id = $showprod['cat_id'];
     $data = mysqli_query($connect,"SELECT * FROM category WHERE cat_id = '$cat_id'");
@@ -118,21 +113,13 @@ function show_product($connect, $validate, $p_view)
     $brand_data = mysqli_fetch_assoc($data);
     $brand_name = $brand_data['brand_name'];
 
-    //price range
-    $price_range = "SELECT MIN(prod_detail_price) AS 'min_price', MAX(prod_detail_price) AS 'max_price' FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
-    $price_range .= " AND product.prod_id = ' ";
-    $price_range .= ($showprod['prod_id']);
-    $price_range .= "'";
-    $query3 = mysqli_query($connect, $price_range); 
-    $max_min_price = mysqli_fetch_assoc($query3);
-
     $showup = '';
     //product box code
     $showup .= '
         <div class="product product-2">
     
                 <figure class="product-media">
-                    '.$insert_out_of_stock.$show_label.'
+                    '.$show_label.'
                         <a href="product.php?productId='.$showprod['prod_id'].'">
                             <img src="../Product/'.$showprod['prod_color_img'].'" alt="Product image" class="product-image">
                         </a>
@@ -144,10 +131,10 @@ function show_product($connect, $validate, $p_view)
                     </div><!-- End .product-cat -->
                     <h3 class="product-title"><a href="product.php?productId='.$showprod['prod_id'].'">'.$showprod['prod_name']."".'</a></h3><!-- End .product-title -->
                     <div class="product-price">
-                    RM '.$max_min_price['min_price'];
+                    RM '.$showprod['min_price'];
                         
-                    if($max_min_price['min_price'] != $max_min_price['max_price'] )
-                    $showup.= ' - RM '.$max_min_price['max_price'];
+                    if($showprod['min_price'] != $showprod['max_price'] )
+                    $showup.= ' - RM '.$showprod['max_price'];
 
                     $showup.='
                     </div><!-- End .product-price -->           
