@@ -6,7 +6,7 @@ $brandName = $_POST['brandName'];
 $sql = "SELECT * FROM brand WHERE brand_name = '$brandName'";
 $result = mysqli_query($connect, $sql);
 
-while($row = mysqli_fetch_assoc($result)) {
+while ($row = mysqli_fetch_assoc($result)) {
     $brandStatus = $row['brand_status'];
 
     $statusToUpdate = $brandStatus == 1 ? 0 : 1;
