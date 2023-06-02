@@ -24,8 +24,8 @@
 
             <div class="container">
                 <br>
-                    <h4><b>Shipping Cost</b></h4>
-                    <p>Shipping is free on all orders. Items in your order may have different shipping availability.</p>
+                <h4><b>Shipping Cost</b></h4>
+                <p>Shipping is free on all orders. Items in your order may have different shipping availability.</p>
                 <br>
                 <h4><b>Transit Time</b></h4>
                 <p>Average transit time is 3 - 14 days.</p>

@@ -202,15 +202,16 @@ if (isset($_SESSION['customer_id'])) {
 											<input type="text" class="form-control" value="<?php echo $cus_info['cus_name']; ?>" readonly>
 
 											<label>Address<span class="text-danger">*</span></label>
-												<input type="text" class="form-control" value="<?php echo $cus_info['cus_address']; ?>" name="address_edit" placeholder="Your Address" required>
+											<input type="text" class="form-control" value="<?php echo $cus_info['cus_address']; ?>" name="address_edit" placeholder="Your Address" required>
 
 											<label>City <span class="text-danger">*</span></label>												
-												<input type="test" class="form-control" value="<?php echo $cus_info['cus_city'];?>" name="city_edit" placeholder="Your City" required>
+											<input type="test" class="form-control" value="<?php echo $cus_info['cus_city'];?>" name="city_edit" placeholder="Your City" required>
+
 											<div class="row">
 												<div class="col-sm-6">
 													<label>Postcode<span class="text-danger">*</span></label>
-														<input type="text" class="form-control" value="<?php echo $cus_info['cus_postcode'];?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '');" pattern="[0-9]{5}" maxlength="5" 
-															placeholder="Your postcode" name="postcode_edit" required>
+													<input type="text" class="form-control" value="<?php echo $cus_info['cus_postcode'];?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '');" pattern="[0-9]{5}" maxlength="5" 
+														placeholder="Your postcode" name="postcode_edit" required>
 												</div>
 
 												<div class="col-sm-6">
@@ -236,10 +237,10 @@ if (isset($_SESSION['customer_id'])) {
 											</div>
 
 											<label>Email Address </label>
-												<input type="email" class="form-control" value="<?php echo $cus_info['cus_email'];?>" readonly>
+												<input type="email" class="form-control" value="<?php echo $cus_info['cus_email'];?>" readonly disabled>
 
 											<label>Phone Number </label>
-												<input type="text" class="form-control" value="<?php echo $cus_info['cus_phone'];?>" readonly>
+												<input type="text" class="form-control" value="<?php echo $cus_info['cus_phone'];?>" readonly disabled>
 
 											<button type="submit" class="btn btn-outline-primary-2" name="submit_shipping">
 												<span>SAVE CHANGES</span>
@@ -259,10 +260,10 @@ if (isset($_SESSION['customer_id'])) {
 										</div><!-- End .row -->
 
 										<label>Email Address <span class="text-danger">*</span></label>
-										<input type="email" class="form-control" value="<?php echo $cus_info['cus_email'];?>" name="email_edit" readonly>
+										<input type="email" class="form-control" value="<?php echo $cus_info['cus_email'];?>" name="email_edit" readonly disabled>
 
 										<label>Phone Number <span class="text-danger">*</span></label>
-										<input type="text" class="form-control" value="<?php echo $cus_info['cus_phone'];?>" placeholder="01xxxxxxxx" min="10" max="11" name="phone_edit" required>
+										<input type="text" class="form-control" value="<?php echo $cus_info['cus_phone'];?>" placeholder="01xxxxxxxx" pattern="\d*" minlength="10" maxlength="11" name="phone_edit" required>
 
 										<button type="submit" class="btn btn-outline-primary-2" name="submit_accountdetails">
 											<span>SAVE CHANGES</span>

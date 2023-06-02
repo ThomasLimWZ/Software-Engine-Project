@@ -483,16 +483,22 @@
                     document.getElementById('cartBtn').disabled = false;
                     if (result > 5) {
                         document.getElementById('stockAvailability').innerHTML = "Stock is available!";
+                        document.getElementById('stockAvailability').classList.remove("text-warning");
+                        document.getElementById('stockAvailability').classList.remove("text-danger");
                         document.getElementById('stockAvailability').classList.add("text-success");
                         document.getElementById('qty').max = result;
                     }
                     else if (result > 0 && result <= 5) {
                         document.getElementById('stockAvailability').innerHTML = "Left a few stock only.";
+                        document.getElementById('stockAvailability').classList.remove("text-success");
+                        document.getElementById('stockAvailability').classList.remove("text-danger");
                         document.getElementById('stockAvailability').classList.add("text-warning");
                         document.getElementById('qty').max = result;
                     }
                     else {
                         document.getElementById('stockAvailability').innerHTML = "Out of stock!";
+                        document.getElementById('stockAvailability').classList.remove("text-success");
+                        document.getElementById('stockAvailability').classList.remove("text-warning");
                         document.getElementById('stockAvailability').classList.add("text-danger");
                         document.getElementById('qty').value = "0";
                         document.getElementById('qty').disabled = true;

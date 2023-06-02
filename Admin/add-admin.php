@@ -35,8 +35,8 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="col-form-label">Phone Number</label> <span class="text-danger">*</span>
-                                    <input type="text" class="form-control" name="adm_phone" 
-                                        min="10" max="11" value="<?php echo isset($_POST["adm_phone"]) ? $_POST["adm_phone"] : ''; ?>" required>
+                                    <input type="text" class="form-control" name="adm_phone" pattern="\d*" minlength="10" maxlength="11"
+                                        value="<?php echo isset($_POST["adm_phone"]) ? $_POST["adm_phone"] : ''; ?>" required>
                                 </div>
                             </div>
                         </div>
