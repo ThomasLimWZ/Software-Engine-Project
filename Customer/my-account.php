@@ -127,27 +127,37 @@ if (isset($_SESSION['customer_id'])) {
 								    </li>
 								</ul>
 	                		</aside><!-- End .col-lg-3 -->
-
+							
 	                		<div class="col-md-8 col-lg-9">
 	                			<div class="tab-content">
 								    <div class="tab-pane fade show active" id="tab-orders" role="tabpanel" aria-labelledby="tab-orders-link">
-										<div class="card shadow-0 border mb-4">
+									<?php 
+								$orderDet = mysqli_query($connect, "SELECT * FROM customer
+								JOIN `order` ON `order`.cus_id=customer.cus_id WHERE customer.cus_id = '$cus_id' ");
+								$count = mysqli_num_rows($orderDet);
+								#$order_info = mysqli_fetch_assoc($orderDet);
+								if($count != 0){
+									while($orderDet_row = mysqli_fetch_assoc($orderDet)){
+									
+							?>	
+									<div class="card shadow-0 border mb-4">
+										
 											<div class="card-body">
 												<div class="row pt-2">
 													<div class="col-sm-9">
-														<h4 class="text-muted mb-0">INVOICE <span class="font-weight-bold"># 111</span></h4>
+														<h4 class="text-muted mb-0">INVOICE <span class="font-weight-bold"># <?php echo $orderDet_row['order_id'] ?></span></h4>
 													</div>
 													<div class="col-sm-3" style="text-align-last: end; font-size: 18pt;">
-														<p class="text-muted mb-0 small">RM 10000.00</p>
+														<p class="text-muted mb-0 small">RM <?php echo $orderDet_row['order_grandtotal'] ?></span></p>
 
 													</div>
 												</div>
 												<div class="row pt-1">
 													<div class="col-sm-3">
-														<p class="text-muted mb-0">Created: <span class="font-weight-bold">2023-5-17</span></p>
+														<p class="text-muted mb-0">Created: <span class="font-weight-bold"><?php echo $orderDet_row['order_datetime'] ?></span></span></p>
 													</div>
 													<div class="col-md-9 text-right">
-														<a href="order-details.php?details&code=" class="btn btn-primary text-white" style="border-radius:10px;">Show Details</a>
+														<a href="order-details.php?details&code=<?php echo $orderDet_row['order_id']; ?>" class="btn btn-primary text-white" style="border-radius:10px;">Show Details</a>
 													</div>
 												</div>
 												<hr class="mb-2" style="background-color: #e0e0e0; opacity: 1;">
@@ -163,7 +173,11 @@ if (isset($_SESSION['customer_id'])) {
 											</div>
 										</div>
 									</div>
+									<?php
+								 }
+								} ?>
 								</div><!-- .End .tab-pane -->
+								
 
 								<div class="tab-pane fade" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
 									<p id="show_shipping_word">The following addresses will be used on the checkout page by default.</p>
