@@ -216,15 +216,16 @@ if (isset($_SESSION['customer_id'])) {
 											<input type="text" class="form-control" value="<?php echo $cus_info['cus_name']; ?>" readonly>
 
 											<label>Address<span class="text-danger">*</span></label>
-												<input type="text" class="form-control" value="<?php echo $cus_info['cus_address']; ?>" name="address_edit" placeholder="Your Address" required>
+											<input type="text" class="form-control" value="<?php echo $cus_info['cus_address']; ?>" name="address_edit" placeholder="Your Address" required>
 
 											<label>City <span class="text-danger">*</span></label>												
-												<input type="test" class="form-control" value="<?php echo $cus_info['cus_city'];?>" name="city_edit" placeholder="Your City" required>
+											<input type="test" class="form-control" value="<?php echo $cus_info['cus_city'];?>" name="city_edit" placeholder="Your City" required>
+
 											<div class="row">
 												<div class="col-sm-6">
 													<label>Postcode<span class="text-danger">*</span></label>
-														<input type="text" class="form-control" value="<?php echo $cus_info['cus_postcode'];?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '');" pattern="[0-9]{5}" maxlength="5" 
-															placeholder="Your postcode" name="postcode_edit" required>
+													<input type="text" class="form-control" value="<?php echo $cus_info['cus_postcode'];?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '');" pattern="[0-9]{5}" maxlength="5" 
+														placeholder="Your postcode" name="postcode_edit" required>
 												</div>
 
 												<div class="col-sm-6">
@@ -250,10 +251,10 @@ if (isset($_SESSION['customer_id'])) {
 											</div>
 
 											<label>Email Address </label>
-												<input type="email" class="form-control" value="<?php echo $cus_info['cus_email'];?>" readonly>
+												<input type="email" class="form-control" value="<?php echo $cus_info['cus_email'];?>" readonly disabled>
 
 											<label>Phone Number </label>
-												<input type="text" class="form-control" value="<?php echo $cus_info['cus_phone'];?>" readonly>
+												<input type="text" class="form-control" value="<?php echo $cus_info['cus_phone'];?>" readonly disabled>
 
 											<button type="submit" class="btn btn-outline-primary-2" name="submit_shipping">
 												<span>SAVE CHANGES</span>
@@ -273,10 +274,10 @@ if (isset($_SESSION['customer_id'])) {
 										</div><!-- End .row -->
 
 										<label>Email Address <span class="text-danger">*</span></label>
-										<input type="email" class="form-control" value="<?php echo $cus_info['cus_email'];?>" name="email_edit" readonly>
+										<input type="email" class="form-control" value="<?php echo $cus_info['cus_email'];?>" name="email_edit" readonly disabled>
 
 										<label>Phone Number <span class="text-danger">*</span></label>
-										<input type="text" class="form-control" value="<?php echo $cus_info['cus_phone'];?>" placeholder="01xxxxxxxx" min="10" max="11" name="phone_edit" required>
+										<input type="text" class="form-control" value="<?php echo $cus_info['cus_phone'];?>" placeholder="01xxxxxxxx" pattern="\d*" minlength="10" maxlength="11" name="phone_edit" required>
 
 										<button type="submit" class="btn btn-outline-primary-2" name="submit_accountdetails">
 											<span>SAVE CHANGES</span>
@@ -689,17 +690,17 @@ if (isset($_SESSION['customer_id'])) {
 		$new_pass = $_POST['new_password'];
 		$con_new_pass = $_POST['new_comfirm_password'];
 		
-		$getCustomerQuery = mysqli_query($connect, "SELECT * FROM customer WHERE cus_id='$id' AND cus_pass = '".strtoupper(md5($old_pass))."'");
-		$countCustomer = mysqli_num_rows($getCustomerQuery);
+		$getCustomerQuery = mysqli_query($connect, "SELECT * FROM customer WHERE cus_id = '$id'");
+		$custResult = mysqli_fetch_assoc($getCustomerQuery);
 
-		if ($countCustomer == 1) {
-			if ($new_pass === $con_new_pass) {
-				$customerRow = mysqli_fetch_assoc($getCustomerQuery);
-				mysqli_query($connect,"UPDATE customer SET cus_pass = '".strtoupper(md5($new_pass))."' WHERE cus_id = '$id' ");
+		if (strtoupper(md5($old_pass)) == $custResult['cus_pass']) {
+			
+			if ($new_pass != $old_pass) {
+				mysqli_query($connect,"UPDATE customer SET cus_pass = '".strtoupper(md5($new_pass))."' WHERE cus_id = '$id'");
 				
-				$email = $customerRow['cus_email'];
+				$email = $custResult['cus_email'];
 				$subject = "Change Password Successful!";
-				$message = "Dear ".$name.",\n\nYour password has been change. \n\nRegards,\n4People Telco";
+				$message = "Dear ".$custResult['cus_name'].",\n\nYour password has been change. \n\nRegards,\n4People Telco";
 				$headers = "From: 4People Telco" . "\r\n";
 				
 				if (mail($email, $subject, $message, $headers)) {
@@ -713,35 +714,28 @@ if (isset($_SESSION['customer_id'])) {
 						</script>
 					";
 				}
-				else
-				{
-					echo `
-						<script>
-							$('a[href="#<?php echo $go;?>"]').tab('show');
-						</script>
-					`;
-				}
+				
 			} else {
-				echo "
+?>
 					<script>
 						Swal.fire(
-							'Both password and confirm password not matched!',
-							'',
+							'Something wrong!',
+							'New password cannot same as current password!',
 							'warning'
-						);		
+						).then(() => window.location.href = "my-account.php?goto=tab-reset-password");		
 					</script>
-				";
+<?php
 			}
 		} else {
-			echo `
+?>
 				<script>
 					Swal.fire(
-						'Fail to Reset Password',
-						'Current Password not matched with Record',
+						'Something wrong!',
+						'Password does not match with record!',
 						'warning'
 					).then(() => window.location.href = "my-account.php?goto=tab-reset-password");
 				</script>
-			`;
+<?php
 		}
 	}
 
@@ -750,7 +744,6 @@ if (isset($_SESSION['customer_id'])) {
 		$go = $_GET['goto'];
 
 		echo $go;
-
 ?>
 		<script>
 			$('a[href="#<?php echo $go; ?>"]').tab('show');
