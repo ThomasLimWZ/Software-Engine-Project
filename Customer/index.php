@@ -65,12 +65,16 @@ function show_product($connect, $validate, $p_view)
     $valid_new =$validate[0];
     $prod_id_array =$validate[3];
 
-    $exta = "SELECT *,MAX(prod_color_stock)AS 'max_stock' , MIN(prod_detail_price) AS 'min_price', MAX(prod_detail_price) AS 'max_price' FROM product INNER JOIN product_detail ON product.prod_id = product_detail.prod_id JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id WHERE prod_status = '1'";
-    $exta .= " AND product.prod_id = '$prod_id_array[$p_view]' ";
+    $exta = "SELECT *, MAX(prod_color_stock) AS 'max_stock' , MIN(prod_detail_price) AS 'min_price', MAX(prod_detail_price) AS 'max_price' FROM product 
+            INNER JOIN product_detail ON product.prod_id = product_detail.prod_id 
+            INNER JOIN product_color ON product_detail.prod_detail_id = product_color.prod_detail_id 
+            WHERE prod_status = '1'";
+    $exta .= " AND product.prod_id = '$prod_id_array[$p_view]'";
     $query = mysqli_query($connect, $exta);
     $showprod = mysqli_fetch_assoc($query);    
 
     $show_label='';
+
     if ($showprod['max_stock'] <= 0)
         $show_label = '<span class="product-label label-out">Out of stock</span>';
     else
