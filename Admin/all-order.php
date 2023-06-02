@@ -141,7 +141,8 @@
             url: "API/update-order-status.php",
             data: { 
                 orderId: orderId,
-                shippingStatus: shippingStatus
+                shippingStatus: shippingStatus,
+                admId: "<?php echo $_SESSION['admin_id']; ?>"
             },
             success: (result) => {
                 Swal.fire(
