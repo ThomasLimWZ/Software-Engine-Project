@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<?php include('head.php') ?>
+<?php include('head.php'); ?>
 
 <?php
 if (isset($_SESSION['customer_id'])) {
@@ -29,13 +28,12 @@ if (isset($_SESSION['customer_id'])) {
             <div class="page-content">
             	<div class="checkout">
 	                <div class="container">
-            			<form action="#">
+            			<form method="POST">
 		                	<div class="row">
 								<?php
 									$getCustomer = mysqli_query($connect, "SELECT * FROM customer WHERE cus_id = '".$_SESSION['customer_id']."'");
 									$cus_info = mysqli_fetch_assoc($getCustomer);
 								?>
-								<form method="POST">
 									<div class="col-lg-6">
 										<h2 class="checkout-title">Billing Details</h2><!-- End .checkout-title -->
 											<div class="row">
@@ -106,7 +104,7 @@ if (isset($_SESSION['customer_id'])) {
 											?>
 
 											<label>Order notes (Optional)</label>
-											<textarea class="form-control" cols="30" rows="4" placeholder="Notes about your order, e.g. special notes for delivery"></textarea>
+											<textarea class="form-control" cols="30" rows="4" name="specialNotes" placeholder="Notes about your order, e.g. special notes for delivery"></textarea>
 									</div><!-- End .col-lg-6 -->
 									<aside class="col-lg-6">
 										<div class="summary">
@@ -162,12 +160,12 @@ if (isset($_SESSION['customer_id'])) {
 											</table><!-- End .table table-summary -->
 
 											<div class="accordion-summary" id="accordion-payment">
-												<div class="card">
+												<div class="card" onclick="useThisPayment('visa')">
 													<div class="card-header" id="heading-1">
 														<h2 class="card-title">
-															<a role="button" data-toggle="collapse" href="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
-															<img src="assets/images/payment-visa.jpg" alt="payments cards">
-															Visa
+															<a class="" id="visaCard" role="button" data-toggle="collapse" href="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
+																<img src="assets/images/payment-visa.jpg" alt="payments cards" width="70" style="object-fit:contain;">
+																<span class="ml-3">Visa</span>
 															</a>
 														</h2>
 													</div><!-- End .card-header -->
@@ -175,12 +173,12 @@ if (isset($_SESSION['customer_id'])) {
 													</div><!-- End .collapse -->
 												</div><!-- End .card -->
 			
-												<div class="card">
+												<div class="card" onclick="useThisPayment('master')">
 													<div class="card-header" id="heading-2">
 														<h2 class="card-title">
-															<a class="collapsed" role="button" data-toggle="collapse" href="#collapse-2" aria-expanded="false" aria-controls="collapse-4">
-															<img src="assets/images/payment-master.png" alt="payments cards">    
-															Master													
+															<a class="collapsed" id="masterCard" role="button" data-toggle="collapse" href="#collapse-2" aria-expanded="false" aria-controls="collapse-4">
+																<img src="assets/images/payment-master.png" alt="payments cards" width="70" style="object-fit:contain;">    
+																<span class="ml-3">Master</span>													
 															</a>
 														</h2>
 													</div><!-- End .card-header -->
@@ -188,12 +186,12 @@ if (isset($_SESSION['customer_id'])) {
 													</div><!-- End .collapse -->
 												</div><!-- End .card -->
 
-												<div class="card">
+												<div class="card" onclick="useThisPayment('fpx')">
 													<div class="card-header" id="heading-3">
 														<h2 class="card-title">
-															<a class="collapsed" role="button" data-toggle="collapse" href="#collapse-3" aria-expanded="false" aria-controls="collapse-5">
-															<img src="assets/images/payment-fpx.jpg" alt="payments cards">    
-															FPX
+															<a class="collapsed" id="fpxCard" role="button" data-toggle="collapse" href="#collapse-3" aria-expanded="false" aria-controls="collapse-5">
+																<img src="assets/images/payment-fpx.jpg" alt="payments cards" width="70" style="object-fit:contain;">    
+																<span class="ml-3">FPX</span>
 															</a>
 														</h2>
 													</div><!-- End .card-header -->
@@ -203,16 +201,25 @@ if (isset($_SESSION['customer_id'])) {
 												
 											</div><!-- End .accordion -->
 
-											<button class="btn btn-outline-primary-2 btn-order btn-block" data-toggle="modal" data-target="#staticBackdrop" id="paymentBtn" disabled>
+											<a class="btn btn-outline-primary-2 btn-order btn-block" data-toggle="modal" data-target="#staticBackdrop" id="paymentBtn" disabled>
 												<span class="btn-text">Place Order</span>
-												<span class="btn-hover-text">Proceed to Payment</span>
-											</button>
+												<span class="btn-hover-text" id="paymentText">Proceed to Payment</span>
+											</a>
+
+											<style>
+												#paymentBtn {
+													color: #fcb941;
+													cursor: pointer;
+												}
+												#paymentBtn:hover {
+													color: #ffffff;
+												}
+											</style>
 
 											<!-- Modal -->
 											<?php include('payment-modal.php'); ?>
 										</div><!-- End .summary -->
 									</aside><!-- End .col-lg-6 -->
-								</form>
 		                	</div><!-- End .row -->
             			</form>
 	                </div><!-- End .container -->
@@ -291,10 +298,181 @@ if (isset($_SESSION['customer_id'])) {
 			document.getElementById('paymentBtn').disabled = false;
 		} else {
 			document.getElementById('paymentBtn').disabled = true;
+			document.getElementById('paymentText').innerHTML = "Place Order";
 		}
 	}
 
 	addEventListener("DOMContentLoaded", (event) => {
 		checkRequiredInputs();
     });
+
+	function useThisPayment(paymentType) {
+		if (paymentType == 'visa') {
+			document.getElementById('visa-tab').classList.add('active');
+			document.getElementById('master-tab').classList.remove('active');
+			document.getElementById('fpx-tab').classList.remove('active');
+
+			document.getElementById('visa').classList.add('show');
+			document.getElementById('visa').classList.add('active');
+			document.getElementById('master').classList.remove('show');
+			document.getElementById('master').classList.remove('active');
+			document.getElementById('fpx').classList.remove('show');
+			document.getElementById('fpx').classList.remove('active');
+
+			document.getElementById('visaCard').classList.remove('collapsed');
+			document.getElementById('masterCard').classList.add('collapsed');
+			document.getElementById('fpxCard').classList.add('collapsed');
+
+			document.getElementById('visa-cardHolder').required = true;
+			document.getElementById('visa-cardNum').required = true;
+			document.getElementById('visa-expireDate').required = true;
+			document.getElementById('visa-cvv').required = true;
+
+			document.getElementById('master-cardHolder').required = false;
+			document.getElementById('master-cardNum').required = false;
+			document.getElementById('master-expireDate').required = false;
+			document.getElementById('master-cvv').required = false;
+
+			document.getElementById('fpx-bank').required = false;
+			document.getElementById('fpx-username').required = false;
+			document.getElementById('fpx-pass').required = false;
+		} else if (paymentType == 'master') {
+			document.getElementById('visa-tab').classList.remove('active');
+			document.getElementById('master-tab').classList.add('active');
+			document.getElementById('fpx-tab').classList.remove('active');
+
+			document.getElementById('visa').classList.remove('show');
+			document.getElementById('visa').classList.remove('active');
+			document.getElementById('master').classList.add('show');
+			document.getElementById('master').classList.add('active');
+			document.getElementById('fpx').classList.remove('show');
+			document.getElementById('fpx').classList.remove('active');
+
+			document.getElementById('visaCard').classList.add('collapsed');
+			document.getElementById('masterCard').classList.remove('collapsed');
+			document.getElementById('fpxCard').classList.add('collapsed');
+
+			document.getElementById('master-cardHolder').required = true;
+			document.getElementById('master-cardNum').required = true;
+			document.getElementById('master-expireDate').required = true;
+			document.getElementById('master-cvv').required = true;
+
+			document.getElementById('visa-cardHolder').required = false;
+			document.getElementById('visa-cardNum').required = false;
+			document.getElementById('visa-expireDate').required = false;
+			document.getElementById('visa-cvv').required = false;
+
+			document.getElementById('fpx-bank').required = false;
+			document.getElementById('fpx-username').required = false;
+			document.getElementById('fpx-pass').required = false;
+		} else {
+			document.getElementById('visa-tab').classList.remove('active');
+			document.getElementById('master-tab').classList.remove('active');
+			document.getElementById('fpx-tab').classList.add('active');
+
+			document.getElementById('visa').classList.remove('show');
+			document.getElementById('visa').classList.remove('active');
+			document.getElementById('master').classList.remove('show');
+			document.getElementById('master').classList.remove('active');
+			document.getElementById('fpx').classList.add('show');
+			document.getElementById('fpx').classList.add('active');
+
+			document.getElementById('visaCard').classList.add('collapsed');
+			document.getElementById('masterCard').classList.add('collapsed');
+			document.getElementById('fpxCard').classList.remove('collapsed');
+
+			document.getElementById('fpx-bank').required = true;
+			document.getElementById('fpx-username').required = true;
+			document.getElementById('fpx-pass').required = true;
+
+			document.getElementById('visa-cardHolder').required = false;
+			document.getElementById('visa-cardNum').required = false;
+			document.getElementById('visa-expireDate').required = false;
+			document.getElementById('visa-cvv').required = false;
+
+			document.getElementById('master-cardHolder').required = false;
+			document.getElementById('master-cardNum').required = false;
+			document.getElementById('master-expireDate').required = false;
+			document.getElementById('master-cvv').required = false;
+		}
+	}
 </script>
+
+<?php
+	$cusId = $_SESSION['customer_id'];
+
+	if (isset($_POST["visaPayBtn"])) {
+		makePaymentAction($connect, $cusId, 'visa');
+	}
+	
+	if (isset($_POST["masterPayBtn"])) {
+		makePaymentAction($connect, $cusId, 'master');
+	}
+
+	if (isset($_POST["fpxPayBtn"])) {
+		makePaymentAction($connect, $cusId, 'fpx');
+	}
+
+	function makePaymentAction($connect, $cusId, $paymentType) {
+		$receiverName = $_POST['checkoutName'];
+		$receiverEmail = $_POST['checkoutEmail'];
+		$receiverPhone = $_POST['checkoutPhone'];
+		$address = $_POST['address'];
+		$city = $_POST['city'];
+		$state = $_POST['state'];
+		$postcode = $_POST['postcode'];
+		$specialNotes = $_POST['specialNotes'];
+		
+		$generate = substr(str_shuffle("0123456789"), 0, 6);
+		$invoiceNo = "INV".$generate;
+
+		date_default_timezone_set("Asia/Kuala_Lumpur");
+		$date = date('Y-m-d H:i:s');
+		
+		$cartResult = mysqli_query($connect, "SELECT * FROM cart_item WHERE cus_id = '".$_SESSION['customer_id']."' AND cart_item_status = '1' AND order_id IS NULL");
+		$total = 0;
+		
+		while ($cartRow = mysqli_fetch_assoc($cartResult)) {
+			$total += $cartRow['cart_subtotal'];
+		}
+		
+		mysqli_query($connect, "INSERT INTO `order` (order_datetime, order_grandtotal, cus_id) VALUES ('$date', '$total', '$cusId')");
+
+		$getOrder = mysqli_query($connect, "SELECT * FROM `order` WHERE order_grandtotal = '$total' AND cus_id = '$cusId' ORDER BY order_id DESC LIMIT 1");
+		$order = mysqli_fetch_assoc($getOrder);
+		
+		mysqli_query($connect, "INSERT INTO payment (invoice_number, pay_datetime, pay_type, pay_status, order_id) VALUES ('$invoiceNo', '".$order['order_datetime']."', '$paymentType', '1', '".$order['order_id']."')");
+		mysqli_query($connect, "INSERT INTO shipping (receiver_name, receiver_email, receiver_phone, address, city, state, postcode, special_notes, order_id) VALUES ('$receiverName', '$receiverEmail', '$receiverPhone', '$address', '$city', '$state', '$postcode', '$specialNotes', '".$order['order_id']."')");
+
+		$cartResult = mysqli_query($connect, "SELECT * FROM cart_item WHERE cus_id = '".$_SESSION['customer_id']."' AND cart_item_status = '1' AND order_id IS NULL");
+		while ($cartRow = mysqli_fetch_assoc($cartResult)) {
+			mysqli_query($connect, "UPDATE cart_item SET cart_item_status = '0', order_id = '".$order['order_id']."' 
+									WHERE cart_item_status = '1' AND cart_item_id = '".$cartRow['cart_item_id']."'");
+
+			$getProduct = mysqli_query($connect, "SELECT * FROM product_color WHERE prod_color_id = '".$cartRow['prod_color_id']."'");
+			$getStock = mysqli_fetch_assoc($getProduct);
+
+			$stockAvailability = $getStock['prod_color_stock'] - $cartRow['quantity'];
+
+			mysqli_query($connect, "UPDATE product_color SET prod_color_stock = '$stockAvailability' WHERE prod_color_id = '".$cartRow['prod_color_id']."'");
+		}
+
+		$subject = "Your invoice from 4People Telco";
+		$message = "Dear ".$receiverName.",\n\nThank you for shopping at 4People Telco. We hope you enjoy your purchases.\nBelow is the invoice attachment.\n\n--pdf link--\n\nThank you. \n\nRegards,\n4People Telco";
+		$headers = "From: 4People Telco" . "\r\n";
+
+		$customer = mysqli_query($connect, "SELECT * FROM customer WHERE cus_id = '".$_SESSION['customer_id']."'");
+		$customerRow = mysqli_fetch_assoc($customer);
+
+		if (mail($customerRow['cus_email'], $subject, $message, $headers)) {
+			echo "
+				<script>
+					Swal.fire({
+						title: 'Payment successful!',
+						icon: 'success'
+					}).then(() => window.location.href = 'my-account.php');
+				</script>
+			";
+		}
+	}
+?>
