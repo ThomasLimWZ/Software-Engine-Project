@@ -40,7 +40,7 @@
                                 <div class="form-group">
                                     <label class="col-form-label">Phone Number</label> <span class="text-danger">*</span>
                                     <input type="text" class="form-control" name="adm_phone" 
-                                        min="10" max="11"
+                                        pattern="\d*" minlength="10" maxlength="11"
                                         value="<?php echo $row['adm_phone']; ?>" required>
                                 </div>
                             </div>
