@@ -67,7 +67,7 @@
 										<tr>
 											<th class="w-25"></th>
 											<th class="d-flex justify-content-xl-center">
-												<select id="compare_prod1" name="compare_prod1" class="form-control w-50" onchange="changeProd()">
+												<select id="compare_prod1" name="compare_prod1" class="form-control w-50" onchange="changeProd()" reqiured>
 													<option value="<?php echo $row1['prod_id'];?>"><?php echo $row1['prod_name'];?></option>
 													<!--<option>-- Select Product --</option>-->
 													<?php
@@ -98,7 +98,7 @@
 
 													while($prod_row2 = mysqli_fetch_assoc($prod_res2)){
 													?>
-														<option value="<?php echo $prod_row1['prod_id'];?>"><?php echo $prod_row2['prod_name'];?></option>
+														<option value="<?php echo $prod_row2['prod_id'];?>"><?php echo $prod_row2['prod_name'];?></option>
 													<?php
 													}
 													?>
@@ -127,7 +127,6 @@
 										</tr>
 									</thead>
 									
-									</form>
 									<style>
 									td, th{padding:2%;}
 									</style>
@@ -178,7 +177,8 @@
 										<tr>
 											<td class="font-weight-bold">Product Image</td>
 											<td>
-												<img src="../Product/<?=$row1['prod_color_img']?>" style="height:400px; margin:auto; object-fit:contain"> 
+												<img alt="<?php echo $row1['prod_name'];?>" src="../Product/<?=$row1['prod_color_img']?>" style="height:400px; margin:auto; object-fit:contain"> 
+												
 											</td>
 											<td>
 												<img alt="<?php echo $row2['prod_name'];?>" src="../Product/<?=$row2['prod_color_img']?>" style="height:400px; margin:auto; object-fit:contain"> </td>
@@ -252,12 +252,12 @@
 									<tfoot class="thead-inverse">
 										<tr>
 											<th class="w-25"></th>
-											<th class=""><button class="btn btn-primary">Add To Cart</button></th>
-											<th class=""><button class="btn btn-primary">Add To Cart</button></th>
+											<th class=""><span class="btn btn-primary"><a href="../Customer/product.php?view&code=<?php echo $row1['prod_id'];?>" style="color:white;">View Details</span></th>
+											<th class=""><span class="btn btn-primary"><a href="../Customer/product.php?view&code=<?php echo $row2['prod_id'];?>" style="color:white;">View Details</span></th>
 										</tr>
 									</tfoot>
 								</table>
-								
+								</form>
 							</div>
 						</div>
 				</div>

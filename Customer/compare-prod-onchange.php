@@ -1,4 +1,4 @@
-<?php include("admin/connection.php");
+<?php include("../Admin/connection.php");
 	
 	$code1 = $_POST['prod1_selected'];
     $code2 = $_POST['prod2_selected'];
