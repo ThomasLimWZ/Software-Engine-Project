@@ -173,119 +173,129 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right">
-                    <form action="" method="GET" autocomplete="off">
-                        <ul class="compare-products">
-                            <li class="compare-product">
-                                <select class="form-control" id="compare_cat1" name="compare_cat1" onchange="compareCat()" required>
-                                <<option selected disabled value="">Choose a Product</option>
-											<?php
-											$prod_res = mysqli_query($connect,"SELECT * FROM product JOIN brand ON product.brand_id=brand.brand_id JOIN category ON product.cat_id=category.cat_id WHERE product.prod_status=1 AND brand.brand_status=1 ORDER BY brand.brand_name, category.cat_name ASC");
-											while($prod_row = mysqli_fetch_assoc($prod_res)){
-											?>
-												<option value="<?php echo $prod_row['prod_id'];?>"><?php echo $prod_row['prod_name'];?></option>
-											<?php
-											}
-											?>
-								</select>
-                            </li>
-                            <li class="compare-product">
-                            <select class="form-control" id="compare_cat2" name="compare_cat2" onchange="compareCat()" required>
-											<option selected disabled value="">Choose a Product</option>
-											<?php
-											$prod_res = mysqli_query($connect,"SELECT * FROM product JOIN brand ON product.brand_id=brand.brand_id JOIN category ON product.cat_id=category.cat_id WHERE product.prod_status=1 AND brand.brand_status=1 ORDER BY brand.brand_name, category.cat_name ASC");
-											while($prod_row = mysqli_fetch_assoc($prod_res)){
-											?>
-												<option value="<?php echo $prod_row['prod_id'];?>"><?php echo $prod_row['prod_name'];?></option>
-											<?php
-											}
-											?>
-								</select>
-                            <span id="error_msg" style="color:red"></span>
-                            </li>
-                        </ul>
+                        <form action="" method="GET" autocomplete="off">
+                            <ul class="compare-products">
+                                <li class="compare-product">
+                                    <select class="form-control" id="compare_cat1" name="compare_cat1" onchange="compareCat()" required>
+                                        <option selected disabled value="">Choose a Product</option>
+                                        <?php
+                                        $prod_res = mysqli_query($connect, "SELECT * FROM product 
+                                                                            INNER JOIN brand ON product.brand_id = brand.brand_id 
+                                                                            INNER JOIN category ON product.cat_id = category.cat_id 
+                                                                            WHERE product.prod_status = 1 AND brand.brand_status = 1 
+                                                                            ORDER BY brand.brand_name, category.cat_id ASC");
+                                        while ($prod_row = mysqli_fetch_assoc($prod_res)) {
+                                        ?>
+                                            <option value="<?php echo $prod_row['prod_id']; ?>"><?php echo $prod_row['prod_name']; ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </li>
+                                <li class="compare-product">
+                                    <select class="form-control" id="compare_cat2" name="compare_cat2" onchange="compareCat()" required>
+                                        <option selected disabled value="">Choose a Product</option>
+                                        <?php
+                                        $prod_res = mysqli_query($connect, "SELECT * FROM product 
+                                                                            INNER JOIN brand ON product.brand_id = brand.brand_id 
+                                                                            INNER JOIN category ON product.cat_id = category.cat_id 
+                                                                            WHERE product.prod_status = 1 AND brand.brand_status = 1 
+                                                                            ORDER BY brand.brand_name, category.cat_id ASC");
+                                        while ($prod_row = mysqli_fetch_assoc($prod_res)) {
+                                        ?>
+                                            <option value="<?php echo $prod_row['prod_id']; ?>"><?php echo $prod_row['prod_name']; ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                <span id="error_msg" class="text-danger"></span>
+                                </li>
+                            </ul>
 
-                        <div class="compare-actions">
-                            <a href="#" class="action-link" onclick="clearSelection()">Clear All</a>
-                            <button type="submit" id="comparebtn" name="comparebtn" class="btn btn-outline-primary-2"><span>Compare</span><i class="icon-long-arrow-right"></i></button>
-						</div>
-                        <script>
-									function compareCat(){
-										var prod1 = document.getElementById("compare_cat1");
-										var prod1_selected = prod1.options[prod1.selectedIndex].value;
-										var prod2 = document.getElementById("compare_cat2");
-										var prod2_selected = prod2.options[prod2.selectedIndex].value;
+                            <div class="compare-actions">
+                                <a href="#" class="action-link" onclick="clearSelection()">Clear All</a>
+                                <button type="submit" id="comparebtn" name="comparebtn" class="btn btn-outline-primary-2"><span>Compare</span><i class="icon-long-arrow-right"></i></button>
+                            </div>
+                            <script>
+                                function compareCat() {
+                                    var prod1 = document.getElementById("compare_cat1");
+                                    var prod1_selected = prod1.options[prod1.selectedIndex].value;
+                                    var prod2 = document.getElementById("compare_cat2");
+                                    var prod2_selected = prod2.options[prod2.selectedIndex].value;
 
-										if(prod1_selected == prod2_selected){
-											document.getElementById('comparebtn').disabled=true;
-											document.getElementById("error_msg").innerHTML = "Cannot compare same product.";
-											document.getElementById("compare_cat1").style.border = "1px solid red";
-											document.getElementById("compare_cat2").style.border = "1px solid red";
-										}
-										else{
-											$.ajax({
-												type:'post',
-												url:'checkCompare.php',
-												data: {
-													prod1_selected,prod2_selected
-												},
-												success:function(data){
-													if(data == 1){
-														document.getElementById('comparebtn').disabled=true;
-														document.getElementById("error_msg").innerHTML = "Cannot compare different category of products.";
-														document.getElementById("compare_cat1").style.border = "1px solid red";
-														document.getElementById("compare_cat2").style.border = "1px solid red";
-													}
-													else{
-														document.getElementById('comparebtn').disabled=false;
-														document.getElementById("error_msg").innerHTML = "";
-														document.getElementById("compare_cat1").style.border = "";
-														document.getElementById("compare_cat2").style.border = "";
-													}
-												}
-											})
-										}
-									}
-									function clearSelection(){
-										document.getElementById('compare_cat1').value='';
-										document.getElementById('compare_cat2').value='';
-										document.getElementById('comparebtn').disabled=false;
-										document.getElementById("error_msg").innerHTML = "";
-										document.getElementById("compare_cat1").style.border = "";
-										document.getElementById("compare_cat2").style.border = "";
-									}
-								</script>
-                                </form>
-                                <?php
-							if(isset($_GET['comparebtn'])){
-								$compareProd1 = $_GET['compare_cat1'];
-								$compareProd2 = $_GET['compare_cat2'];
+                                    if (prod1_selected == prod2_selected) {
+                                        document.getElementById('comparebtn').disabled = true;
+                                        document.getElementById("error_msg").innerHTML = "Cannot compare same product.";
+                                        document.getElementById("compare_cat1").classList.add('is-invalid');
+                                        document.getElementById("compare_cat2").classList.add('is-invalid');
+                                    }
+                                    else{
+                                        $.ajax({
+                                            type: 'GET',
+                                            url: 'checkCompare.php',
+                                            data: {
+                                                prod1_selected,
+                                                prod2_selected
+                                            },
+                                            success: (data) => {
+                                                if(data == 1) {
+                                                    document.getElementById('comparebtn').disabled = true;
+                                                    document.getElementById("error_msg").innerHTML = "Cannot compare different category of products.";
+                                                    document.getElementById("compare_cat1").classList.add('is-invalid');
+                                                    document.getElementById("compare_cat2").classList.add('is-invalid');
+                                                }
+                                                else {
+                                                    document.getElementById('comparebtn').disabled = false;
+                                                    document.getElementById("error_msg").innerHTML = "";
+                                                    document.getElementById("compare_cat1").classList.remove('is-invalid');
+                                                    document.getElementById("compare_cat2").classList.remove('is-invalid');
+                                                }
+                                            }
+                                        })
+                                    }
+                                }
 
-								$checkCat1_res = mysqli_query($connect,"SELECT * FROM product JOIN category ON product.cat_id=category.cat_id WHERE prod_id='$compareProd1'");
-								$checkCat1_row = mysqli_fetch_assoc($checkCat1_res);
+                                function clearSelection() {
+                                    document.getElementById('compare_cat1').value = '';
+                                    document.getElementById('compare_cat2').value = '';
+                                    document.getElementById('comparebtn').disabled = false;
+                                    document.getElementById("error_msg").innerHTML = "";
+                                    document.getElementById("compare_cat1").classList.remove('is-invalid');
+                                    document.getElementById("compare_cat2").classList.remove('is-invalid');
+                                }
+                            </script>
+                        </form>
+                        <?php
+                            if (isset($_GET['comparebtn'])) {
+                                $compareProd1 = $_GET['compare_cat1'];
+                                $compareProd2 = $_GET['compare_cat2'];
 
-								$checkCat2_res = mysqli_query($connect,"SELECT * FROM product JOIN category ON product.cat_id=category.cat_id WHERE prod_id='$compareProd2'");
-								$checkCat2_row = mysqli_fetch_assoc($checkCat2_res);
+                                $checkCat1_res = mysqli_query($connect,"SELECT * FROM product JOIN category ON product.cat_id=category.cat_id WHERE prod_id='$compareProd1'");
+                                $checkCat1_row = mysqli_fetch_assoc($checkCat1_res);
 
-								if($checkCat1_row['cat_name'] != $checkCat2_row['cat_name']){
-							?>
-									<script>
-										swal({
-										title: "Unable to compare different category of products.",
-										icon: "error",
-										button: "OK",
-										});
-									</script>
-							<?php
-								}
-								else{
-							?>
-									<script>
-										window.location = 'compare.php?view&code1=<?php echo $compareProd1;?>&code2=<?php echo $compareProd2;?>';
-									</script>
-							<?php
-								}
-							}
-							?>
+                                $checkCat2_res = mysqli_query($connect,"SELECT * FROM product JOIN category ON product.cat_id=category.cat_id WHERE prod_id='$compareProd2'");
+                                $checkCat2_row = mysqli_fetch_assoc($checkCat2_res);
+
+                                if ($checkCat1_row['cat_name'] != $checkCat2_row['cat_name']) {
+                                    echo '
+                                        <script>
+                                            Swal.fire({
+                                                title: "Somethings wrong!",
+                                                text: "Unable to compare different category of products.",
+                                                icon: "success"
+                                            });
+                                        </script>
+                                    ';
+                                }
+                                else {
+                                    echo "
+                                        <script>
+                                            window.location.href = 'compare.php?view&code1=".$compareProd1."&code2=".$compareProd2."';
+                                        </script>
+                                    ";
+                                    }
+                            }
+                        ?>
                     </div><!-- End .dropdown-menu -->
                 </div><!-- End .compare-dropdown -->
                 <?php
