@@ -703,7 +703,7 @@ if (isset($_SESSION['customer_id'])) {
 				$headers = "From: 4People Telco" . "\r\n";
 				
 				if (mail($email, $subject, $message, $headers)) {
-					echo "
+					?>
 						<script>
 							Swal.fire(
 								'Change successfull!',
@@ -711,7 +711,7 @@ if (isset($_SESSION['customer_id'])) {
 								'success'
 							).then(() => window.location.href = 'my-account.php');	
 						</script>
-					";
+					<?php
 				}
 				
 			} else {
