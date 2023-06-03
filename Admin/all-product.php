@@ -85,11 +85,18 @@
                                         ?>
                                                 <tr>
                                                     <td class="align-middle"><?php echo $i; ?></td>
-                                                    <td class="align-middle"><?php echo $row['prod_name']; ?></td>
+                                                    <td class="align-middle w-25"><?php echo $row['prod_name']; ?></td>
                                                     <td class="align-middle"><?php echo $row['brand_name']; ?></td>
                                                     <td class="align-middle"><?php echo $row['cat_name']; ?></td>
                                                     <td class="align-middle">
-                                                        <?php echo count($price) >= 1 ? min($price)." - ".max($price) : "-"; ?>
+                                                        <?php 
+                                                            if (count($price) > 1)
+                                                                echo min($price)." - ".max($price);
+                                                            else if (count($price) == 1)
+                                                                echo $price[0];
+                                                            else 
+                                                                echo "-"; 
+                                                        ?>
                                                     </td>
                                                     <td class="align-middle">
                                                         <?php
@@ -140,25 +147,25 @@
                                                             confirmButtonColor: '#3085d6',
                                                             cancelButtonColor: '#d33',
                                                             confirmButtonText: `Yes, ${currentStatus == 1 ? "deactivate" : "activate"}!`
-                                                            }).then((result) => {
-                                                                if (result.isConfirmed) {
-                                                                    $.ajax({
-                                                                        type: 'POST',
-                                                                        url: 'API/product-update-status.php',
-                                                                        data: {
-                                                                            prodId
-                                                                        },
-                                                                        success: () => {
-                                                                            Swal.fire(
-                                                                                `${prodName}'s Status Updated!`,
-                                                                                '',
-                                                                                'success'
-                                                                            ).then(() => {
-                                                                                window.location.href = <?php echo $productStatusList; ?> == 1 ? 'all-product.php?status=1' : 'all-product.php?status=0';
-                                                                            });
-                                                                        }
-                                                                    });
-                                                                }
+                                                        }).then((result) => {
+                                                            if (result.isConfirmed) {
+                                                                $.ajax({
+                                                                    type: 'POST',
+                                                                    url: 'API/product-update-status.php',
+                                                                    data: {
+                                                                        prodId
+                                                                    },
+                                                                    success: () => {
+                                                                        Swal.fire(
+                                                                            `${prodName}'s Status Updated!`,
+                                                                            '',
+                                                                            'success'
+                                                                        ).then(() => {
+                                                                            window.location.href = <?php echo $productStatusList; ?> == 1 ? 'all-product.php?status=1' : 'all-product.php?status=0';
+                                                                        });
+                                                                    }
+                                                                });
+                                                            }
                                                         });
                                                     }
                                                 </script>

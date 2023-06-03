@@ -39,27 +39,32 @@
                             <div class="card-header py-3">
                                 <div class="row">
                                     <div class="col-sm-5 my-auto">
-                                        <h5 class="m-0 font-weight-bold text-primary"><?php echo $productName; ?> Details</h5>
+                                        <h5 class="m-0 font-weight-bold text-primary">Details</h5>
                                     </div>
-                                    <?php
-                                    if ($categoryName == "Phone" || $categoryName == "Tablet" || $categoryName == "Watch") {
-                                    ?>
-                                        <div class="col-sm-7 text-right">
-                                            <?php
-                                            $checkProdDetailSql = "SELECT * FROM product_detail INNER JOIN product ON product_detail.prod_id = product.prod_id WHERE product_detail.prod_id = $productId";
-                                            $countProdDetail = mysqli_num_rows(mysqli_query($connect, $checkProdDetailSql));
+                                    <div class="col-sm-7 text-right">
+                                        <?php
+                                        $checkProdDetailSql = "SELECT * FROM product_detail INNER JOIN product ON product_detail.prod_id = product.prod_id WHERE product_detail.prod_id = $productId";
+                                        $countProdDetail = mysqli_num_rows(mysqli_query($connect, $checkProdDetailSql));
+                                        $productRow = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM product WHERE prod_id = $productId"));
 
+                                        if ($productRow["cat_id"] == 1 || $productRow["cat_id"] == 2 || $productRow["cat_id"] == 4) {
                                             if ($countProdDetail > 0) {
-                                            ?>
+                                        ?>
                                                 <button class="btn btn-info" data-toggle="modal" data-target="#bulkAddColors"><i class="fa fa-upload"></i>&ensp;Bulk Add Colors</button>
-                                            <?php
+                                        <?php
                                             }
-                                            ?>
+                                        ?>
                                             <button class="btn btn-primary" data-toggle="modal" data-target="#addProductDetail"><i class="fa fa-plus-circle"></i>&ensp;Add Product Detail</button>
-                                        </div>
-                                    <?php
-                                    }
-                                    ?>
+                                        <?php
+                                        } else {
+                                            if ($countProdDetail == 0) {
+                                        ?>
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#addProductDetail"><i class="fa fa-plus-circle"></i>&ensp;Add Product Detail</button>
+                                        <?php
+                                            }
+                                        }
+                                        ?>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-body">

@@ -466,6 +466,22 @@
                 ";
             }
         }
+        else {
+            echo "
+                <script>
+                    Swal.fire(
+                        'Login Failed!',
+                        'Email or Password is incorrect.',
+                        'warning'
+                    ).then(() => {
+                        $('#signin-modal').modal({backdrop: 'static'});
+                        $(document).ready(() => {
+                            $('#signin-tab').tab('show');
+                        });
+                    });;
+                </script>
+            ";
+        }
     }
 
     if (isset($_POST['registerBtn'])) {

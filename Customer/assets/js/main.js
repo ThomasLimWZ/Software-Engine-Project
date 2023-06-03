@@ -3,6 +3,31 @@ var cat_value = "";
 var brand_value = "";
 var price_value = "";
 
+$.check_cat = function (){   
+    cat_value = " ' ";
+    var cout = 0;
+    $.each($("input[name='category']:checked"), function(){            
+        if(cout>0)
+        cat_value+=" ',' ";
+        cat_value+=$(this).val();           
+        cout++;
+    });
+    cat_value+="' ";
+    callpage(1);
+}
+$.check_brand = function (){
+    brand_value = " ' "
+    var cout = 0;
+    $.each($("input[name='brand']:checked"), function(){            
+        if(cout>0)
+        brand_value+=" ',' ";
+        brand_value+=$(this).val();           
+        cout++;
+    });
+    brand_value+="' ";
+    callpage(1);
+}
+
 $(document).ready(function () {
     'use strict';
 
@@ -194,6 +219,8 @@ $(document).ready(function () {
 		priceSlider.noUiSlider.on('update', function(values, handle){
 			$('#filter-price-range').text(values.join(' - '));
             price_value = values;
+            $.check_cat();
+            $.check_brand();
             callpage(1);
 		});
 	}
@@ -298,11 +325,11 @@ $(document).ready(function () {
         $('#product-zoom').elevateZoom({
             gallery:'product-zoom-gallery',
             galleryActiveClass: 'active',
-            zoomType: "inner",
+            zoomType: "none",
             cursor: "crosshair",
-            zoomWindowFadeIn: 400,
-            zoomWindowFadeOut: 400,
-            responsive: true
+            zoomWindowFadeIn: 500,
+            zoomWindowFadeOut: 500,
+            responsive: true,
         });
 
         // On click change thumbs active item
@@ -787,38 +814,12 @@ $(document).ready(function () {
         }, 10000)
     }
 
-   
-    
     //get the value from filter checkbox
+    $(".category").click($.check_cat);
+    $(".brand").click($.check_brand);   
 
-    $(".category").click(function(){   
-        cat_value = " ' ";
-        var cout = 0;
-        $.each($("input[name='category']:checked"), function(){            
-            if(cout>0)
-            cat_value+=" ',' ";
-            cat_value+=$(this).val();           
-            cout++;
-        });
-        cat_value+="' ";
-        callpage(1);
-    });
-
-    $(".brand").click(function(){
-        brand_value = " ' "
-        var cout = 0;
-        $.each($("input[name='brand']:checked"), function(){            
-            if(cout>0)
-            brand_value+=" ',' ";
-            brand_value+=$(this).val();           
-            cout++;
-        });
-        brand_value+="' ";
-        callpage(1);
-    });
-    
-    //filter-price-range
 });
+
 
 function callpage(page)
 {
@@ -863,12 +864,13 @@ function callpage(page)
         result += price_split_value2[1] ;
         result += ' ';
     }
+    
     show_product(result,pagination); 
 }
 
 //call to show out product
 function show_product(result,pg) //pass the sql search value and page number
-{                              
+{                        
     let quary = result;
     let page = pg;
     let xhr = new XMLHttpRequest();

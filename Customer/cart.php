@@ -20,7 +20,6 @@ if (isset($_SESSION['customer_id'])) {
                 <div class="container">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
                     </ol>
                 </div><!-- End .container -->
@@ -30,7 +29,7 @@ if (isset($_SESSION['customer_id'])) {
             	<div class="cart">
 	                <div class="container">
 	                	<div class="row">
-	                		<div class="col-lg-9">
+	                		<div class="col-sm-9">
 	                			<table class="table table-cart table-mobile">
 									<thead>
 										<tr>
@@ -43,48 +42,71 @@ if (isset($_SESSION['customer_id'])) {
 											<th></th>
 										</tr>
 									</thead>
+									<?php
+										$getCartQuery = "SELECT * FROM cart_item 
+														 INNER JOIN product ON cart_item.prod_id = product.prod_id
+														 INNER JOIN product_detail ON cart_item.prod_detail_id = product_detail.prod_detail_id
+														 INNER JOIN product_color ON cart_item.prod_color_id = product_color.prod_color_id
+														 WHERE cus_id = '".$_SESSION['customer_id']."' AND cart_item_status='1' AND order_id IS NULL";
+										$getCart = mysqli_query($connect, $getCartQuery);
+										$countCart = mysqli_num_rows($getCart);
+										$total = 0;
 
-									<tbody>
-										<tr>
-											<td class="product-col">
-												<div class="product">
-													<figure class="product-media">
-														<a href="#">
-															<img src="assets/images/products/table/product-1.jpg" alt="Product image">
-														</a>
-													</figure>
-												</div><!-- End .product -->
-											</td>
-											<td>
-												<h3 class="product-title">
-													<a href="#">iPhone 13 Pro Max</a>
-													<br>
-													[Sierra Blue]
-												</h3><!-- End .product-title -->
-											</td>
-											<td>128GB</td>
-											<td class="price-col">RM 84.00</td>
-											<td class="quantity-col">
-                                                <div class="cart-product-quantity">
-                                                    <input type="number" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
-                                                </div><!-- End .cart-product-quantity -->
-                                            </td>
-											<td class="total-col">RM 84.00</td>
-											<td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
-										</tr>
-									</tbody>
+										if ($countCart != 0) {
+											while($cartRow = mysqli_fetch_assoc($getCart)) {
+												$total += $cartRow['cart_subtotal'];
+									?>
+										<tbody>
+											<tr>
+												<td class="product-col">
+													<div class="product">
+														<figure class="product-media">
+															<a href="#">
+																<img src="../Product/<?php echo $cartRow['prod_color_img']; ?>" alt="Product image">
+															</a>
+														</figure>
+													</div><!-- End .product -->
+												</td>
+												<td class="product-title w-25">
+														<a href="product.php?productId=<?php echo $cartRow['prod_id']; ?>"><?php echo $cartRow['prod_name']; ?></a>
+														<br>[<?php echo $cartRow['prod_color_name']; ?>]
+												</td>
+												<td class="product-title text-center"><?php echo !empty($cartRow['prod_detail_name']) ? $cartRow['prod_detail_name'] : '-'; ?></td>
+												<td class="price-col">RM <?php echo $cartRow['prod_detail_price']; ?></td>
+												<td class="quantity-col">
+													<div class="cart-product-quantity">
+														<input type="number" class="form-control" value="<?php echo $cartRow['quantity']; ?>"
+															onchange="updateQty(<?php echo $cartRow['cart_item_id']; ?>, <?php echo $cartRow['prod_detail_price']; ?>, this.value)"
+															min="1" max="<?php echo $cartRow['prod_color_stock']; ?>" step="1" data-decimals="0" required>
+													</div><!-- End .cart-product-quantity -->
+												</td>
+												<td class="total-col mx-0" style="width: 12%;" id="subtotal-<?php echo $cartRow['cart_item_id'];?>">RM <?php echo $cartRow['cart_subtotal']; ?></td>
+												<td class="remove-col"><button class="btn-remove" onclick="deleteCartItem(<?php echo $cartRow['cart_item_id']; ?>)"><i class="icon-close"></i></button></td>
+											</tr>
+										</tbody>
+									<?php
+											}
+										} else {
+									?>
+											<tbody>
+												<tr>
+													<td colspan="7">
+														<h5 class="text-center mb-3">Your cart is empty.</h5>
+														<a href="category.php" class="btn btn-primary btn-block mb-3"><span>SHOPPING NOW</span></a>
+													</td>
+												</tr>
+											</tbody>
+									<?php
+										}
+									?>
 								</table><!-- End .table table-wishlist -->
 	                		</div><!-- End .col-lg-9 -->
-	                		<aside class="col-lg-3">
+	                		<aside class="col-sm-3">
 	                			<div class="summary summary-cart">
 	                				<h3 class="summary-title">Cart Total</h3><!-- End .summary-title -->
 
 	                				<table class="table table-summary">
 	                					<tbody>
-	                						<tr class="summary-subtotal">
-	                							<td>Subtotal:</td>
-	                							<td>RM 160.00</td>
-	                						</tr><!-- End .summary-subtotal -->
 	                						<tr class="summary-shipping">
 	                							<td>Shipping:</td>
 	                							<td>&nbsp;</td>
@@ -102,7 +124,7 @@ if (isset($_SESSION['customer_id'])) {
 	                						
 	                						<tr class="summary-total">
 	                							<td>Total:</td>
-	                							<td>RM 160.00</td>
+	                							<td id="cartTotal">RM <?php echo sprintf('%0.2f', $total); ?></td>
 	                						</tr><!-- End .summary-total -->
 	                					</tbody>
 	                				</table><!-- End .table table-summary -->
@@ -146,3 +168,56 @@ if (isset($_SESSION['customer_id'])) {
 }
 ?>
 </html>
+
+<script>
+	function updateQty(cartItemId, productPrice, qty) {
+		$.ajax({
+			type: 'POST',
+			url: 'cart-qty-onchange.php',
+			data: {
+				cusId: <?php echo $_SESSION['customer_id']; ?>,
+				cartItemId: cartItemId,
+				price: productPrice,
+				quantity: qty
+			},
+			success:function(data){
+				document.getElementById('subtotal-' + cartItemId).innerHTML = "RM " + data;
+				$.ajax({
+					type: 'GET',
+					url: 'get-cart-total.php',
+					data: {
+						cusId: <?php echo $_SESSION['customer_id']; ?>
+					},
+					success:function(total){
+						document.getElementById('cartTotal').innerHTML = "RM " + total;
+					}
+				});
+			}
+		});
+	}
+
+	function deleteCartItem(cartItemId) {
+		Swal.fire({
+			text: "Are you sure you want to remove it from cart?",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, remove it!'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				$.ajax({
+					type: "POST",
+					url: "delete-cart-item.php",
+					data: {cartItemId},
+					success: () => {
+						Swal.fire({
+							title: "Cart has been updated!",
+							icon: "success",
+						}).then(() => window.location.href = "cart.php");
+					}
+				});
+			}
+		});
+	}
+</script>

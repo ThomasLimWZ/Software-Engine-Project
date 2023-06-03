@@ -35,20 +35,26 @@
 
                         <!-- Sales (Annual) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
+                            <?php
+                                $annualSalesRes = mysqli_query($connect, "SELECT SUM(order_grandtotal) FROM `order`
+                                                                            INNER JOIN shipping ON `order`.order_id = shipping.order_id
+                                                                            WHERE YEAR(`order`.order_datetime) = YEAR(CURDATE()) AND shipping.ship_status = '3'");
+                                $annualSales = mysqli_fetch_array($annualSalesRes);
+                            ?>
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Total Sales (Annual)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">RM 215,000</div>
+                                                Total Sales - <?php echo date("Y"); ?> (Annual)</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">RM <?php echo number_format($annualSales[0], 2); ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
-                                <a class="card-footer clearfix small z-1" href="#">
+                                <a class="card-footer clearfix small z-1" href="all-order.php">
 									<span class="float-left">View Details</span>
 									<span class="float-right">
 										<i class="fa fa-angle-right"></i>
@@ -59,20 +65,26 @@
 
                         <!-- Sales (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
+                            <?php
+                                $monthlySalesRes = mysqli_query($connect, "SELECT SUM(order_grandtotal) FROM `order`
+                                                                            INNER JOIN shipping ON `order`.order_id = shipping.order_id
+                                                                            WHERE MONTH(`order`.order_datetime) = MONTH(CURDATE()) AND shipping.ship_status = '3'");
+                                $monthlySales = mysqli_fetch_array($monthlySalesRes);
+                            ?>
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Total Sales (Monthly)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">RM 40,000</div>
+                                                Total Sales - <?php echo date("M"); ?> (Monthly)</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">RM <?php echo number_format($monthlySales[0], 2); ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
-                                <a class="card-footer clearfix small z-1" href="#">
+                                <a class="card-footer clearfix small z-1" href="all-order.php">
 									<span class="float-left">View Details</span>
 									<span class="float-right">
 										<i class="fa fa-angle-right"></i>
@@ -83,6 +95,13 @@
 
                         <!-- Target (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
+                            <?php
+                                $monthlytargetRes = mysqli_query($connect, "SELECT SUM(order_grandtotal) FROM `order`
+                                                                            INNER JOIN shipping ON `order`.order_id = shipping.order_id
+                                                                            WHERE MONTH(`order`.order_datetime) = MONTH(CURDATE()) AND shipping.ship_status = '3'");
+                                $monthlyTarget = mysqli_fetch_array($monthlytargetRes);
+                                $calcPercent = $monthlyTarget[0] / 100000 * 100;
+                            ?>
                             <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -91,12 +110,12 @@
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo number_format($calcPercent, 2); ?>%</div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="progress progress-sm mr-2">
                                                         <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                                            style="width: <?php echo $calcPercent; ?>%" aria-valuenow="<?php echo $calcPercent; ?>" aria-valuemin="0"
                                                             aria-valuemax="100"></div>
                                                     </div>
                                                 </div>
@@ -108,7 +127,7 @@
                                     </div>
                                 </div>
                                 <span class="card-footer clearfix small z-1" href="#">
-									<span class="font-weight-bold text-info text-uppercase float-right">RM 50,000</span>
+									<span class="font-weight-bold text-info text-uppercase float-right">RM <?php echo number_format($monthlyTarget[0], 2); ?></span>
                                 </span>
                             </div>
                         </div>
@@ -121,14 +140,21 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 Pending Orders</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <?php
+                                                    $pendingOrder = mysqli_query($connect, "SELECT * FROM `order` 
+                                                                                            INNER JOIN shipping ON `order`.order_id = shipping.order_id
+                                                                                            WHERE shipping.ship_status = '0'");
+                                                    echo mysqli_num_rows($pendingOrder);
+                                                ?>
+                                            </div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-comments fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
-                                <a class="card-footer clearfix small z-1" href="#">
+                                <a class="card-footer clearfix small z-1" href="all-order.php">
 									<span class="float-left">View Details</span>
 									<span class="float-right">
 										<i class="fa fa-angle-right"></i>
@@ -148,7 +174,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Sales Overview</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Annual Sales Overview</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
@@ -247,9 +273,9 @@
                                                         <td><?php echo "RM ".$lessStockRow['prod_detail_price']; ?></td>
                                                         <td class="text-danger font-weight-bold"><?php echo $lessStockRow['prod_color_stock']; ?></td>
                                                         <td>
-                                                            <a class="btn btn-warning btn-sm" target="_blank"
+                                                            <a class="btn btn-warning btn-sm" target="_blank" title="Restock"
                                                                 href="all-product-color.php?productColorId=<?php echo $lessStockRow['prod_color_id']; ?>&productDetailId=<?php echo $lessStockRow['prod_detail_id']; ?>&productDetailName=<?php echo $lessStockRow['prod_detail_name']; ?>&productId=<?php echo $lessStockRow['prod_id']; ?>&productName=<?php echo $lessStockRow['prod_name']; ?>&categoryName=<?php echo $lessStockRow['cat_name']; ?>&productStatus=1">
-                                                                <i class="fas fa-plus"></i>&ensp;Restock
+                                                                <i class="fas fa-plus-circle"></i>
                                                             </a>
                                                         </td>
                                                     </tr>

@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-sm-6 col-lg-3">
                     <div class="widget widget-about">
-                        <img src="assets/images/demos/demo-3/logo-footer.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
+                        <img src="assets/images/Logo/Black logo - no background.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
                         <div class="social-icons mb-2">
                             <a href="https://www.facebook.com/weezheng.weezheng/" class="social-icon" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
                             <a href="https://www.instagram.com/wee_zheng/" class="social-icon" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
@@ -15,7 +15,7 @@
                         <div class="widget-call">
                             <i class="icon-phone"></i>
                             Got Question? Call us!
-                            <a href="tel:#">+60 11-1061 2839</a>         
+                            <a href="tel:601110612839">+60 11-1061 2839</a>         
                         </div><!-- End .widget-call -->
                     </div><!-- End .widget about-widget -->
                 </div><!-- End .col-sm-6 col-lg-3 -->
