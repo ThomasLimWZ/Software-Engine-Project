@@ -1,4 +1,6 @@
-<?php include("admin/connection.php");
+<?php 
+    include("../Admin/connection.php");
+
     $compareProd1 = $_POST['prod1_selected'];
     $compareProd2 = $_POST['prod2_selected'];
 
