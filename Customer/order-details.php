@@ -41,8 +41,8 @@ if (isset($_SESSION['customer_id'])) {
             <div class="page-content">
             	<div class="dashboard ">
 					<div class="container shadow p-3 mb-5 bg-body rounded p-5">
-						<div class="d-flex flex-column" >							
-							<div class="align-self-end p-5 mx-5">
+						<div class="d-flex flex-column">							
+							<div class="mx-5">
 								<h6 class="text-primary">Invoice  </h6>
 								<p class="text_body">#<?php echo $row['invoice_number'];?></p>
 								<br>
@@ -54,22 +54,22 @@ if (isset($_SESSION['customer_id'])) {
 									?>
 								</p>
 							</div>
-							<div class="p-5 mx-5">
+							<div class="pt-3 mx-5">
 								<h6 class="text-primary">Buyer Info</h6>
-								<p ><?php echo $row['receiver_name'];?> ,</p>
-								<p><?php echo $row['receiver_phone'];?> ,</p>
-								<p><?php echo $row['address'];?> , 
-								<br><?php echo $row['city'];?>,
-								<br> <?php echo $row['state'];?> , <?php echo $row['postcode'];?> , Malaysia.</p>
+								<p ><?php echo $row['receiver_name']; ?> ,</p>
+								<p><?php echo $row['receiver_phone']; ?> ,</p>
+								<p><?php echo $row['address']; ?> , 
+								<br><?php echo $row['city']; ?>,
+								<br> <?php echo $row['state']; ?> , <?php echo $row['postcode']; ?> , Malaysia.</p>
 							</div>
 						</div>
 						<br>
-						<div class="table-responsive-md ">
-							<table class="table align-middle table-hover table-striped">
-								<thead >
-									<th class="text-primary text-center" style="width:6%;">No.</th>
+						<div class="table-responsive-md">
+							<table class="table align-middle table-striped">
+								<thead>
+									<th class="text-primary" style="width: 5%;"></th>
 									<th class="text-primary text-center" style="width: 40%;">Product</th>	
-									<th class="text-primary text-center">Capacity</th>
+									<th class="text-primary text-center">Capacity/Case Size</th>
 									<th class="text-primary text-center">Color</th>
 									<th class="text-primary text-center">Quantity</th>
 									<th class="text-primary text-center">Unit Price</th>
@@ -85,31 +85,36 @@ if (isset($_SESSION['customer_id'])) {
 
 									while ($prod_row = mysqli_fetch_assoc($prod_res)) {
 								?>
-										<tr class="text-center">
-											<td ><?php echo $i; ?></td>
-											<td><a href="product.php?productId=<?php echo $prod_row['prod_id']; ?>" class="text-body">
-												
-												<img src="../Product/<?php echo $prod_row['prod_color_img']; ?>" width="130px" alt="product" style="float:left;">
-												
-												<div class="pt-3 word-wrap" style="float:left;"><?php echo $prod_row['prod_name']; ?></div>
+										<tr>
+											<td class="text-center" style="width: 5%;"><?php echo $i; ?></td>
+											<td>
+												<a href="product.php?productId=<?php echo $prod_row['prod_id']; ?>" class="text-body">
+													<div class="row">
+														<div class="col-sm-4">
+															<img src="../Product/<?php echo $prod_row['prod_color_img']; ?>" width="130px" alt="product" style="object-fit: contain;">
+														</div>
+														
+														<div class="col-sm-8 d-flex align-items-center">
+															<?php echo $prod_row['prod_name']; ?>
+														</div>
+													</div>
 												</a>
 											</td>
-											<td >
-											<?php echo empty($prod_row['prod_detail_name']) ? '-' : $prod_row['prod_detail_name']; ?>
+											<td class="text-center">
+												<?php echo empty($prod_row['prod_detail_name']) ? '-' : $prod_row['prod_detail_name']; ?>
 											</td>
-											<td ><?php echo $prod_row['prod_color_name']; ?></td>
-											<td ><?php echo $prod_row['quantity']; ?></td>
-											<td >RM <?php echo $prod_row['prod_detail_price']; ?></td>
-											<td >RM <?php echo $prod_row['cart_subtotal']; ?></td>
-											</tr>
+											<td class="text-center"><?php echo $prod_row['prod_color_name']; ?></td>
+											<td class="text-center"><?php echo $prod_row['quantity']; ?></td>
+											<td class="text-center">RM <?php echo $prod_row['prod_detail_price']; ?></td>
+											<td class="text-center">RM <?php echo $prod_row['cart_subtotal']; ?></td>
+										</tr>
 								<?php
 										$i++;
 									}
 								?>	
-										<tr>
-											<td class="text-right" colspan="6" >Grand Total : </td>
-											<td> RM <?php echo $row['order_grandtotal']; ?></td>
-										</tr>
+								<tr>
+									<td class="text-right px-5" colspan="7">Grandtotal: <span class="font-weight-bold">RM <?php echo $row['order_grandtotal']; ?></span></td>
+								</tr>
 							</table>
 						</div>
 						<br><br>
