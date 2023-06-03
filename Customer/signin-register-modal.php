@@ -437,9 +437,9 @@
         if (mysqli_num_rows($cusResult) == 1) {
             $cusRow = mysqli_fetch_array($cusResult);
 
-            $_SESSION["customer_id"] = $cusRow["cus_id"];
-
             if (strtoupper(md5($loginPass)) == $cusRow["cus_pass"]) {
+                $_SESSION["customer_id"] = $cusRow["cus_id"];
+
                 echo "
                     <script>
                         Swal.fire(
