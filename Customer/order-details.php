@@ -118,7 +118,7 @@ if (isset($_SESSION['customer_id'])) {
 							</table>
 						</div>
 						<br><br>
-						<a href="order-details-receipt.php?details&code=<?php echo $row['order_id'];?>&id=<?php echo $cus_id;?>" class="btn btn-primary" target="_blank"><i class="fas fa-file-pdf fa-lg"></i>Print PDF</a>&ensp;
+						<a href="order-details-receipt.php?code=<?php echo $row['order_id'];?>" class="btn btn-primary" target="_blank"><i class="fas fa-file-pdf fa-lg"></i>Print PDF</a>&ensp;
 						<a href="my-account.php" class="btn btn-primary">Back</a>
 						<br><br>
 					</div>
