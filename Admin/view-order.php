@@ -123,7 +123,7 @@
                                                     ?>
                                                     <p class="card-text">: <?php echo $orderProductRow['prod_color_name']; ?></p>
                                                     <p class="card-text">: <?php echo $orderProductRow['quantity']; ?></p>
-                                                    <p class="card-text">: RM <?php echo $orderProductRow['prod_detail_price']; ?></p>
+                                                    <p class="card-text">: RM <?php echo $orderProductRow['product_price']; ?></p>
                                                 </div>
                                             </div>
                                         </div>

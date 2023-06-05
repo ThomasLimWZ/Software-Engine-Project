@@ -91,7 +91,7 @@ if (isset($_GET['code']) && is_numeric($_GET['code']) ) {
         <td>".$i."</td>
         <td>".$prod_row['prod_name']." ".$cap."</td>
         <td>".$prod_row['prod_color_name']."</td>
-        <td>RM ".$prod_row['prod_detail_price']."</td>
+        <td>RM ".$prod_row['product_price']."</td>
         <td>".$prod_row['quantity']." unit</td>
         <td>RM ".$prod_row['cart_subtotal']."</td>
         </tr>";
