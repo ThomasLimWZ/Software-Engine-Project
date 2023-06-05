@@ -144,6 +144,7 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <a href="../Customer/order-details-receipt.php?code=<?php echo $orderRow['order_id'];?>" target="_blank" class="btn btn-primary">View Receipt</a>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>

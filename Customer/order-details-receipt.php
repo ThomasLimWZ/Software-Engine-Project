@@ -30,8 +30,8 @@ if (isset($_GET['code']) && is_numeric($_GET['code']) ) {
     $pdf->Cell(40);
 
     $pdf->SetFont('Times','B',25);
-    $pdf->Cell(120,30,"4 PEOPLE TELCO",0,1,'C');
-    $pdf->Ln(20);
+    $pdf->Cell(120,30,"4PEOPLE TELCO",0,1,'C');
+    $pdf->Ln(10);
 
     $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
     $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
@@ -50,7 +50,7 @@ if (isset($_GET['code']) && is_numeric($_GET['code']) ) {
     $date_time = $order_detail['pay_datetime'];
     $date = date("d/m/Y",strtotime($date_time));
         
-    $html ='<p>INVOICE: &nbsp;<b>'.$order_detail['invoice_number'].'</b></p>
+    $html ='<p>INVOICE NUMBER: &nbsp;<b>'.$order_detail['invoice_number'].'</b></p>
             <p>Date: &nbsp;<b>'.$date.'</b></p>
             <p>Sold to:<br><b>'.$order_detail['receiver_name'].'<br>'.$order_detail['receiver_phone'].'</b></p>'.
             '<b>'.$order_detail['address'].',<br>'.$order_detail['city'].',<br>'.$order_detail['postcode'].' , '.$order_detail['state'].',<br>Malaysia.</b>';
@@ -63,7 +63,7 @@ if (isset($_GET['code']) && is_numeric($_GET['code']) ) {
     $table = <<<EOD
     <table>
         <tr style="font-weight:bold;">
-            <th width="30px">NO</th>
+            <th width="30px"></th>
             <th width="250px">PRODUCT NAME</th>
             <th width="150px">COLOR</th>
             <th width="90px">PRICE</th>
@@ -90,7 +90,7 @@ if (isset($_GET['code']) && is_numeric($_GET['code']) ) {
             $cap = "";
         }
         else{
-            $cap = "(".$detail_row['prod_detail_name'].")";
+            $cap = "[".$detail_row['prod_detail_name']."]";
         }
             $table .= "<tr>
             <td>".$i."</td>
@@ -106,8 +106,8 @@ if (isset($_GET['code']) && is_numeric($_GET['code']) ) {
     $table .= <<<EOD
     <br><br>
     <tr>
-        <td colspan="5" style="text-align:right; font-weight:bold;">Grandtotal : &nbsp;</td>
-        <td style="font-weight:bold; border-bottom-style:double; border-top-style:double;">
+        <td colspan="5" style="text-align:right; font-weight:bold;">Grandtotal: &nbsp;</td>
+        <td style="font-weight:bold; border-top-style:solid; border-bottom-style:double;">
     EOD;
 
     $table .= "RM ".$order_detail['order_grandtotal']."";
@@ -117,8 +117,10 @@ if (isset($_GET['code']) && is_numeric($_GET['code']) ) {
     </tr>
     </table>
     <style>
-        th{border-top:1px solid black;
-        border-bottom:1px solid black;}
+        th {
+            border-top:1px solid black;
+            border-bottom:1px solid black;
+        }
     </style>
     EOD;
 
@@ -127,7 +129,7 @@ if (isset($_GET['code']) && is_numeric($_GET['code']) ) {
     $pdfname = $order_detail['invoice_number']."_".$order_detail['receiver_name'].".pdf";
     $pdf->Output("$pdfname",'I');
 } 
-else{
+else {
     echo "<script>window.close();</script>";
 }
 ?>
