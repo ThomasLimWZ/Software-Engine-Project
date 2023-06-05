@@ -88,6 +88,13 @@ if(isset($_POST["editProductDetail".$row['prod_detail_id']])) {
     } else {
         $editProductDetailSql = "UPDATE product_detail SET prod_detail_name = '$name', prod_detail_price = '$price' WHERE prod_detail_id = '".$row['prod_detail_id']."'";
         $editProductDetailResult = mysqli_query($connect, $editProductDetailSql);
+        
+        $getCustomerCartItem = mysqli_query($connect, "SELECT * FROM cart_item WHERE prod_detail_id = '".$row['prod_detail_id']."' AND cart_item_status = '1' AND order_id IS NULL");
+        while ($customerCartRow = mysqli_fetch_assoc($getCustomerCartItem)) {
+            $newSubtotal = $price * $customerCartRow['quantity'];
+            $updateCustomerCartSql = "UPDATE cart_item SET product_price = '$price', cart_subtotal = '$newSubtotal' WHERE prod_detail_id = '".$row['prod_detail_id']."' AND cart_item_id = '".$customerCartRow['cart_item_id']."' AND cart_item_status = '1' AND order_id IS NULL";
+            $updateCustomerCartResult = mysqli_query($connect, $updateCustomerCartSql);
+        }
 
         echo "
             <script>
