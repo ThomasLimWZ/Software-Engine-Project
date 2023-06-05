@@ -75,7 +75,7 @@
                                     <div class="form-group">
                                         <label for="register-phone">Phone <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="register-phone" name="register-phone" placeholder="01xxxxxxxx"
-                                            value="<?php echo isset($_POST['register-phone']) ? $_POST['register-phone'] : ''; ?>" min="10" max="11" required>
+                                            value="<?php echo isset($_POST['register-phone']) ? $_POST['register-phone'] : ''; ?>" minlength="10" maxlength="11" required>
                                     </div><!-- End .form-group -->
 
                                     <div class="form-group">
