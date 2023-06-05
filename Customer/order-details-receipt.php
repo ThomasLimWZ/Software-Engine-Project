@@ -14,14 +14,15 @@ if (isset($_GET['code']) && is_numeric($_GET['code']) ) {
     $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
     $pdf->setPrintHeader(false);
-    class MYPDF extends TCPDF {public function Footer() {
-    // Position at 15 mm from bottom
-        $this->SetY(-15);
-    // Set font
-        $this->SetFont('helvetica', 'I', 8);
-    // Page number
-        $this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
-    }
+    class MYPDF extends TCPDF {
+        public function Footer() {
+            // Position at 15 mm from bottom
+            $this->SetY(-15);
+            // Set font
+            $this->SetFont('helvetica', 'I', 8);
+            // Page number
+            $this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
+        }
     }
 
     $pdf->AddPage();
@@ -74,35 +75,29 @@ if (isset($_GET['code']) && is_numeric($_GET['code']) ) {
 
     $i = 1;
     $prod_res = mysqli_query($connect,"SELECT * FROM cart_item 
-        INNER JOIN product ON cart_item.prod_id = product.prod_id 
-        INNER JOIN product_detail ON cart_item.prod_detail_id = product_detail.prod_detail_id
-        INNER JOIN product_color ON cart_item.prod_color_id = product_color.prod_color_id
-        WHERE order_id = '$orderId'");
+                                        INNER JOIN product ON cart_item.prod_id = product.prod_id 
+                                        INNER JOIN product_detail ON cart_item.prod_detail_id = product_detail.prod_detail_id
+                                        INNER JOIN product_color ON cart_item.prod_color_id = product_color.prod_color_id
+                                        WHERE cart_item.order_id = '$orderId'");
 
-    while($prod_row = mysqli_fetch_assoc($prod_res)){
-        $detail = $prod_row['prod_detail_id'];
-        $pcode = $prod_row['prod_id'];
-        $detail_res = mysqli_query($connect,"SELECT * FROM product_detail WHERE prod_detail_id='$detail'");
-        $detail_row = mysqli_fetch_assoc($detail_res);
-        #$img_res = mysqli_query($connect,"SELECT * FROM product_image WHERE product_code='$pcode'");
-        #$img_row = mysqli_fetch_assoc($img_res);
-        if(empty($detail_row['prod_detail_name'])){
+    while ($prod_row = mysqli_fetch_assoc($prod_res)) {
+        if (empty($prod_row['prod_detail_name'])) {
             $cap = "";
         }
-        else{
-            $cap = "[".$detail_row['prod_detail_name']."]";
+        else {
+            $cap = "[".$prod_row['prod_detail_name']."]";
         }
-            $table .= "<tr>
-            <td>".$i."</td>
-            <td>".$prod_row['prod_name']." ".$cap."</td>
-            <td>".$prod_row['prod_color_name']."</td>
-            <td>RM ".$prod_row['prod_detail_price']."</td>
-            <td>".$prod_row['quantity']." unit</td>
-            <td>RM ".$prod_row['cart_subtotal']."</td>
+        $table .= "<tr>
+        <td>".$i."</td>
+        <td>".$prod_row['prod_name']." ".$cap."</td>
+        <td>".$prod_row['prod_color_name']."</td>
+        <td>RM ".$prod_row['prod_detail_price']."</td>
+        <td>".$prod_row['quantity']." unit</td>
+        <td>RM ".$prod_row['cart_subtotal']."</td>
         </tr>";
         $i++;
-        
     }
+    
     $table .= <<<EOD
     <br><br>
     <tr>

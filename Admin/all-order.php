@@ -35,6 +35,21 @@
                                 <div class="col-sm-5 my-auto">
                                     <h5 class="m-0 font-weight-bold text-primary">Orders</h5>
                                 </div>
+                                <div class="col-sm-7 text-right">
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary dropdown-toggle" type="button"
+                                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            Generate Report
+                                        </button>
+                                        <div class="dropdown-menu animated--fade-in"
+                                            aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="generate-pdf-product-sales.php" target="_blank">Product Sales</a>
+                                            <a class="dropdown-item" href="generate-pdf-year-sales.php" target="_blank">Yearly Sales</a>
+                                            <a class="dropdown-item" href="generate-pdf-month-sales.php" target="_blank">Monthly Sales</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="card-body">

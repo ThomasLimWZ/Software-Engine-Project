@@ -541,7 +541,7 @@
                 $qtyToUpdate = $stockRow['prod_color_stock'];
                 $subtotalToUpdate = $price * $qtyToUpdate;
             }
-            mysqli_query($connect, "UPDATE cart_item SET quantity = '$qtyToUpdate', cart_subtotal = '$subtotalToUpdate' WHERE cus_id = '".$_SESSION['customer_id']."' 
+            mysqli_query($connect, "UPDATE cart_item SET quantity = '$qtyToUpdate', product_price = '$price', cart_subtotal = '$subtotalToUpdate' WHERE cus_id = '".$_SESSION['customer_id']."' 
                                     AND prod_id = '$prodId' AND prod_detail_id = '$prodDetId' AND prod_color_id = '$prodColId' AND cart_item_status = '1'");
 ?>
             <script>
@@ -561,7 +561,7 @@
             </script>
 <?php
         } else {
-            mysqli_query($connect, "INSERT INTO cart_item (quantity, cart_subtotal, prod_id, prod_detail_id, prod_color_id, cus_id) VALUES ('$qty', '$subtotal', '$prodId', '$prodDetId', '$prodColId', '".$_SESSION['customer_id']."')");
+            mysqli_query($connect, "INSERT INTO cart_item (quantity, product_price, cart_subtotal, prod_id, prod_detail_id, prod_color_id, cus_id) VALUES ('$qty', '$price', '$subtotal', '$prodId', '$prodDetId', '$prodColId', '".$_SESSION['customer_id']."')");
 ?>
             <script>
                 Swal.fire({

@@ -429,11 +429,15 @@ if (isset($_SESSION['customer_id'])) {
 		date_default_timezone_set("Asia/Kuala_Lumpur");
 		$date = date('Y-m-d H:i:s');
 		
-		$cartResult = mysqli_query($connect, "SELECT * FROM cart_item WHERE cus_id = '".$_SESSION['customer_id']."' AND cart_item_status = '1' AND order_id IS NULL");
+		$cartResult = mysqli_query($connect, "SELECT * FROM cart_item 
+												INNER JOIN prodct_detail ON cart_item.prod_detail_id = prodct_detail.prod_detail_id 
+												WHERE cus_id = '".$_SESSION['customer_id']."' AND cart_item_status = '1' AND order_id IS NULL");
 		$total = 0;
 		
 		while ($cartRow = mysqli_fetch_assoc($cartResult)) {
-			$total += $cartRow['cart_subtotal'];
+			$newSubtotal = $cartRow['prod_detail_price'] * $cartRow['quantity'];
+			mysqli_query($connect, "UPDATE cart_item SET product_price = ".$cartRow['prod_detail_price'].", cart_subtotal = '$newSubtotal' WHERE cart_item_id = '".$cartRow['cart_item_id']."'");
+			$total += $newSubtotal;
 		}
 		
 		mysqli_query($connect, "INSERT INTO `order` (order_datetime, order_grandtotal, cus_id) VALUES ('$date', '$total', '$cusId')");
