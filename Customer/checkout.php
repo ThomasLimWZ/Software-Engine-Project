@@ -458,7 +458,7 @@ if (isset($_SESSION['customer_id'])) {
 		}
 
 		$subject = "Your invoice from 4People Telco";
-		$message = "Dear ".$receiverName.",\n\nThank you for shopping at 4People Telco. We hope you enjoy your purchases.\nBelow is the invoice attachment.\n\n--pdf link--\n\nThank you. \n\nRegards,\n4People Telco";
+		$message = "Dear ".$receiverName.",\n\nThank you for shopping at 4People Telco. We hope you enjoy your purchases.\nBelow is the invoice attachment.\n\nhttp://localhost/4peopletelco/Customer/order-details-receipt.php?code=".$order['order_id']."\n\nThank you. \n\nRegards,\n4People Telco";
 		$headers = "From: 4People Telco" . "\r\n";
 
 		$customer = mysqli_query($connect, "SELECT * FROM customer WHERE cus_id = '".$_SESSION['customer_id']."'");
