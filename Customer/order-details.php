@@ -105,7 +105,7 @@ if (isset($_SESSION['customer_id'])) {
 											</td>
 											<td class="text-center"><?php echo $prod_row['prod_color_name']; ?></td>
 											<td class="text-center"><?php echo $prod_row['quantity']; ?></td>
-											<td class="text-center">RM <?php echo $prod_row['prod_detail_price']; ?></td>
+											<td class="text-center">RM <?php echo $prod_row['product_price']; ?></td>
 											<td class="text-center">RM <?php echo $prod_row['cart_subtotal']; ?></td>
 										</tr>
 								<?php
