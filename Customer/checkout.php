@@ -430,7 +430,7 @@ if (isset($_SESSION['customer_id'])) {
 		$date = date('Y-m-d H:i:s');
 		
 		$cartResult = mysqli_query($connect, "SELECT * FROM cart_item 
-												INNER JOIN prodct_detail ON cart_item.prod_detail_id = prodct_detail.prod_detail_id 
+												INNER JOIN product_detail ON cart_item.prod_detail_id = product_detail.prod_detail_id 
 												WHERE cus_id = '".$_SESSION['customer_id']."' AND cart_item_status = '1' AND order_id IS NULL");
 		$total = 0;
 		
