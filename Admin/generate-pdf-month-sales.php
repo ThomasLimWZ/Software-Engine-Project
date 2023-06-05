@@ -27,7 +27,7 @@ $pdf->Cell(120,20,"4PEOPLE TELCO",0,1,'C');
 $pdf->Ln(20);
 
 $pdf->SetFont('Times','',18);
-$pdf->Cell(190,10,"Yearly Sales Report",1,1,'C');
+$pdf->Cell(190,10,"Monthly Sales Report",1,1,'C');
 $pdf->Ln(10);
 
 $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
