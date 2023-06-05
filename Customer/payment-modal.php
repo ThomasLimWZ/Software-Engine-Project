@@ -39,7 +39,7 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="inputbox"> 
-                                            <input type="text" class="form-control" name="cardNum" id="visa-cardNum"> 
+                                            <input type="text" class="form-control" name="cardNum" minlength="16" maxlength="16" id="visa-cardNum"> 
                                             <span>Card Number</span>
                                         </div>
                                     </div>
@@ -76,7 +76,7 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="inputbox"> 
-                                            <input type="text" class="form-control" name="cardNum" id="master-cardNum"> 
+                                            <input type="text" class="form-control" name="cardNum" minlength="16" maxlength="16" id="master-cardNum"> 
                                             <span>Card Number</span>
                                         </div>
                                     </div>
