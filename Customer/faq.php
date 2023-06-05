@@ -296,7 +296,7 @@
                 </div><!-- End .container -->
             </div><!-- End .page-content -->
 
-            <div class="cta cta-display bg-image pt-4 pb-4" style="background-image: url(assets/images/backgrounds/cta/bg-7.jpg);">
+            <div class="cta cta-display bg-image pt-4 pb-4" style="background-image: url(assets/images/backgrounds/bg-2.jpg);">
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-md-10 col-lg-9 col-xl-7">
