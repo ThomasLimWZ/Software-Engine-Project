@@ -55,7 +55,7 @@ if (isset($_SESSION['customer_id'])) {
 												<div class="col-sm-6">
 													<label>State <span class="text-danger">*</span></label>
 													<select class="form-control" name="state" id="state" required><i class="fa fa-x"></i>
-														<option value="" disabled>Select State</option>
+														<option value="" disabled selected>Select State</option>
 														<option <?php if ($cus_info['cus_state'] == "Melaka") echo "selected";?>>Melaka</option>
 														<option <?php if ($cus_info['cus_state'] == "Johor") echo "selected";?>>Johor</option>
 														<option <?php if ($cus_info['cus_state'] == "Selangor") echo "selected";?>>Selangor</option>
