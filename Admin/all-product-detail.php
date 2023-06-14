@@ -48,7 +48,7 @@
                                         $productRow = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM product WHERE prod_id = $productId"));
 
                                         if ($productRow["cat_id"] == 1 || $productRow["cat_id"] == 2 || $productRow["cat_id"] == 4) {
-                                            if ($countProdDetail > 0) {
+                                            if ($countProdDetail > 1) {
                                         ?>
                                                 <button class="btn btn-info" data-toggle="modal" data-target="#bulkAddColors"><i class="fa fa-upload"></i>&ensp;Bulk Add Colors</button>
                                         <?php
